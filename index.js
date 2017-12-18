@@ -4,6 +4,7 @@ const { sha3 } = require('ethereumjs-util')
 const getContractAddress = require('./get-contract-address')
 const loadContract = require('./loadContract')
 const startRepl = require('./startRepl')
+const getTransactionObject = require('./getTransactionObject')
 
 const action = process.argv[2]
 
@@ -40,6 +41,18 @@ if (action === 'method') {
   loadContract(abiPath, address)
 } else if (action === 'repl') {
   startRepl()
+} else if (action === 'tx') {
+  if (process.argv.length < 4) {
+    usage()
+    process.exit(1)
+  }
+
+  const transactionHash = process.argv[3]
+
+  getTransactionObject(transactionHash)
+    .then((transactionObj) => {
+      console.log(JSON.stringify(transactionObj, null, 2))
+    })
 } else {
   console.error('Unrecognized action:', action)
   process.exit(1)
