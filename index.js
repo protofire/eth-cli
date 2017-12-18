@@ -60,8 +60,10 @@ if (action === 'method') {
 
 function usage() {
   console.log([
-    'eth method <method>                       Get hash of the given method',
     'eth contract-address <address> <nonce>    Get the address for a contract created from the given address with the given nonce',
-    'eth load-contract <abiPath> <address>     Start a REPL that connects to a local eth node and loads the contract with the given ABI in the given address. The contract would be available as \'Contract\''
+    'eth load-contract <abiPath> <address>     Start a REPL that connects to a local eth node and loads the contract with the given ABI in the given address. The contract would be available as \'Contract\'',
+    'eth method <method>                       Get hash of the given method',
+    'eth repl                                  Start a REPL that connects to a local eth node and exposes \'web3\' and \'eth\' objects',
+    'eth tx <txHash>                           Print the transaction object for the given transaction hash',
   ].join(require('os').EOL))
 }
