@@ -3,6 +3,7 @@ const { sha3 } = require('ethereumjs-util')
 
 const getContractAddress = require('./get-contract-address')
 const loadContract = require('./loadContract')
+const startRepl = require('./startRepl')
 
 const action = process.argv[2]
 
@@ -37,7 +38,8 @@ if (action === 'method') {
   const [abiPath, address] = process.argv.slice(3)
 
   loadContract(abiPath, address)
-
+} else if (action === 'repl') {
+  startRepl()
 } else {
   console.error('Unrecognized action:', action)
   process.exit(1)
