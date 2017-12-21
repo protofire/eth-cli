@@ -15,7 +15,9 @@ module.exports = function(abiPath, address) {
   }
 
   // Connect web3
-  const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
+  const web3 = new Web3(
+    new Web3.providers.HttpProvider('http://localhost:8545')
+  )
 
   // Get contract
   const Contract = new web3.eth.Contract(abi, address)
@@ -29,16 +31,14 @@ module.exports = function(abiPath, address) {
         })
 
         if (result && result.then) {
-          result
-            .then(x => callback(null, x))
-            .catch(e => callback(e))
+          result.then(x => callback(null, x)).catch(e => callback(e))
         } else {
           callback(null, result)
         }
       } catch (e) {
         callback(e)
       }
-    },
+    }
   })
 
   r.context.Contract = Contract

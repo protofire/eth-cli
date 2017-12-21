@@ -1,4 +1,3 @@
-const fs = require('fs')
 const repl = require('repl')
 const vm = require('vm')
 const Web3 = require('web3')
@@ -17,16 +16,14 @@ module.exports = function(url) {
         })
 
         if (result && result.then) {
-          result
-            .then(x => callback(null, x))
-            .catch(e => callback(e))
+          result.then(x => callback(null, x)).catch(e => callback(e))
         } else {
           callback(null, result)
         }
       } catch (e) {
         callback(e)
       }
-    },
+    }
   })
 
   r.context.web3 = web3

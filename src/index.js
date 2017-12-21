@@ -3,7 +3,7 @@
 const command = process.argv[2]
 
 if (!command) {
-  usage();
+  usage()
   process.exit()
 }
 
@@ -17,12 +17,14 @@ if (command === 'method') {
     process.exit(1)
   }
 
-  const hash = sha3(signature).toString('hex').slice(0, 8)
+  const hash = sha3(signature)
+    .toString('hex')
+    .slice(0, 8)
 
   console.log(hash)
 } else if (command === 'contract-address' || command === 'ca') {
   const getContractAddress = require('./get-contract-address')
-  const [address, nonce] = process.argv.slice(3);
+  const [address, nonce] = process.argv.slice(3)
 
   const contractAddress = getContractAddress(address, nonce)
 
@@ -51,21 +53,22 @@ if (command === 'method') {
 
   const transactionHash = process.argv[3]
 
-  getTransactionObject(transactionHash)
-    .then((transactionObj) => {
-      console.log(JSON.stringify(transactionObj, null, 2))
-    })
+  getTransactionObject(transactionHash).then(transactionObj => {
+    console.log(JSON.stringify(transactionObj, null, 2))
+  })
 } else {
   console.error('Unrecognized command:', command)
   process.exit(1)
 }
 
 function usage() {
-  console.log([
-    'eth contract-address <address> <nonce>    Get the address for a contract created from the given address with the given nonce',
-    'eth load-contract <abiPath> <address>     Start a REPL that connects to a local eth node and loads the contract with the given ABI in the given address. The contract would be available as \'Contract\'',
-    'eth method <method>                       Get hash of the given method',
-    'eth repl                                  Start a REPL that connects to a local eth node and exposes \'web3\' and \'eth\' objects',
-    'eth tx <txHash>                           Print the transaction object for the given transaction hash',
-  ].join(require('os').EOL))
+  console.log(
+    [
+      'eth contract-address <address> <nonce>    Get the address for a contract created from the given address with the given nonce',
+      "eth load-contract <abiPath> <address>     Start a REPL that connects to a local eth node and loads the contract with the given ABI in the given address. The contract would be available as 'Contract'",
+      'eth method <method>                       Get hash of the given method',
+      "eth repl                                  Start a REPL that connects to a local eth node and exposes 'web3' and 'eth' objects",
+      'eth tx <txHash>                           Print the transaction object for the given transaction hash'
+    ].join(require('os').EOL)
+  )
 }
