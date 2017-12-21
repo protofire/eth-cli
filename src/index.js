@@ -23,7 +23,7 @@ if (command === 'method') {
 
   console.log(hash)
 } else if (command === 'contract-address' || command === 'ca') {
-  const getContractAddress = require('./get-contract-address')
+  const getContractAddress = require('./getContractAddress')
   const [address, nonce] = process.argv.slice(3)
 
   const contractAddress = getContractAddress(address, nonce)
