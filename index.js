@@ -1,19 +1,15 @@
 #!/usr/bin/env node
-const { sha3 } = require('ethereumjs-util')
 
-const getContractAddress = require('./get-contract-address')
-const loadContract = require('./loadContract')
-const startRepl = require('./startRepl')
-const getTransactionObject = require('./getTransactionObject')
+const command = process.argv[2]
 
-const action = process.argv[2]
-
-if (!action) {
+if (!command) {
   usage();
   process.exit()
 }
 
-if (action === 'method') {
+if (command === 'method') {
+  const { sha3 } = require('ethereumjs-util')
+
   const signature = process.argv[3]
 
   if (!signature) {
@@ -24,13 +20,16 @@ if (action === 'method') {
   const hash = sha3(signature).toString('hex').slice(0, 8)
 
   console.log(hash)
-} else if (action === 'contract-address' || action === 'ca') {
+} else if (command === 'contract-address' || command === 'ca') {
+  const getContractAddress = require('./get-contract-address')
   const [address, nonce] = process.argv.slice(3);
 
   const contractAddress = getContractAddress(address, nonce)
 
   console.log(contractAddress)
-} else if (action === 'load-contract' || action === 'lc') {
+} else if (command === 'load-contract' || command === 'lc') {
+  const loadContract = require('./loadContract')
+
   if (process.argv.length < 4) {
     usage()
     process.exit(1)
@@ -39,9 +38,12 @@ if (action === 'method') {
   const [abiPath, address] = process.argv.slice(3)
 
   loadContract(abiPath, address)
-} else if (action === 'repl') {
-  startRepl()
-} else if (action === 'tx') {
+} else if (command === 'repl') {
+  const startRepl = require('./startRepl')
+  startRepl(process.argv[3])
+} else if (command === 'tx') {
+  const getTransactionObject = require('./getTransactionObject')
+
   if (process.argv.length < 4) {
     usage()
     process.exit(1)
@@ -54,7 +56,7 @@ if (action === 'method') {
       console.log(JSON.stringify(transactionObj, null, 2))
     })
 } else {
-  console.error('Unrecognized action:', action)
+  console.error('Unrecognized command:', command)
   process.exit(1)
 }
 

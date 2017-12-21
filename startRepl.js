@@ -3,9 +3,10 @@ const repl = require('repl')
 const vm = require('vm')
 const Web3 = require('web3')
 
-module.exports = function() {
+module.exports = function(url) {
+  url = url || 'http://localhost:8545'
   // Connect web3
-  const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
+  const web3 = new Web3(new Web3.providers.HttpProvider(url))
 
   const r = repl.start({
     prompt: '> ',
