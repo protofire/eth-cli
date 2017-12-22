@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+const chalk = require('chalk')
+
 const command = process.argv[2]
 
 if (!command) {
@@ -58,17 +60,22 @@ if (command === 'method') {
   })
 } else {
   console.error('Unrecognized command:', command)
+  usage()
   process.exit(1)
 }
 
 function usage() {
-  console.log(
+  console.error(
     [
-      'eth contract-address <address> <nonce>    Get the address for a contract created from the given address with the given nonce',
-      "eth load-contract <abiPath> <address>     Start a REPL that connects to a local eth node and loads the contract with the given ABI in the given address. The contract would be available as 'Contract'",
-      'eth method <method>                       Get hash of the given method',
-      "eth repl                                  Start a REPL that connects to a local eth node and exposes 'web3' and 'eth' objects",
-      'eth tx <txHash>                           Print the transaction object for the given transaction hash'
+      chalk.bold('USAGE:'),
+      '   eth <command> [<argument> ...]',
+      '',
+      chalk.bold('COMMANDS:'),
+      '   eth contract-address <address> [<nonce>]     Get the address for a contract created from the given address with the given nonce',
+      '   eth load-contract <abi-path> <address>       Start a REPL that connects to a local eth node and loads the contract with the given ABI in the given address',
+      '   eth method <method>                          Get the hash of the given method',
+      "   eth repl [<url>]                             Start a REPL that connects to a local eth node and exposes the 'web3' and 'eth' objects",
+      '   eth tx <tx-hash>                             Print the transaction object for the given transaction hash'
     ].join(require('os').EOL)
   )
 }

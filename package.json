@@ -17,6 +17,7 @@
   "author": "Franco Victorio",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^2.3.0",
     "ethereumjs-util": "^5.1.2",
     "web3": "^1.0.0-beta.26"
   },
