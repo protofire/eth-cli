@@ -1,7 +1,11 @@
+const os = require('os')
+const path = require('path')
 const fs = require('fs')
 const repl = require('repl')
 const vm = require('vm')
 const Web3 = require('web3')
+
+const historyFile = path.join(os.homedir(), '.eth_cli_history')
 
 module.exports = function(abiPath, address) {
   // Get abi and address from argv
@@ -42,4 +46,6 @@ module.exports = function(abiPath, address) {
   })
 
   r.context.Contract = Contract
+
+  require('repl.history')(r, historyFile)
 }
