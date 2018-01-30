@@ -46,6 +46,8 @@ module.exports = function(abiPath, address) {
   })
 
   r.context.Contract = Contract
+  r.context.web3 = web3
+  r.context.eth = web3.eth
 
   require('repl.history')(r, historyFile)
 }
