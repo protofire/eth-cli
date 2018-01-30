@@ -17,10 +17,10 @@
   "author": "Franco Victorio",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^2.3.0",
     "ethereumjs-util": "^5.1.2",
     "repl.history": "^0.1.4",
-    "web3": "^1.0.0-beta.26"
+    "web3": "^1.0.0-beta.26",
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
     "eslint": "^4.13.1",
