@@ -7,7 +7,10 @@ const Web3 = require('web3')
 const historyFile = path.join(os.homedir(), '.eth_cli_history')
 
 module.exports = function(url) {
-  url = url || 'http://localhost:8545'
+  if (!url) {
+    throw new Error('[startRepl] URL require')
+  }
+
   // Connect web3
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
 

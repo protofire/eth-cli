@@ -7,7 +7,11 @@ const Web3 = require('web3')
 
 const historyFile = path.join(os.homedir(), '.eth_cli_history')
 
-module.exports = function(abiPath, address) {
+module.exports = function(abiPath, address, url) {
+  if (!url) {
+    throw new Error('[loadContract] URL require')
+  }
+
   // Get abi and address from argv
   const abiStr = fs.readFileSync(abiPath).toString()
   let abi = null
@@ -20,7 +24,7 @@ module.exports = function(abiPath, address) {
 
   // Connect web3
   const web3 = new Web3(
-    new Web3.providers.HttpProvider('http://localhost:8545')
+    new Web3.providers.HttpProvider(url)
   )
 
   // Get contract

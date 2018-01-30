@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 
 require('yargs')
+  .option('url', {
+    description: 'URL of the ethereum node to connect',
+    default: 'http://localhost:8545'
+  })
   .command(
     'method <signature>',
     'Get the hash of the given method',
@@ -51,18 +55,19 @@ require('yargs')
     argv => {
       const loadContract = require('./loadContract')
 
-      const { abi, address } = argv
+      const { abi, address, url } = argv
 
-      loadContract(abi, address)
+      loadContract(abi, address, url)
     }
   )
   .command(
     'repl',
     "Start a REPL that connects to a local eth node and exposes the 'web3' and 'eth' objects",
     () => {},
-    () => {
+    argv => {
       const startRepl = require('./startRepl')
-      startRepl(process.argv[3])
+      const { url } = argv
+      startRepl(url)
     }
   )
   .command(
@@ -74,7 +79,9 @@ require('yargs')
     argv => {
       const getTransactionObject = require('./getTransactionObject')
 
-      getTransactionObject(argv.txHash).then(transactionObj => {
+      const { txHash, url } = argv
+
+      getTransactionObject(txHash, url).then(transactionObj => {
         console.log(JSON.stringify(transactionObj, null, 2))
       })
     }
