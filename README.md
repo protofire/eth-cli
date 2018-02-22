@@ -43,7 +43,7 @@ Some things that can be done with it:
   > Contract.methods.add(2, 2).call()
   4
   ```
-  
-  ## Installation
-  
-  `npm install -g eth-cli`
+
+## Installation
+
+`npm install -g eth-cli`
