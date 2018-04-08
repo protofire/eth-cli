@@ -109,9 +109,9 @@ require('yargs')
     'Prints a random ethereum address',
     () => {},
     () => {
-      const Web3 = require('web3')
+      const utils = require('web3-utils')
 
-      const address = Web3.utils.randomHex(20)
+      const address = utils.randomHex(20)
 
       console.log(address)
     }
