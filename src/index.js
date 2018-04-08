@@ -86,5 +86,35 @@ require('yargs')
       })
     }
   )
+  .command(
+    'decode <functionSignature> <txData>',
+    'Decode the arguments of the given transaction data for the given function signature',
+    yargs => {
+      yargs
+        .positional('functionSignature', { required: true })
+        .positional('txData', { required: true })
+    },
+    argv => {
+      const decodeTxData = require('./decodeTxData')
+
+      const { functionSignature, txData } = argv
+
+      const result = decodeTxData(functionSignature, txData)
+
+      console.log(result)
+    }
+  )
+  .command(
+    ['randomAddress', 'ra'],
+    'Prints a random ethereum address',
+    () => {},
+    () => {
+      const Web3 = require('web3')
+
+      const address = Web3.utils.randomHex(20)
+
+      console.log(address)
+    }
+  )
   .strict()
   .demandCommand().argv
