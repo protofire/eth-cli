@@ -105,7 +105,7 @@ require('yargs')
     }
   )
   .command(
-    ['randomAddress', 'ra'],
+    ['random-address', 'ra'],
     'Prints a random ethereum address',
     () => {},
     () => {
