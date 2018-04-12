@@ -106,12 +106,12 @@ require('yargs')
   )
   .command(
     ['random-address', 'ra'],
-    'Prints a random ethereum address',
+    'Prints a random Ethereum checksum address',
     () => {},
     () => {
       const utils = require('web3-utils')
 
-      const address = utils.randomHex(20)
+      const address = utils.toChecksumAddress(utils.randomHex(20))
 
       console.log(address)
     }
