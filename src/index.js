@@ -48,9 +48,7 @@ require('yargs')
     ['load-contract <abi> <address>', 'lc'],
     'Start a REPL that connects to a local eth node and loads the contract with the given ABI in the given address',
     yargs => {
-      yargs
-        .positional('abi', { required: true })
-        .positional('address', { required: true })
+      yargs.positional('abi', { required: true }).positional('address', { required: true })
     },
     argv => {
       const loadContract = require('./loadContract')
@@ -108,8 +106,7 @@ require('yargs')
     ['random-address [amount]', 'ra'],
     'Prints a random Ethereum checksum address. [amount] can be specified to generate a list of addresses.',
     yargs => {
-      yargs
-        .positional('amount', { default: 1 })
+      yargs.positional('amount', { default: 1 })
     },
     argv => {
       const utils = require('web3-utils')
@@ -121,6 +118,35 @@ require('yargs')
           console.log(address)
         }
       }
+    }
+  )
+  .command(
+    ['vanity <prefix>'],
+    'Generates a random address with the given prefix.',
+    yargs => {
+      yargs.positional('prefix', { required: true })
+    },
+    argv => {
+      const { prefix } = argv
+      const { randomBytes } = require('crypto')
+      const wallet = new (require('web3-eth-accounts'))().wallet
+
+      let acc = wallet.create(1, randomBytes(32))[0]
+      while (acc.address.slice(2, 2 + prefix.length) !== prefix) {
+        wallet.clear()
+        acc = wallet.create(1, randomBytes(32))[0]
+      }
+
+      console.log(
+        JSON.stringify(
+          {
+            address: acc.address,
+            privateKey: acc.privateKey
+          },
+          null,
+          2
+        )
+      )
     }
   )
   .strict()
