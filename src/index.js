@@ -5,6 +5,9 @@ require('yargs')
     description: 'URL of the ethereum node to connect',
     default: 'http://localhost:8545'
   })
+  .command('completion', 'Generate bash completion script', yargs => {
+    yargs.showCompletionScript()
+  })
   .command(
     'method <signature>',
     'Get the hash of the given method',
