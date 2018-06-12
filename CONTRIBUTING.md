@@ -72,7 +72,7 @@ See GitHub documentation about [Collaborating with issues and pull requests](htt
 
 #### Branching Model
 
-eth-cli project maintain one stable branch:
+eth-cli project maintains one stable branch:
 
   - **`master`**, for latest full releases and work targeting a patch release
 
