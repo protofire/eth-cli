@@ -18,6 +18,8 @@ module.exports = function(abiPath, address, url) {
   try {
     abi = JSON.parse(abiStr)
 
+    // Allow using truffle artifacts files too. 
+    // If abi variable it's an object and it has an abi property, interpret it as a truffle artifact
     if(abi !== null && typeof abi === 'object' && abi.abi) {
       abi = abi.abi;
     }
