@@ -17,6 +17,11 @@ module.exports = function(abiPath, address, url) {
   let abi = null
   try {
     abi = JSON.parse(abiStr)
+
+    if(abi !== null && typeof abi === 'object' && abi.abi) {
+      abi = abi.abi;
+    }
+
   } catch (e) {
     console.log('Error parsing abi', e)
     process.exit(1)
