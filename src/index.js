@@ -4,56 +4,75 @@
  * Networks available
  */
 let networks = {
-  'm': 'https://mainnet.infura.io',
-  'ro': 'https://ropsten.infura.io',
-  'ri': 'https://rinkeby.infura.io',
-  'k': 'https://kovan.infura.io',
-  's': 'https://sokol.poa.network',
-  'p': 'https://core.poa.network'
+  'mainnet': 'https://mainnet.infura.io',
+  'ropsten': 'https://ropsten.infura.io',
+  'rinkeby': 'https://rinkeby.infura.io',
+  'kovan': 'https://kovan.infura.io',
+  'sokol': 'https://sokol.poa.network',
+  'poa': 'https://core.poa.network',
+  'local': 'http://localhost:8545'
 }
 
 let yargs = require('yargs')
   .option('url', {
     description: 'URL of the ethereum node to connect',
-    default: 'http://localhost:8545'
+    type: 'string'
   })
   .option('mainnet', {
-    alias: 'm',
-    describe: `Alias for --url ${networks.m}`,
+    describe: `Url of the mainnet ethereum node to connect: ${networks.mainnet}`,
     type: 'boolean'
   })
   .option('ropsten', {
-    alias: 'ro',
-    describe: `Alias for --url ${networks.ro}`,
+    describe: `Url of the ropsten ethereum node to connect: ${networks.ropsten}`,
     type: 'boolean'
   }) 
   .option('rinkeby', {
-    alias: 'ri',
-    describe: `Alias for --url ${networks.ri}`,
+    describe: `Url of the rinkeby ethereum node to connect: ${networks.rinkeby}`,
     type: 'boolean'
   }) 
   .option('kovan', {
-    alias: 'k',
-    describe: `Alias for --url ${networks.k}`,
+    describe: `Url of the kovan ethereum node to connect: ${networks.kovan}`,
     type: 'boolean'
   })  
   .option('sokol', {
-    alias: 's',
-    describe: `Alias for --url ${networks.s}`,
+    describe: `Url of the sokol ethereum node to connect: ${networks.sokol}`,
     type: 'boolean'
   })  
   .option('poa', {
-    alias: 'p',
-    describe: `Alias for --url  ${networks.p}`,
+    describe: `Url of the poa ethereum node to connect:  ${networks.poa}`,
     type: 'boolean'
-  })     
+  })
+  .option('local', {
+    describe: `Url of the local ethereum node to connect:  ${networks.local}`,
+    type: 'boolean'
+  })
   .check(function (argv) {
+
+    let networksInArgv = 0;
+
+    // Check if the url arg is available, the url arg is string
+    if (typeof(argv['url']) === 'string' && (argv['url'] || argv['url'] == '')) {
+      // Increment quantity of networks in argv
+      networksInArgv++
+    }
+
     Object.keys(argv).forEach((arg) =>{
-      // Check if the network arg is available, then change the url 
-      if (networks[arg] && typeof(argv[arg]) === 'boolean' && argv[arg] === true) {    
-        argv.url = networks[arg];
+      // Check if the network arg is available, then change the url, the available network are boolean values
+      if (networks[arg] && typeof(argv[arg]) === 'boolean' && argv[arg] === true) {
+        // Increment quantity of networks in argv
+        networksInArgv++
+        argv['url'] = networks[arg]
       }
     })
+
+    if (networksInArgv > 1) {
+      throw new Error('Only one network can be specified. Use --url or one of the aliases (--mainnet, --rinkeby, etc.)')
+    }
+
+    if (!argv['url']) {
+      throw new Error('The url arg must be specified')
+    }
+
     return true
   });
 
@@ -118,7 +137,7 @@ let yargs = require('yargs')
     "Start a REPL that connects to a local eth node and exposes the 'web3' and 'eth' objects",
     () => {},
     argv => {
-      const startRepl = require('./startRepl')      
+      const startRepl = require('./startRepl')
       const { url } = argv
       startRepl(url)
     }
