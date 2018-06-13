@@ -16,7 +16,8 @@ let networks = {
 let yargs = require('yargs')
   .option('url', {
     description: 'URL of the ethereum node to connect',
-    type: 'string'
+    type: 'string',
+    default: 'http://localhost:8545'
   })
   .option('mainnet', {
     describe: `Url of the mainnet ethereum node to connect: ${networks.mainnet}`,
