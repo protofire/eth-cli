@@ -1,11 +1,63 @@
 #!/usr/bin/env node
 
-require('yargs')
+/**
+ * Networks available
+ */
+let networks = {
+  'm': 'https://mainnet.infura.io',
+  'ro': 'https://ropsten.infura.io',
+  'ri': 'https://rinkeby.infura.io',
+  'k': 'https://kovan.infura.io',
+  's': 'https://sokol.poa.network',
+  'p': 'https://core.poa.network'
+}
+
+let yargs = require('yargs')
   .option('url', {
     description: 'URL of the ethereum node to connect',
     default: 'http://localhost:8545'
   })
-  .command('completion', 'Generate bash completion script', yargs => {
+  .option('mainnet', {
+    alias: 'm',
+    describe: `Alias for --url ${networks.m}`,
+    type: 'boolean'
+  })
+  .option('ropsten', {
+    alias: 'ro',
+    describe: `Alias for --url ${networks.ro}`,
+    type: 'boolean'
+  }) 
+  .option('rinkeby', {
+    alias: 'ri',
+    describe: `Alias for --url ${networks.ri}`,
+    type: 'boolean'
+  }) 
+  .option('kovan', {
+    alias: 'k',
+    describe: `Alias for --url ${networks.k}`,
+    type: 'boolean'
+  })  
+  .option('sokol', {
+    alias: 's',
+    describe: `Alias for --url ${networks.s}`,
+    type: 'boolean'
+  })  
+  .option('poa', {
+    alias: 'p',
+    describe: `Alias for --url  ${networks.p}`,
+    type: 'boolean'
+  })     
+  .check(function (argv) {
+    Object.keys(argv).forEach((arg) =>{
+      // Check if the network arg is available, then change the url 
+      if (networks[arg] && typeof(argv[arg]) === 'boolean' && argv[arg] === true) {    
+        argv.url = networks[arg];
+      }
+    })
+    return true
+  });
+
+  yargs.command('completion', 'Generate bash completion script', yargs => {
     yargs.showCompletionScript()
   })
   .command(
@@ -66,7 +118,7 @@ require('yargs')
     "Start a REPL that connects to a local eth node and exposes the 'web3' and 'eth' objects",
     () => {},
     argv => {
-      const startRepl = require('./startRepl')
+      const startRepl = require('./startRepl')      
       const { url } = argv
       startRepl(url)
     }
