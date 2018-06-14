@@ -16,8 +16,8 @@ let networks = {
 let yargs = require('yargs')
   .option('url', {
     description: 'URL of the ethereum node to connect',
-    type: 'string',
-    default: 'http://localhost:8545'
+    default: 'http://localhost:8545',
+    type: 'string'
   })
   .option('mainnet', {
     describe: `Url of the mainnet ethereum node to connect: ${networks.mainnet}`,
@@ -49,10 +49,14 @@ let yargs = require('yargs')
   })
   .check(function (argv) {
 
+    // Mantain the amount of networks in argv
     let networksInArgv = 0;
 
-    // Check if the url arg is available, the url arg is string
-    if (typeof(argv['url']) === 'string' && (argv['url'] || argv['url'] == '')) {
+    // Check is setted the default url or not, yargs doesnt have an option for this
+    let optionUrlIsNotDefault = argv['url'] !== yargs.getOptions().default.url;
+
+    // Check if the url arg is available, the url arg is string and is not default
+    if (typeof(argv['url']) === 'string' && optionUrlIsNotDefault && (argv['url'] || argv['url'] == '')) {
       // Increment quantity of networks in argv
       networksInArgv++
     }
