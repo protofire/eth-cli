@@ -4,13 +4,13 @@
  * Networks available
  */
 let networks = {
-  'mainnet': 'https://mainnet.infura.io',
-  'ropsten': 'https://ropsten.infura.io',
-  'rinkeby': 'https://rinkeby.infura.io',
-  'kovan': 'https://kovan.infura.io',
-  'sokol': 'https://sokol.poa.network',
-  'poa': 'https://core.poa.network',
-  'local': 'http://localhost:8545'
+  mainnet: 'https://mainnet.infura.io',
+  ropsten: 'https://ropsten.infura.io',
+  rinkeby: 'https://rinkeby.infura.io',
+  kovan: 'https://kovan.infura.io',
+  sokol: 'https://sokol.poa.network',
+  poa: 'https://core.poa.network',
+  local: 'http://localhost:8545'
 }
 
 let yargs = require('yargs')
@@ -26,19 +26,19 @@ let yargs = require('yargs')
   .option('ropsten', {
     describe: `Url of the ropsten ethereum node to connect: ${networks.ropsten}`,
     type: 'boolean'
-  }) 
+  })
   .option('rinkeby', {
     describe: `Url of the rinkeby ethereum node to connect: ${networks.rinkeby}`,
     type: 'boolean'
-  }) 
+  })
   .option('kovan', {
     describe: `Url of the kovan ethereum node to connect: ${networks.kovan}`,
     type: 'boolean'
-  })  
+  })
   .option('sokol', {
     describe: `Url of the sokol ethereum node to connect: ${networks.sokol}`,
     type: 'boolean'
-  })  
+  })
   .option('poa', {
     describe: `Url of the poa ethereum node to connect:  ${networks.poa}`,
     type: 'boolean'
@@ -47,23 +47,26 @@ let yargs = require('yargs')
     describe: `Url of the local ethereum node to connect:  ${networks.local}`,
     type: 'boolean'
   })
-  .check(function (argv) {
-
+  .check(function(argv) {
     // Mantain the amount of networks in argv
-    let networksInArgv = 0;
+    let networksInArgv = 0
 
     // Check is setted the default url or not, yargs doesnt have an option for this
-    let optionUrlIsNotDefault = argv['url'] !== yargs.getOptions().default.url;
+    let optionUrlIsNotDefault = argv['url'] !== yargs.getOptions().default.url
 
     // Check if the url arg is available, the url arg is string and is not default
-    if (typeof(argv['url']) === 'string' && optionUrlIsNotDefault && (argv['url'] || argv['url'] == '')) {
+    if (
+      typeof argv['url'] === 'string' &&
+      optionUrlIsNotDefault &&
+      (argv['url'] || argv['url'] == '')
+    ) {
       // Increment quantity of networks in argv
       networksInArgv++
     }
 
-    Object.keys(argv).forEach((arg) =>{
+    Object.keys(argv).forEach(arg => {
       // Check if the network arg is available, then change the url, the available network are boolean values
-      if (networks[arg] && typeof(argv[arg]) === 'boolean' && argv[arg] === true) {
+      if (networks[arg] && typeof argv[arg] === 'boolean' && argv[arg] === true) {
         // Increment quantity of networks in argv
         networksInArgv++
         argv['url'] = networks[arg]
@@ -71,7 +74,9 @@ let yargs = require('yargs')
     })
 
     if (networksInArgv > 1) {
-      throw new Error('Only one network can be specified. Use --url or one of the aliases (--mainnet, --rinkeby, etc.)')
+      throw new Error(
+        'Only one network can be specified. Use --url or one of the aliases (--mainnet, --rinkeby, etc.)'
+      )
     }
 
     if (!argv['url']) {
@@ -79,9 +84,10 @@ let yargs = require('yargs')
     }
 
     return true
-  });
+  })
 
-  yargs.command('completion', 'Generate bash completion script', yargs => {
+yargs
+  .command('completion', 'Generate bash completion script', yargs => {
     yargs.showCompletionScript()
   })
   .command(
