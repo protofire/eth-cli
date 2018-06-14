@@ -23,9 +23,7 @@ module.exports = function(abiPath, address, url) {
   }
 
   // Connect web3
-  const web3 = new Web3(
-    new Web3.providers.HttpProvider(url)
-  )
+  const web3 = new Web3(new Web3.providers.HttpProvider(url))
 
   // Get contract
   const Contract = new web3.eth.Contract(abi, address)
