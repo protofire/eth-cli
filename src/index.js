@@ -52,10 +52,9 @@ let yargs = require('yargs')
     let networksInArgv = 0
 
     let defaultUrl = yargs.getOptions().default.url
-    let urlIsSet = (argv.url !== defaultUrl)
+    let urlIsSet = argv.url !== defaultUrl
 
-    Object
-      .keys(argv)
+    Object.keys(argv)
       .filter(arg => networks[arg] && argv[arg]) // If option is not set, is false, must be checked
       .forEach(network => {
         networksInArgv++ // Increment quantity of networks in argv
@@ -63,7 +62,9 @@ let yargs = require('yargs')
       })
 
     if (networksInArgv > 1 || (urlIsSet && networksInArgv >= 1)) {
-      throw new Error('Only one network can be specified. Use --url or one of the aliases (--mainnet, --rinkeby, etc.)')
+      throw new Error(
+        'Only one network can be specified. Use --url or one of the aliases (--mainnet, --rinkeby, etc.)'
+      )
     }
 
     if (!argv.url) {
@@ -132,9 +133,8 @@ yargs
   )
   .command(
     'repl',
-    'Start a REPL that connects to a local eth node and exposes the \'web3\' and \'eth\' objects',
-    () => {
-    },
+    "Start a REPL that connects to a local eth node and exposes the 'web3' and 'eth' objects",
+    () => {},
     argv => {
       const startRepl = require('./startRepl')
       const { url } = argv
