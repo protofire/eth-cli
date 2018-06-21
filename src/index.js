@@ -48,38 +48,25 @@ let yargs = require('yargs')
     type: 'boolean'
   })
   .check(function(argv) {
-    // Mantain the amount of networks in argv
+    // Maintain the amount of networks in argv
     let networksInArgv = 0
 
-    // Check is setted the default url or not, yargs doesnt have an option for this
-    let optionUrlIsNotDefault = argv['url'] !== yargs.getOptions().default.url
+    let defaultUrl = yargs.getOptions().default.url
+    let urlIsSet = (argv.url !== defaultUrl)
 
-    // Check if the url arg is available, the url arg is string and is not default
-    if (
-      typeof argv['url'] === 'string' &&
-      optionUrlIsNotDefault &&
-      (argv['url'] || argv['url'] == '')
-    ) {
-      // Increment quantity of networks in argv
-      networksInArgv++
+    Object
+      .keys(argv)
+      .filter(arg => networks[arg] && argv[arg]) // If option is not set, is false, must be checked
+      .forEach(network => {
+        networksInArgv++ // Increment quantity of networks in argv
+        argv.url = networks[network]
+      })
+
+    if (networksInArgv > 1 || (urlIsSet && networksInArgv >= 1)) {
+      throw new Error('Only one network can be specified. Use --url or one of the aliases (--mainnet, --rinkeby, etc.)')
     }
 
-    Object.keys(argv).forEach(arg => {
-      // Check if the network arg is available, then change the url, the available network are boolean values
-      if (networks[arg] && typeof argv[arg] === 'boolean' && argv[arg] === true) {
-        // Increment quantity of networks in argv
-        networksInArgv++
-        argv['url'] = networks[arg]
-      }
-    })
-
-    if (networksInArgv > 1) {
-      throw new Error(
-        'Only one network can be specified. Use --url or one of the aliases (--mainnet, --rinkeby, etc.)'
-      )
-    }
-
-    if (!argv['url']) {
+    if (!argv.url) {
       throw new Error('The url arg must be specified')
     }
 
@@ -145,8 +132,9 @@ yargs
   )
   .command(
     'repl',
-    "Start a REPL that connects to a local eth node and exposes the 'web3' and 'eth' objects",
-    () => {},
+    'Start a REPL that connects to a local eth node and exposes the \'web3\' and \'eth\' objects',
+    () => {
+    },
     argv => {
       const startRepl = require('./startRepl')
       const { url } = argv
