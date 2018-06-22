@@ -1,10 +1,76 @@
 #!/usr/bin/env node
 
-require('yargs')
+/**
+ * Networks available
+ */
+let networks = {
+  mainnet: 'https://mainnet.infura.io',
+  ropsten: 'https://ropsten.infura.io',
+  rinkeby: 'https://rinkeby.infura.io',
+  kovan: 'https://kovan.infura.io',
+  sokol: 'https://sokol.poa.network',
+  poa: 'https://core.poa.network',
+  local: 'http://localhost:8545'
+}
+
+let yargs = require('yargs')
   .option('url', {
     description: 'URL of the ethereum node to connect',
-    default: 'http://localhost:8545'
+    default: 'http://localhost:8545',
+    type: 'string'
   })
+  .option('mainnet', {
+    describe: `Url of the mainnet ethereum node to connect: ${networks.mainnet}`,
+    type: 'boolean'
+  })
+  .option('ropsten', {
+    describe: `Url of the ropsten ethereum node to connect: ${networks.ropsten}`,
+    type: 'boolean'
+  })
+  .option('rinkeby', {
+    describe: `Url of the rinkeby ethereum node to connect: ${networks.rinkeby}`,
+    type: 'boolean'
+  })
+  .option('kovan', {
+    describe: `Url of the kovan ethereum node to connect: ${networks.kovan}`,
+    type: 'boolean'
+  })
+  .option('sokol', {
+    describe: `Url of the sokol ethereum node to connect: ${networks.sokol}`,
+    type: 'boolean'
+  })
+  .option('poa', {
+    describe: `Url of the poa ethereum node to connect:  ${networks.poa}`,
+    type: 'boolean'
+  })
+  .option('local', {
+    describe: `Url of the local ethereum node to connect:  ${networks.local}`,
+    type: 'boolean'
+  })
+  .check(function(argv) {
+    let defaultUrl = yargs.getOptions().default.url
+    let urlIsSet = argv.url !== defaultUrl
+
+    Object.keys(argv)
+      .filter(arg => networks[arg] && argv[arg]) // If option is not set, is false, must be checked
+      .forEach(network => {
+        if (urlIsSet) {
+          throw new Error(
+            'Only one network can be specified. Use --url or one of the aliases (--mainnet, --rinkeby, etc.)'
+          )
+        }
+        argv.url = networks[network]
+        urlIsSet = true
+      })
+
+    if (!argv.url) {
+      throw new Error('The url arg must be specified')
+    }
+
+    return true
+  })
+
+yargs
   .command('completion', 'Generate bash completion script', yargs => {
     yargs.showCompletionScript()
   })
