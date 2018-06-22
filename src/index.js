@@ -48,24 +48,20 @@ let yargs = require('yargs')
     type: 'boolean'
   })
   .check(function(argv) {
-    // Maintain the amount of networks in argv
-    let networksInArgv = 0
-
     let defaultUrl = yargs.getOptions().default.url
     let urlIsSet = argv.url !== defaultUrl
 
     Object.keys(argv)
       .filter(arg => networks[arg] && argv[arg]) // If option is not set, is false, must be checked
       .forEach(network => {
-        networksInArgv++ // Increment quantity of networks in argv
+        if (urlIsSet) {
+          throw new Error(
+            'Only one network can be specified. Use --url or one of the aliases (--mainnet, --rinkeby, etc.)'
+          )
+        }
         argv.url = networks[network]
+        urlIsSet = true
       })
-
-    if (networksInArgv > 1 || (urlIsSet && networksInArgv >= 1)) {
-      throw new Error(
-        'Only one network can be specified. Use --url or one of the aliases (--mainnet, --rinkeby, etc.)'
-      )
-    }
 
     if (!argv.url) {
       throw new Error('The url arg must be specified')
