@@ -40,11 +40,11 @@ let yargs = require('yargs')
     type: 'boolean'
   })
   .option('poa', {
-    describe: `Url of the poa ethereum node to connect:  ${networks.poa}`,
+    describe: `Url of the poa ethereum node to connect: ${networks.poa}`,
     type: 'boolean'
   })
   .option('local', {
-    describe: `Url of the local ethereum node to connect:  ${networks.local}`,
+    describe: `Url of the local ethereum node to connect: ${networks.local}`,
     type: 'boolean'
   })
   .check(function(argv) {
