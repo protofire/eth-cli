@@ -5,7 +5,7 @@ A collection of CLI tools to help with ethereum learning and development.
 ## REPL
 
 You can start a REPL to interact with the blockchain. By default it connects to
-`http://localhost:8545`, but you can use it with any chain you want.
+`http://localhost:8545`, but you can use it with any chain.
 
 ```
 $ eth repl --mainnet
