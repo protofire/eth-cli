@@ -1,11 +1,6 @@
-const os = require('os')
-const path = require('path')
 const fs = require('fs')
-const repl = require('repl')
-const vm = require('vm')
+const replStarter = require('./replStarter')
 const Web3 = require('web3')
-
-const historyFile = path.join(os.homedir(), '.eth_cli_history')
 
 module.exports = function(abiPath, address, url) {
   if (!url) {
@@ -34,28 +29,10 @@ module.exports = function(abiPath, address, url) {
   // Get contract
   const Contract = new web3.eth.Contract(abi, address)
 
-  const r = repl.start({
-    prompt: '> ',
-    eval: (cmd, context, filename, callback) => {
-      try {
-        const result = vm.runInContext(cmd, context, {
-          displayErrors: false
-        })
-
-        if (result && result.then) {
-          result.then(x => callback(null, x)).catch(e => callback(e))
-        } else {
-          callback(null, result)
-        }
-      } catch (e) {
-        callback(e)
-      }
-    }
+  // Start REPL
+  replStarter({
+    Contract: Contract,
+    web3: web3,
+    eth: web3.eth
   })
-
-  r.context.Contract = Contract
-  r.context.web3 = web3
-  r.context.eth = web3.eth
-
-  require('repl.history')(r, historyFile)
 }
