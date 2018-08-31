@@ -1,6 +1,5 @@
 const os = require('os')
 const path = require('path')
-const fs = require('fs')
 const repl = require('repl')
 const vm = require('vm')
 const Web3 = require('web3')
@@ -28,8 +27,8 @@ module.exports = function(context) {
   })
 
   r.context.Web3 = Web3
-  
-  for (expose of Object.keys(context)) {
+
+  for (const expose of Object.keys(context)) {
     r.context[expose] = context[expose]
   }
 

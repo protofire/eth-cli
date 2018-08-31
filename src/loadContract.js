@@ -1,3 +1,4 @@
+const fs = require('fs')
 const replStarter = require('./replStarter')
 const Web3 = require('web3')
 
