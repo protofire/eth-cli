@@ -3,7 +3,7 @@
 /**
  * Networks available
  */
-let networks = {
+const networks = {
   mainnet: 'https://mainnet.infura.io',
   ropsten: 'https://ropsten.infura.io',
   rinkeby: 'https://rinkeby.infura.io',
@@ -48,7 +48,7 @@ let yargs = require('yargs')
     type: 'boolean'
   })
   .check(function(argv) {
-    let defaultUrl = yargs.getOptions().default.url
+    const defaultUrl = yargs.getOptions().default.url
     let urlIsSet = argv.url !== defaultUrl
 
     Object.keys(argv)
@@ -218,5 +218,45 @@ yargs
       )
     }
   )
+  .command({
+    command: 'networks',
+    desc: 'Allows actions with known networks',
+    builder: yargs =>
+      yargs
+        .usage('usage: $0 networks <SubCommand> [options]')
+        .help('help')
+        .updateStrings({
+          'Commands:': 'SubCommand:'
+        })
+        .command({
+          command: 'ids',
+          desc: 'Show the network id for each known network',
+          builder: {},
+          handler: argv => {
+            const { getIds } = require('./networks')
+            const { display = 'json' } = argv
+            const result = getIds()
+
+            if (display.toLowerCase() === 'table') {
+              const Table = require('cli-table')
+
+              const table = new Table({
+                head: Object.keys(result)
+              })
+
+              table.push(Object.values(result))
+
+              console.log(table.toString())
+            } else {
+              console.log(JSON.stringify(result, null, 2))
+            }
+          }
+        })
+        .option('display', {
+          desc: 'How to display data, table or json',
+          type: 'string',
+          global: true // <-- so it applies to the subcommand ids
+        })
+  })
   .strict()
   .demandCommand().argv
