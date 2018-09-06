@@ -1,17 +1,6 @@
 #!/usr/bin/env node
 
-/**
- * Networks available
- */
-const networks = {
-  mainnet: 'https://mainnet.infura.io',
-  ropsten: 'https://ropsten.infura.io',
-  rinkeby: 'https://rinkeby.infura.io',
-  kovan: 'https://kovan.infura.io',
-  sokol: 'https://sokol.poa.network',
-  poa: 'https://core.poa.network',
-  local: 'http://localhost:8545'
-}
+const { networksUrls } = require('./networks')
 
 let yargs = require('yargs')
   .option('url', {
@@ -20,31 +9,31 @@ let yargs = require('yargs')
     type: 'string'
   })
   .option('mainnet', {
-    describe: `Url of the mainnet ethereum node to connect: ${networks.mainnet}`,
+    describe: `Url of the mainnet ethereum node to connect: ${networksUrls.mainnet}`,
     type: 'boolean'
   })
   .option('ropsten', {
-    describe: `Url of the ropsten ethereum node to connect: ${networks.ropsten}`,
+    describe: `Url of the ropsten ethereum node to connect: ${networksUrls.ropsten}`,
     type: 'boolean'
   })
   .option('rinkeby', {
-    describe: `Url of the rinkeby ethereum node to connect: ${networks.rinkeby}`,
+    describe: `Url of the rinkeby ethereum node to connect: ${networksUrls.rinkeby}`,
     type: 'boolean'
   })
   .option('kovan', {
-    describe: `Url of the kovan ethereum node to connect: ${networks.kovan}`,
+    describe: `Url of the kovan ethereum node to connect: ${networksUrls.kovan}`,
     type: 'boolean'
   })
   .option('sokol', {
-    describe: `Url of the sokol ethereum node to connect: ${networks.sokol}`,
+    describe: `Url of the sokol ethereum node to connect: ${networksUrls.sokol}`,
     type: 'boolean'
   })
   .option('poa', {
-    describe: `Url of the poa ethereum node to connect: ${networks.poa}`,
+    describe: `Url of the poa ethereum node to connect: ${networksUrls.poa}`,
     type: 'boolean'
   })
   .option('local', {
-    describe: `Url of the local ethereum node to connect: ${networks.local}`,
+    describe: `Url of the local ethereum node to connect: ${networksUrls.local}`,
     type: 'boolean'
   })
   .check(function(argv) {
@@ -52,14 +41,14 @@ let yargs = require('yargs')
     let urlIsSet = argv.url !== defaultUrl
 
     Object.keys(argv)
-      .filter(arg => networks[arg] && argv[arg]) // If option is not set, is false, must be checked
+      .filter(arg => networksUrls[arg] && argv[arg]) // If option is not set, is false, must be checked
       .forEach(network => {
         if (urlIsSet) {
           throw new Error(
             'Only one network can be specified. Use --url or one of the aliases (--mainnet, --rinkeby, etc.)'
           )
         }
-        argv.url = networks[network]
+        argv.url = networksUrls[network]
         urlIsSet = true
       })
 
@@ -233,23 +222,23 @@ yargs
           desc: 'Show the network id for each known network',
           builder: {},
           handler: argv => {
-            const { getIds } = require('./networks')
+            const { networksIds } = require('./networks')
+            const { showDataWithDisplay } = require('./utils')
             const { display = 'json' } = argv
-            const result = getIds()
 
-            if (display.toLowerCase() === 'table') {
-              const Table = require('cli-table')
+            showDataWithDisplay(networksIds, display)
+          }
+        })
+        .command({
+          command: 'urls',
+          desc: 'Show the network url for each known network',
+          builder: {},
+          handler: argv => {
+            const { networksUrls } = require('./networks')
+            const { showDataWithDisplay } = require('./utils')
+            const { display = 'json' } = argv
 
-              const table = new Table({
-                head: Object.keys(result)
-              })
-
-              table.push(Object.values(result))
-
-              console.log(table.toString())
-            } else {
-              console.log(JSON.stringify(result, null, 2))
-            }
+            showDataWithDisplay(networksUrls, display)
           }
         })
         .option('display', {
