@@ -212,10 +212,10 @@ yargs
     desc: 'Allows actions with known networks',
     builder: yargs =>
       yargs
-        .usage('usage: $0 network <SubCommand> [options]')
+        .usage('usage: $0 network <Subcommand> [options]')
         .help('help')
         .updateStrings({
-          'Commands:': 'SubCommand:'
+          'Commands:': 'Subcommand:'
         })
         .command({
           command: 'ids',
