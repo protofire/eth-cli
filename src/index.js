@@ -246,6 +246,8 @@ yargs
           type: 'string',
           global: true // <-- so it applies to the subcommand ids
         })
+        .showHelpOnFail(true)
+        .demandCommand(1, '')
   })
   .strict()
   .demandCommand().argv
