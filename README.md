@@ -31,8 +31,9 @@ node REPL you can do it here. The extra stuff includes:
 
 A command similar to `eth repl` is `eth load-contract`. It has the same features
 as the REPL, but it also exposes a `Contract` variable with an instance of the
-contract you specified. You do this by passing the address of the contract and a
-path to its ABI as arguments:
+contract you specified, which its name will be inferred from ABI file name
+so by using `path/to/MyContract.abi` will expose a `MyContract` variable.
+You do this by passing the address of the contract and a path to its ABI as arguments:
 
 ```
 $ eth load-contract path/to/contract.abi 0xd833215cbcc3f914bd1c9ece3ee7bf8b14f841bb
