@@ -30,9 +30,9 @@ node REPL you can do it here. The extra stuff includes:
 ### Load contract
 
 A command similar to `eth repl` is `eth load-contract`. It has the same features
-as the REPL, but it also exposes a `Contract` variable with an instance of the
-contract you specified, which its name will be inferred from ABI file name
-so by using `path/to/MyContract.abi` will expose a `MyContract` variable.
+as the REPL, but it also exposes a variable with an instance of the
+contract you specified whose name will be inferred from the ABI file so by using
+`path/to/MyContract.abi` will expose a `MyContract` variable.
 You do this by passing the address of the contract and a path to its ABI as arguments:
 
 ```
