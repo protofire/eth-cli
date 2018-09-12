@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 const replStarter = require('./replStarter')
 const Web3 = require('web3')
 
@@ -29,9 +30,11 @@ module.exports = function(abiPath, address, url) {
   // Get contract
   const Contract = new web3.eth.Contract(abi, address)
 
+  const contractName = path.basename(abiPath).split('.')[0]
+
   // Start REPL
   replStarter({
-    Contract: Contract,
+    [contractName]: Contract,
     web3: web3,
     eth: web3.eth
   })
