@@ -30,7 +30,7 @@ module.exports = function(abiPath, address, url) {
   // Get contract
   const Contract = new web3.eth.Contract(abi, address)
 
-  const contractName = path.basename(abiPath, path.extname(abiPath)).split('.')[0]
+  const contractName = path.basename(abiPath).split('.')[0]
 
   // Start REPL
   replStarter({
