@@ -207,6 +207,21 @@ yargs
       )
     }
   )
+  .command(
+    ['nop <pk>'],
+    'Generates a transaction that does nothing with the given private key',
+    yargs => {
+      yargs.positional('pk', { required: true })
+    },
+    argv => {
+      const generateNop = require('./generateNop')
+      const { pk, url } = argv
+
+      generateNop(url, pk).then(tx => {
+        console.log(tx)
+      })
+    }
+  )
   .command({
     command: 'network',
     desc: 'Allows actions with known networks',
