@@ -103,17 +103,26 @@ yargs
     }
   )
   .command(
-    ['load-contract <abi> <address>', 'lc'],
+    ['load-contract <abi> <address> [rest..]', 'lc'],
     'Start a REPL that connects to a local eth node and loads the contract with the given ABI in the given address',
     yargs => {
-      yargs.positional('abi', { required: true }).positional('address', { required: true })
+      yargs
+        .positional('abi', { required: true })
+        .positional('address', { required: true })
+        .positional('rest', {
+          describe: 'pairs of ABI address for loading extra contracts [[abi address]..]'
+        })
     },
     argv => {
       const loadContract = require('./loadContract')
 
-      const { abi, address, url } = argv
+      const { abi, address, rest, url } = argv
 
-      loadContract(abi, address, url)
+      if (rest.length % 2 !== 0) {
+        throw new Error('Test error')
+      }
+
+      loadContract(abi, address, rest, url)
     }
   )
   .command(
