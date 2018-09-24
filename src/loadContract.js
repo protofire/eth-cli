@@ -16,15 +16,13 @@ module.exports = function(abiPath, address, rest, url) {
     }
   ]
 
-  if (rest.length > 0) {
-    for (let i = 0; i < rest.length; i += 2) {
-      const chunk = rest.slice(i, i + 2)
-      abisAndAddresses.push({
-        abiPath: chunk[0],
-        abi: parseAbi(chunk[0]),
-        address: chunk[1]
-      })
-    }
+  for (let i = 0; i < rest.length; i += 2) {
+    const [abiPath, address] = rest.slice(i, i + 2)
+    abisAndAddresses.push({
+      abiPath: abiPath,
+      abi: parseAbi(abiPath),
+      address: address
+    })
   }
 
   // Connect web3
@@ -39,7 +37,7 @@ module.exports = function(abiPath, address, rest, url) {
   // Add contracts into context
   for (let contract of abisAndAddresses) {
     const Contract = new web3.eth.Contract(contract.abi, contract.address)
-    let contractName = path.basename(contract.abiPath).split('.')[0]
+    let [contractName] = path.basename(contract.abiPath).split('.')
 
     if (rplContext[contractName]) {
       const suffix = Object.keys(rplContext).filter(function(key) {
