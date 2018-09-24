@@ -119,7 +119,7 @@ yargs
       const { abi, address, rest, url } = argv
 
       if (rest.length % 2 !== 0) {
-        throw new Error('Test error')
+        throw new Error('eth load-contract: You must specify an address for each contract')
       }
 
       loadContract(abi, address, rest, url)
