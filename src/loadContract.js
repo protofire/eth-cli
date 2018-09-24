@@ -42,11 +42,11 @@ module.exports = function(abiPath, address, rest, url) {
     let contractName = path.basename(contract.abiPath).split('.')[0]
 
     if (rplContext[contractName]) {
-      const sufix = Object.keys(rplContext).filter(function(key) {
+      const suffix = Object.keys(rplContext).filter(function(key) {
         return key.includes(contractName)
       }).length
 
-      contractName = [contractName, '_', sufix].join('')
+      contractName = [contractName, '_', suffix].join('')
     }
 
     rplContext[contractName] = Contract
