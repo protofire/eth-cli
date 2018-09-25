@@ -1,4 +1,5 @@
 const Web3 = require('web3')
+const { add0x } = require('./utils')
 const web3 = new Web3()
 const abi = web3.eth.abi
 
@@ -11,10 +12,7 @@ module.exports = function(functionSignature, txData) {
 
   const encodedFunctionSignature = abi.encodeFunctionSignature(functionSignature)
 
-  // Normalize txData
-  if (!/^0x/.test(txData)) {
-    txData = '0x' + txData
-  }
+  txData = add0x(txData)
 
   const txDataRegex = new RegExp('^' + encodedFunctionSignature)
 

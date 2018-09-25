@@ -1,8 +1,5 @@
 const Web3 = require('web3')
-
-function add0x(hex) {
-  return hex.indexOf('0x') === 0 ? hex : `0x${hex}`
-}
+const { add0x } = require('./utils')
 
 module.exports = function(url, privateKey) {
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
