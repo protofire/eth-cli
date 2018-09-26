@@ -13,3 +13,7 @@ module.exports.showDataWithDisplay = (data, display) => {
     console.log(JSON.stringify(data, null, 2))
   }
 }
+
+module.exports.add0x = hex => {
+  return hex.indexOf('0x') === 0 ? hex : `0x${hex}`
+}
