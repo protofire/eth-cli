@@ -21,6 +21,10 @@ module.exports = function(context) {
           callback(null, result)
         }
       } catch (e) {
+        if (isRecoverableError(e)) {
+          return callback(new repl.Recoverable(e))
+        }
+
         callback(e)
       }
     }
@@ -33,4 +37,11 @@ module.exports = function(context) {
   }
 
   require('repl.history')(r, historyFile)
+}
+
+function isRecoverableError(error) {
+  if (error.name === 'SyntaxError') {
+    return /^(Unexpected end of input|Unexpected token)/.test(error.message)
+  }
+  return false
 }
