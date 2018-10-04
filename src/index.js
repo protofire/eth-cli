@@ -82,6 +82,25 @@ yargs
     }
   )
   .command(
+    'methods <abi>',
+    'Get the hash of each method in the given ABI',
+    yargs => {
+      yargs.positional('abi', {
+        required: true
+      })
+    },
+    argv => {
+      const getMethods = require('./getMethods')
+      const { abi } = argv
+
+      const methods = getMethods(abi)
+
+      methods.forEach(({ signature, signatureHash }) => {
+        console.log(`${signatureHash}\t${signature}`)
+      })
+    }
+  )
+  .command(
     ['contract-address <account> [nonce]', 'ca'],
     'Get the address for a contract created from the given address with the given nonce',
     yargs => {
