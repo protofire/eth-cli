@@ -15,9 +15,14 @@ module.exports = {
     label: 'Rinkeby'
   },
   rsk: {
+    id: 30,
+    url: 'https://public-node.rsk.co',
+    label: 'RSK'
+  },
+  'rsk-testnet': {
     id: 31,
     url: 'https://public-node.testnet.rsk.co',
-    label: 'RSK'
+    label: 'RSK testnet'
   },
   kovan: {
     id: 42,
