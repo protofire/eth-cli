@@ -1,63 +1,44 @@
 #!/usr/bin/env node
 
-const { networksUrls } = require('./networks')
+const networks = require('./networks')
 
-let yargs = require('yargs')
-  .option('url', {
-    description: 'URL of the ethereum node to connect',
-    default: 'http://localhost:8545',
-    type: 'string'
-  })
-  .option('mainnet', {
-    describe: `Url of the mainnet ethereum node to connect: ${networksUrls.mainnet}`,
-    type: 'boolean'
-  })
-  .option('ropsten', {
-    describe: `Url of the ropsten ethereum node to connect: ${networksUrls.ropsten}`,
-    type: 'boolean'
-  })
-  .option('rinkeby', {
-    describe: `Url of the rinkeby ethereum node to connect: ${networksUrls.rinkeby}`,
-    type: 'boolean'
-  })
-  .option('kovan', {
-    describe: `Url of the kovan ethereum node to connect: ${networksUrls.kovan}`,
-    type: 'boolean'
-  })
-  .option('sokol', {
-    describe: `Url of the sokol ethereum node to connect: ${networksUrls.sokol}`,
-    type: 'boolean'
-  })
-  .option('poa', {
-    describe: `Url of the poa ethereum node to connect: ${networksUrls.poa}`,
-    type: 'boolean'
-  })
-  .option('local', {
-    describe: `Url of the local ethereum node to connect: ${networksUrls.local}`,
-    type: 'boolean'
-  })
-  .check(function(argv) {
-    const defaultUrl = yargs.getOptions().default.url
-    let urlIsSet = argv.url !== defaultUrl
+let yargs = require('yargs').option('url', {
+  description: 'URL of the ethereum node to connect',
+  default: 'http://localhost:8545',
+  type: 'string'
+})
 
-    Object.keys(argv)
-      .filter(arg => networksUrls[arg] && argv[arg]) // If option is not set, is false, must be checked
-      .forEach(network => {
-        if (urlIsSet) {
-          throw new Error(
-            'Only one network can be specified. Use --url or one of the aliases (--mainnet, --rinkeby, etc.)'
-          )
-        }
-        argv.url = networksUrls[network]
-        urlIsSet = true
-      })
-
-    if (!argv.url) {
-      throw new Error('The url arg must be specified')
-    }
-
-    return true
+// register a flag for each known network
+Object.keys(networks).forEach(network => {
+  const { label } = networks[network]
+  yargs.option(network, {
+    describe: `Connect to ${label} network`,
+    type: 'boolean'
   })
+})
+
+yargs.check(function(argv) {
+  const defaultUrl = yargs.getOptions().default.url
+  let urlIsSet = argv.url !== defaultUrl
+
+  Object.keys(argv)
+    .filter(arg => networks[arg] && argv[arg]) // If option is not set, is false, must be checked
+    .forEach(network => {
+      if (urlIsSet) {
+        throw new Error(
+          'Only one network can be specified. Use --url or one of the aliases (--mainnet, --rinkeby, etc.)'
+        )
+      }
+      argv.url = networks[network].url
+      urlIsSet = true
+    })
+
+  if (!argv.url) {
+    throw new Error('The url arg must be specified')
+  }
+
+  return true
+})
 
 yargs
   .command('completion', 'Generate bash completion script', yargs => {
@@ -246,9 +227,13 @@ yargs
           desc: 'Show the network id for each known network',
           builder: {},
           handler: argv => {
-            const { networksIds } = require('./networks')
             const { showDataWithDisplay } = require('./utils')
             const { display = 'json' } = argv
+
+            const networksIds = Object.keys(networks).reduce((result, network) => {
+              result[network] = networks[network].id
+              return result
+            }, {})
 
             showDataWithDisplay(networksIds, display)
           }
@@ -258,9 +243,13 @@ yargs
           desc: 'Show the network url for each known network',
           builder: {},
           handler: argv => {
-            const { networksUrls } = require('./networks')
             const { showDataWithDisplay } = require('./utils')
             const { display = 'json' } = argv
+
+            const networksUrls = Object.keys(networks).reduce((result, network) => {
+              result[network] = networks[network].url
+              return result
+            }, {})
 
             showDataWithDisplay(networksUrls, display)
           }
