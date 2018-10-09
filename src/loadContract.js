@@ -1,6 +1,6 @@
-const fs = require('fs')
 const path = require('path')
 const replStarter = require('./replStarter')
+const { loadABI } = require('./utils')
 const Web3 = require('web3')
 
 module.exports = function(abiPath, address, rest, url) {
@@ -11,7 +11,7 @@ module.exports = function(abiPath, address, rest, url) {
   let abisAndAddresses = [
     {
       abiPath: abiPath,
-      abi: parseAbi(abiPath),
+      abi: loadABI(abiPath),
       address: address
     }
   ]
@@ -20,7 +20,7 @@ module.exports = function(abiPath, address, rest, url) {
     const [abiPath, address] = rest.slice(i, i + 2)
     abisAndAddresses.push({
       abiPath: abiPath,
-      abi: parseAbi(abiPath),
+      abi: loadABI(abiPath),
       address: address
     })
   }
@@ -52,25 +52,4 @@ module.exports = function(abiPath, address, rest, url) {
 
   // Start REPL
   replStarter(rplContext)
-}
-
-function parseAbi(abiPath) {
-  const abiStr = fs.readFileSync(abiPath).toString()
-
-  let abi = null
-
-  try {
-    abi = JSON.parse(abiStr)
-
-    // Allow using truffle artifacts files too.
-    // If abi variable it's an object and it has an abi property, interpret it as a truffle artifact
-    if (abi !== null && typeof abi === 'object' && abi.abi) {
-      abi = abi.abi
-    }
-  } catch (e) {
-    console.log('Error parsing abi', e)
-    process.exit(1)
-  }
-
-  return abi
 }
