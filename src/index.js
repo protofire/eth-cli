@@ -142,12 +142,13 @@ yargs
       yargs.positional('txHash', { required: true })
     },
     argv => {
-      const getTransactionObject = require('./getTransactionObject')
-
+      const { getTransaction, getReceipt } = require('./getTransactionObject')
       const { txHash, url } = argv
+      const promises = [getTransaction(txHash, url), getReceipt(txHash, url)]
 
-      getTransactionObject(txHash, url).then(transactionObj => {
-        console.log(JSON.stringify(transactionObj, null, 2))
+      Promise.all(promises).then(([transaction, receipt]) => {
+        transaction.receipt = receipt
+        console.log(JSON.stringify(transaction, null, 2))
       })
     }
   )
