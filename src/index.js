@@ -147,7 +147,9 @@ yargs
       const promises = [getTransaction(txHash, url), getReceipt(txHash, url)]
 
       Promise.all(promises).then(([transaction, receipt]) => {
-        transaction.receipt = receipt
+        if (transaction) {
+          transaction.receipt = receipt
+        }
         console.log(JSON.stringify(transaction, null, 2))
       })
     }
