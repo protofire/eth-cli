@@ -38,5 +38,10 @@ module.exports = {
     id: 99,
     url: 'https://core.poa.network',
     label: 'POA'
+  },
+  xdai: {
+    id: 100,
+    url: 'https://dai.poa.network',
+    label: 'xDAI'
   }
 }
