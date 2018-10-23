@@ -245,7 +245,9 @@ yargs
       const deploy = require('./deploy')
       const { bin, pk, url } = argv
 
-      deploy(url, pk, bin).then(console.log).catch(console.error)
+      deploy(url, pk, bin)
+        .then(console.log)
+        .catch(console.error)
     }
   )
   .command({
