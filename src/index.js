@@ -234,6 +234,20 @@ yargs
       })
     }
   )
+  .command(
+    ['deploy <pk> <bin>'],
+    'Deploy contract whose bytecode is in <bin> using private key <pk>',
+    yargs => {
+      yargs.positional('pk', { required: true })
+      yargs.positional('bin', { required: true })
+    },
+    argv => {
+      const deploy = require('./deploy')
+      const { bin, pk, url } = argv
+
+      deploy(url, pk, bin).then(console.log).catch(console.error)
+    }
+  )
   .command({
     command: 'network',
     desc: 'Allows actions with known networks',
