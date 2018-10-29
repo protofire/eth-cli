@@ -44,24 +44,86 @@ yargs
   .command('completion', 'Generate bash completion script', yargs => {
     yargs.showCompletionScript()
   })
-  .command(
-    'method <signature>',
-    'Get the hash of the given method',
-    yargs => {
-      yargs.positional('signature', {
-        required: true
-      })
-    },
-    argv => {
-      const { sha3 } = require('ethereumjs-util')
+  .command({
+    command: ['method', 'm'],
+    desc: "Actions for Contract's methods",
+    builder: yargs =>
+      yargs
+        .usage('usage: method <Subcommand>')
+        .help('help')
+        .updateStrings({
+          'Commands:': 'Subcommand:'
+        })
+        .command({
+          command: ['hash <signature>', 'hs', 'h'],
+          desc: 'Get the hash of the given method',
+          builder: {},
+          handler: argv => {
+            const { sha3 } = require('ethereumjs-util')
 
-      const hash = sha3(argv.signature)
-        .toString('hex')
-        .slice(0, 8)
+            const hash = sha3(argv.signature)
+              .toString('hex')
+              .slice(0, 8)
 
-      console.log(hash)
-    }
-  )
+            console.log(hash)
+          }
+        })
+        .command({
+          command: ['encode <abi> <methodCall>', 'e'],
+          desc: 'Encodes the ABI for the method <methodCall> and returns the ABI byte code',
+          builder: yargs => {
+            yargs.positional('methodCall', {
+              describe: 'e.g.: \'myMethod(arg1,arg2,["a","b",3,["d","0x123..."]])\''
+            })
+          },
+          handler: argv => {
+            const encode = require('./encode')
+            const { abi, methodCall, url } = argv
+
+            const result = encode(abi, methodCall, url)
+
+            console.log(result)
+          }
+        })
+        .command({
+          command: ['send-transaction <encodedABI> <address> <pk>', 'st'],
+          desc:
+            'Sends the transaction for the contract in <address> with <encodedABI> using private key <pk>',
+          builder: yargs => {
+            yargs.positional('address', { description: "contract's address" })
+          },
+          handler: argv => {
+            const sendTransaction = require('./sendTransaction')
+            const { encodedABI, address, pk, url } = argv
+
+            sendTransaction(encodedABI, address, pk, url)
+              .then(console.log)
+              .catch(console.error)
+          }
+        })
+        .command({
+          command: ['send <abi> <methodCall> <address> <pk>', 's'],
+          desc:
+            'Executes <methodCall> for the contract in <address> given <abi> using private key <pk>',
+          builder: yargs => {
+            yargs.positional('methodCall', {
+              required: true,
+              describe: 'e.g.: \'myMethod(arg1,arg2,["a","b",3,["d","0x123..."]])\''
+            })
+            yargs.positional('address', { required: true, description: "contract's address" })
+          },
+          handler: argv => {
+            const encode = require('./encode')
+            const sendTx = require('./sendTransaction')
+            const { abi, methodCall, address, pk, url } = argv
+
+            sendTx(encode(abi, methodCall, url), address, pk, url)
+              .then(console.log)
+              .catch(console.error)
+          }
+        })
+        .demandCommand()
+  })
   .command(
     'methods <abi>',
     'Get the hash of each method in the given ABI',
