@@ -39,3 +39,7 @@ module.exports.loadABI = abiPath => {
 
   return abi
 }
+
+module.exports.extractMethodObjectsFromABI = function(abi) {
+  return abi.filter(x => x.type === 'function' && x.name)
+}
