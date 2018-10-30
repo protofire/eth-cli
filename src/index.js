@@ -114,10 +114,10 @@ yargs
           },
           handler: argv => {
             const encode = require('./encode')
-            const sendTx = require('./sendTransaction')
+            const sendTransaction = require('./sendTransaction')
             const { abi, methodCall, address, pk, url } = argv
 
-            sendTx(encode(abi, methodCall, url), address, pk, url)
+            sendTransaction(encode(abi, methodCall, url), address, pk, url)
               .then(console.log)
               .catch(console.error)
           }
