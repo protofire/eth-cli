@@ -1,4 +1,4 @@
-const { extractMethodObjectsFromABI, loadABI } = require('./utils')
+const { extractMethodObjectsFromABI, loadABI, evaluateMethodCallStructure } = require('./utils')
 const Web3 = require('web3')
 
 module.exports = function(abiPath, methodCall, url) {
@@ -6,14 +6,12 @@ module.exports = function(abiPath, methodCall, url) {
     throw new Error('[encode] methodCall required')
   }
 
-  const isValidMethod = /^(\w+)\((.*)\)$/
-  const method = isValidMethod.exec(methodCall)
+  const { methodValid, methodName } = evaluateMethodCallStructure(methodCall)
 
-  if (!method) {
+  if (!methodValid) {
     throw new Error('[encode] methodCall invalid structure')
   }
 
-  const methodName = method[1]
   const abi = loadABI(abiPath)
   const matchingMethods = extractMethodObjectsFromABI(abi).filter(x => x.name === methodName)
 
