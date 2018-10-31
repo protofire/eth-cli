@@ -39,3 +39,29 @@ module.exports.loadABI = abiPath => {
 
   return abi
 }
+
+module.exports.extractMethodObjectsFromABI = function(abi) {
+  return abi.filter(x => x.type === 'function' && x.name)
+}
+
+/**
+ * Evaluates a method call structure and returns an object with the information validated
+ * @param methodCall
+ * @returns {{
+ *  methodCall: (string|null),
+ *  methodName: (string|null),
+ *  methodArgs: (string|null),
+ *  methodValid: boolean
+ * }}
+ */
+module.exports.evaluateMethodCallStructure = function(methodCall) {
+  const isValidMethod = /^(\w+)\((.*)\)$/
+  const method = isValidMethod.exec(methodCall)
+
+  return {
+    methodCall,
+    methodName: method ? method[1] : null,
+    methodArgs: method ? method[2] : null,
+    methodValid: !!method
+  }
+}
