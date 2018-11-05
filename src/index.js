@@ -235,50 +235,24 @@ yargs
     }
   )
   .command(
-    ['random-address [amount]', 'ra'],
-    'Prints a random Ethereum checksum address. [amount] can be specified to generate a list of addresses.',
+    ['random-address [amount] [prefix]', 'ra'],
+    'Prints a random Ethereum checksum address with its Private Key',
     yargs => {
-      yargs.positional('amount', { default: 1 })
+      yargs.positional('amount', {
+        default: 1,
+        description: 'Can be specified to generate a list of addresses.'
+      })
+      yargs.option('prefix', { description: 'Generates a random address with the given prefix.' })
     },
     argv => {
-      const utils = require('web3-utils')
-      const amount = parseInt(argv.amount)
+      const randomAddress = require('./randomAddress')
+      const { amount, prefix } = argv
 
-      if (!isNaN(amount) && amount > 0) {
-        for (let i = 0; i < amount; i++) {
-          const address = utils.toChecksumAddress(utils.randomHex(20))
-          console.log(address)
-        }
-      }
-    }
-  )
-  .command(
-    ['vanity <prefix>'],
-    'Generates a random address with the given prefix.',
-    yargs => {
-      yargs.positional('prefix', { required: true })
-    },
-    argv => {
-      const { prefix } = argv
-      const { randomBytes } = require('crypto')
-      const wallet = new (require('web3-eth-accounts'))().wallet
-
-      let acc = wallet.create(1, randomBytes(32))[0]
-      while (acc.address.slice(2, 2 + prefix.length) !== prefix) {
-        wallet.clear()
-        acc = wallet.create(1, randomBytes(32))[0]
-      }
-
-      console.log(
-        JSON.stringify(
-          {
-            address: acc.address,
-            privateKey: acc.privateKey
-          },
-          null,
-          2
-        )
-      )
+      randomAddress(amount, prefix)
+        .then(accounts => {
+          accounts.forEach(account => console.log(JSON.stringify(account, null, 2)))
+        })
+        .catch(console.error)
     }
   )
   .command(
