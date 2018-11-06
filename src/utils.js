@@ -78,6 +78,13 @@ module.exports.generateAccount = prefix => () => {
 
 module.exports.range = amount => new Array(parseInt(amount)).fill(true)
 
+module.exports.evaluatePrefix = prefix => {
+  const isValidPrefix = /^([a-fA-F0-9])*$/
+  const match = isValidPrefix.exec(prefix)
+
+  return match ? match[1] : null
+}
+
 function createAccount() {
   const { randomBytes } = require('crypto')
   const wallet = new (require('web3-eth-accounts'))().wallet

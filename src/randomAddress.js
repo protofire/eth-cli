@@ -1,8 +1,14 @@
-const { generateAccount, range } = require('./utils')
+const { generateAccount, range, evaluatePrefix } = require('./utils')
 
 module.exports = function(amount, prefix) {
   if (isNaN(amount) || parseInt(amount) === 0) {
-    throw new Error('[random-address] must be an integer number and greater than 0')
+    throw new Error('[random-address] amount must be an integer number and greater than 0')
+  }
+
+  prefix = evaluatePrefix(prefix)
+
+  if (prefix === null) {
+    throw new Error('[random-address] prefix must be a valid hex value')
   }
 
   const findAccount = generateAccount(prefix)
