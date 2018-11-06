@@ -242,7 +242,10 @@ yargs
         default: 1,
         description: 'Can be specified to generate a list of addresses.'
       })
-      yargs.option('prefix', { description: 'Generates a random address with the given prefix.' })
+      yargs.option('prefix', {
+        default: '',
+        description: 'Generates a random address with the given prefix.'
+      })
     },
     argv => {
       const randomAddress = require('./randomAddress')
