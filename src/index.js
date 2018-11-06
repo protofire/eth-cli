@@ -244,6 +244,7 @@ yargs
       })
       yargs.option('prefix', {
         default: '',
+        string: true,
         description: 'Generates a random address with the given prefix.'
       })
     },
