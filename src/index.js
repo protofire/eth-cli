@@ -251,11 +251,13 @@ yargs
       const randomAddress = require('./randomAddress')
       const { amount, prefix } = argv
 
-      randomAddress(amount, prefix)
-        .then(accounts => {
-          accounts.forEach(account => console.log(JSON.stringify(account, null, 2)))
-        })
-        .catch(console.error)
+      try {
+        randomAddress(amount, prefix).forEach(account =>
+          console.log(JSON.stringify(account, null, 2))
+        )
+      } catch (e) {
+        console.error(e)
+      }
     }
   )
   .command(
