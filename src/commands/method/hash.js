@@ -31,6 +31,6 @@ HashCommand.args = [
   }
 ]
 
-HashCommand.examples = ['eth method:hash']
+HashCommand.examples = [`eth method:hash 'transfer(address,uint256)'`]
 
 module.exports = HashCommand
