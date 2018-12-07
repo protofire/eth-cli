@@ -1,4 +1,5 @@
 const fs = require('fs')
+
 module.exports.showDataWithDisplay = (data, display) => {
   if (display.toLowerCase() === 'table') {
     const Table = require('cli-table')
@@ -9,9 +10,9 @@ module.exports.showDataWithDisplay = (data, display) => {
 
     table.push(Object.values(data))
 
-    console.log(table.toString())
+    return table.toString()
   } else {
-    console.log(JSON.stringify(data, null, 2))
+    return data
   }
 }
 
@@ -40,7 +41,7 @@ module.exports.loadABI = abiPath => {
   return abi
 }
 
-module.exports.extractMethodObjectsFromABI = function(abi) {
+module.exports.extractMethodObjectsFromABI = abi => {
   return abi.filter(x => x.type === 'function' && x.name)
 }
 
@@ -54,7 +55,7 @@ module.exports.extractMethodObjectsFromABI = function(abi) {
  *  methodValid: boolean
  * }}
  */
-module.exports.evaluateMethodCallStructure = function(methodCall) {
+module.exports.evaluateMethodCallStructure = methodCall => {
   const isValidMethod = /^(\w+)\((.*)\)$/
   const method = isValidMethod.exec(methodCall)
 
@@ -85,7 +86,7 @@ module.exports.evaluatePrefix = prefix => {
   return match ? match[1] : null
 }
 
-function createAccount() {
+const createAccount = () => {
   const { randomBytes } = require('crypto')
   const wallet = new (require('web3-eth-accounts'))().wallet
 

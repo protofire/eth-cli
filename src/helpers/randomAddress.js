@@ -1,6 +1,6 @@
 const { generateAccount, range, evaluatePrefix } = require('./utils')
 
-module.exports = function(amount, prefix) {
+module.exports = (amount, prefix) => {
   if (isNaN(amount) || parseInt(amount) === 0) {
     throw new Error('[random-address] amount must be an integer number and greater than 0')
   }

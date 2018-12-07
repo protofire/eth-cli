@@ -1,35 +1,83 @@
 {
   "name": "eth-cli",
+  "description": "A collection of CLI tools to help with ethereum learning and development.",
   "version": "0.8.0",
-  "description": "",
-  "main": "src/index.js",
+  "author": "Franco Victorio @fvictorio",
   "bin": {
-    "eth": "src/index.js"
+    "eth": "./bin/run"
   },
-  "scripts": {
-    "lint": "eslint src"
+  "bugs": "https://github.com/protofire/eth-cli/issues",
+  "dependencies": {
+    "@oclif/command": "^1.5.6",
+    "@oclif/config": "^1.9.0",
+    "@oclif/plugin-help": "^2.1.4",
+    "@oclif/plugin-not-found": "^1.2.2",
+    "@oclif/plugin-warn-if-update-available": "^1.5.4",
+    "cli-table": "^0.3.1",
+    "cli-ux": "^4.9.3",
+    "ethereumjs-util": "^5.2.0",
+    "repl.history": "^0.1.4",
+    "web3": "^1.0.0-beta.34"
   },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.19.5",
+    "eslint": "^5.8.0",
+    "eslint-config-oclif": "^3.1.0",
+    "eslint-config-prettier": "^2.10.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "globby": "^8.0.1",
+    "jest": "^23.4.1",
+    "jest-watch-typeahead": "^0.2.0",
+    "prettier": "^1.9.2",
+    "strip-ansi": "^4.0.0"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js}"
+    ],
+    "testEnvironment": "node",
+    "notify": true,
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
+    ]
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/src"
+  ],
+  "homepage": "https://github.com/protofire/eth-cli#readme",
   "keywords": [
     "ethereum",
     "blockchain",
     "cli"
   ],
-  "author": "Franco Victorio",
-  "license": "ISC",
-  "dependencies": {
-    "cli-table": "^0.3.1",
-    "ethereumjs-util": "^5.2.0",
-    "repl.history": "^0.1.4",
-    "web3": "^1.0.0-beta.34",
-    "yargs": "^11.0.0"
+  "license": "MIT",
+  "main": "src/index.js",
+  "oclif": {
+    "commands": "./src/commands",
+    "bin": "eth",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-not-found",
+      "@oclif/plugin-warn-if-update-available"
+    ]
   },
-  "devDependencies": {
-    "eslint": "^5.5.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.4.0",
-    "prettier": "^1.9.2"
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "posttest": "eslint src test",
+    "lint": "eslint src test",
+    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "test": "jest --coverage --detectOpenHandles",
+    "version": "oclif-dev readme && git add README.md",
+    "opencoverage": "google-chrome coverage/lcov-report/index.html",
+    "clearjest": "jest --clearCache"
   },
-  "homepage": "https://github.com/huemul/trae#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/protofire/eth-cli"
