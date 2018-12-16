@@ -1,5 +1,4 @@
 const Base = require('../../base')
-const loadContract = require('../../helpers/loadContract')
 const { getNetworkFlags } = require('../../helpers/networks')
 
 class LoadCommand extends Base {
@@ -16,6 +15,7 @@ class LoadCommand extends Base {
         throw new Error('eth load-contract: You must specify an address for each contract')
       }
 
+      const loadContract = require('../../helpers/loadContract')
       loadContract(abi, address, rest, networkUrl)
     } catch (e) {
       this.error(e.message, { exit: 1 })

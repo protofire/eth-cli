@@ -1,6 +1,5 @@
 const Base = require('../../base')
 const { cli } = require('cli-ux')
-const deploy = require('../../helpers/deploy')
 const { getNetworkFlags } = require('../../helpers/networks')
 
 class DeployCommand extends Base {
@@ -13,6 +12,7 @@ class DeployCommand extends Base {
       networkUrl = this.getNetworkUrl(flags)
 
       const { bin, pk } = args
+      const deploy = require('../../helpers/deploy')
       const data = await deploy(networkUrl, pk, bin)
 
       cli.styledJSON(data)

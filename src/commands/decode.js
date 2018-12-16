@@ -1,6 +1,5 @@
 const { Command } = require('@oclif/command')
 const { cli } = require('cli-ux')
-const decodeTxData = require('../helpers/decodeTxData')
 
 class DecodeCommand extends Command {
   async run() {
@@ -8,6 +7,7 @@ class DecodeCommand extends Command {
 
     try {
       const { functionSignature, txData } = args
+      const decodeTxData = require('../helpers/decodeTxData')
       const result = decodeTxData(functionSignature, txData)
 
       cli.styledJSON(result)

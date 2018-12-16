@@ -1,5 +1,4 @@
 const { Command } = require('@oclif/command')
-const getMethods = require('../helpers/getMethods')
 
 class MethodsCommand extends Command {
   async run() {
@@ -8,6 +7,7 @@ class MethodsCommand extends Command {
     try {
       const { abi } = args
 
+      const getMethods = require('../helpers/getMethods')
       const methods = getMethods(abi)
 
       methods.forEach(({ signature, signatureHash }) => {

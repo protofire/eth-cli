@@ -1,5 +1,4 @@
 const { Command, flags } = require('@oclif/command')
-const { networkConstants } = require('../../helpers/networks')
 const { cli } = require('cli-ux')
 const { showDataWithDisplay } = require('../../helpers/utils')
 
@@ -8,6 +7,7 @@ class IdsCommand extends Command {
     const { flags } = this.parse(IdsCommand)
     const { display = 'json' } = flags
 
+    const { networkConstants } = require('../../helpers/networks')
     const networksIds = Object.keys(networkConstants).reduce((result, network) => {
       result[network] = networkConstants[network].id
       return result

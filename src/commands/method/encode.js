@@ -1,5 +1,4 @@
 const Base = require('../../base')
-const encode = require('../../helpers/encode')
 const { getNetworkFlags } = require('../../helpers/networks')
 
 class EncodeCommand extends Base {
@@ -12,6 +11,7 @@ class EncodeCommand extends Base {
       networkUrl = this.getNetworkUrl(flags)
 
       const { abi, methodCall } = args
+      const encode = require('../../helpers/encode')
       const result = encode(abi, methodCall, networkUrl)
 
       this.log(result)

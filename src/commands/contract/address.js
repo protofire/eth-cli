@@ -1,5 +1,4 @@
 const { Command } = require('@oclif/command')
-const getContractAddress = require('../../helpers/getContractAddress')
 
 class AddressCommand extends Command {
   async run() {
@@ -7,6 +6,7 @@ class AddressCommand extends Command {
 
     try {
       const { account, nonce } = args
+      const getContractAddress = require('../../helpers/getContractAddress')
       const contractAddress = getContractAddress(account, nonce)
 
       this.log(contractAddress)

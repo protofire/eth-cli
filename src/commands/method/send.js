@@ -1,6 +1,4 @@
 const Base = require('../../base')
-const encode = require('../../helpers/encode')
-const sendTransaction = require('../../helpers/sendTransaction')
 const { cli } = require('cli-ux')
 const { getNetworkFlags } = require('../../helpers/networks')
 
@@ -14,6 +12,8 @@ class SendCommand extends Base {
       networkUrl = this.getNetworkUrl(flags)
 
       const { abi, methodCall, address, pk } = args
+      const encode = require('../../helpers/encode')
+      const sendTransaction = require('../../helpers/sendTransaction')
       const abiByteCode = encode(abi, methodCall, networkUrl)
       const result = await sendTransaction(abiByteCode, address, pk, networkUrl)
 

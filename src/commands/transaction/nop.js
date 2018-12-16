@@ -1,7 +1,6 @@
 const Command = require('../../base')
 const { cli } = require('cli-ux')
 const { getNetworkFlags } = require('../../helpers/networks')
-const generateNop = require('../../helpers/generateNop')
 
 class NopCommand extends Command {
   async run() {
@@ -12,6 +11,7 @@ class NopCommand extends Command {
       networkUrl = this.getNetworkUrl(flags)
 
       const { pk } = args
+      const generateNop = require('../../helpers/generateNop')
       const tx = await generateNop(networkUrl, pk)
 
       cli.styledJSON(tx)

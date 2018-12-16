@@ -1,5 +1,4 @@
 const { Command } = require('@oclif/command')
-const randomAddress = require('../helpers/randomAddress')
 const { cli } = require('cli-ux')
 
 class RandomAddressCommand extends Command {
@@ -8,6 +7,7 @@ class RandomAddressCommand extends Command {
     const { amount = 1, prefix = '' } = args
 
     try {
+      const randomAddress = require('../helpers/randomAddress')
       randomAddress(amount, prefix).forEach(account => cli.styledJSON(account))
     } catch (e) {
       this.error(e.message, { exit: 1 })

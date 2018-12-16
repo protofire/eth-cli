@@ -1,5 +1,4 @@
 const Base = require('../base')
-const startRepl = require('../helpers/startRepl')
 const { getNetworkFlags } = require('../helpers/networks')
 
 class ReplCommand extends Base {
@@ -9,7 +8,7 @@ class ReplCommand extends Base {
 
     try {
       networkUrl = this.getNetworkUrl(flags)
-
+      const startRepl = require('../helpers/startRepl')
       startRepl(networkUrl)
     } catch (e) {
       this.error(e.message, { exit: 1 })

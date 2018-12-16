@@ -1,7 +1,5 @@
 const Web3 = require('web3')
 const { add0x } = require('./utils')
-const web3 = new Web3()
-const abi = web3.eth.abi
 
 module.exports = function(functionSignature, txData) {
   const paramsMatch = functionSignature.match(/^[^(].*\((.*)\)$/)
@@ -10,6 +8,8 @@ module.exports = function(functionSignature, txData) {
     throw new Error('Invalid function signature')
   }
 
+  const web3 = new Web3()
+  const abi = web3.eth.abi
   const encodedFunctionSignature = abi.encodeFunctionSignature(functionSignature)
 
   txData = add0x(txData)

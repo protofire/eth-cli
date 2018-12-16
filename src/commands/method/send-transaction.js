@@ -1,5 +1,4 @@
 const Base = require('../../base')
-const sendTransaction = require('../../helpers/sendTransaction')
 const { cli } = require('cli-ux')
 const { getNetworkFlags } = require('../../helpers/networks')
 
@@ -13,6 +12,7 @@ class SendTransactionCommand extends Base {
       networkUrl = this.getNetworkUrl(flags)
 
       const { encodedABI, address, pk } = args
+      const sendTransaction = require('../../helpers/sendTransaction')
       const result = await sendTransaction(encodedABI, address, pk, networkUrl)
 
       cli.styledJSON(result)

@@ -1,6 +1,5 @@
 const Base = require('../../base')
 const { cli } = require('cli-ux')
-const { getTransaction, getReceipt } = require('../../helpers/getTransactionObject')
 const { getNetworkFlags } = require('../../helpers/networks')
 
 class GetCommand extends Base {
@@ -12,6 +11,7 @@ class GetCommand extends Base {
       networkUrl = this.getNetworkUrl(flags)
 
       const { txHash } = args
+      const { getTransaction, getReceipt } = require('../../helpers/getTransactionObject')
       const promises = [getTransaction(txHash, networkUrl), getReceipt(txHash, networkUrl)]
       const [transaction, receipt] = await Promise.all(promises)
 
