@@ -14,15 +14,24 @@ module.exports = function(url, privateKey, bin) {
 
   const deploy = contract.deploy({ data })
 
+  let dataToReturn = {}
+
   return deploy
     .estimateGas({
       from: address
     })
     .then(gas => {
-      return deploy.send({
-        from: address,
-        gas
-      })
+      return deploy
+        .send({
+          from: address,
+          gas: gas
+        })
+        .on('receipt', receipt => {
+          dataToReturn.receipt = receipt
+        })
     })
-    .then(contract => contract.options.address)
+    .then(contract => {
+      dataToReturn.address = contract.options.address
+      return dataToReturn
+    })
 }

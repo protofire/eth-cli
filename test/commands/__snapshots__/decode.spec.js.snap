@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`decode Should run 'decode 'transfer(address,uint256)' 
+  '0xa9059cbb000000000000000000000000697dB915674bAc602F4d6fAfA31c0e45f386416E00000000000000000000000000000000000000000000000000000004ff043b9e'. 1`] = `
+Array [
+  "[
+  \\"0x697dB915674bAc602F4d6fAfA31c0e45f386416E\\",
+  \\"21458336670\\"
+]
+",
+]
+`;

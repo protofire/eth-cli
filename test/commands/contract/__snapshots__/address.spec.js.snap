@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`contract:address Should run 'contract:address --bar' and be get some value. 1`] = `
+Array [
+  "0xe01c10fd900939d1eab56ee373ea5e2bd4e2cfb3
+",
+]
+`;
+
+exports[`contract:address Should run 'contract:address 0x92970dbD5C0Ee6b439422bFd7cD71e1DDA921A03' and get success. 1`] = `
+Array [
+  "0x68ba6833b22f414e97a7aa23908428163be96e9b
+",
+]
+`;

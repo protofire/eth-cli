@@ -19,5 +19,9 @@ module.exports = {
       "unix"
     ],
     "no-console": "off"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module"
   }
 };

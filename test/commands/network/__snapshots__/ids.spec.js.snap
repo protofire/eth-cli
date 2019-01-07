@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`network:ids Should run 'network:ids --display=json' and match snapshot. 1`] = `
+Array [
+  "{
+  \\"mainnet\\": 1,
+  \\"ropsten\\": 3,
+  \\"rinkeby\\": 4,
+  \\"rsk\\": 30,
+  \\"rsk-testnet\\": 31,
+  \\"kovan\\": 42,
+  \\"sokol\\": 77,
+  \\"poa\\": 99,
+  \\"xdai\\": 100
+}
+",
+]
+`;
+
+exports[`network:ids Should run 'network:ids --display=table' and match snapshot. 1`] = `
+Array [
+  "┌─────────┬─────────┬─────────┬─────┬─────────────┬───────┬───────┬─────┬──────┐
+│ mainnet │ ropsten │ rinkeby │ rsk │ rsk-testnet │ kovan │ sokol │ poa │ xdai │
+├─────────┼─────────┼─────────┼─────┼─────────────┼───────┼───────┼─────┼──────┤
+│ 1       │ 3       │ 4       │ 30  │ 31          │ 42    │ 77    │ 99  │ 100  │
+└─────────┴─────────┴─────────┴─────┴─────────────┴───────┴───────┴─────┴──────┘
+",
+]
+`;
+
+exports[`network:ids Should run 'network:ids' and match snapshot. 1`] = `
+Array [
+  "{
+  \\"mainnet\\": 1,
+  \\"ropsten\\": 3,
+  \\"rinkeby\\": 4,
+  \\"rsk\\": 30,
+  \\"rsk-testnet\\": 31,
+  \\"kovan\\": 42,
+  \\"sokol\\": 77,
+  \\"poa\\": 99,
+  \\"xdai\\": 100
+}
+",
+]
+`;
