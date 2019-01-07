@@ -2,10 +2,16 @@ const Web3 = require('web3')
 const { add0x } = require('./utils')
 
 module.exports = function(functionSignature, txData) {
-  const paramsMatch = functionSignature.match(/^[^(].*\((.*)\)$/)
+  const paramsRegex = /^[^(].*\((.*)\)$/
 
-  if (!paramsMatch || !paramsMatch[1]) {
+  if (!paramsRegex.test(functionSignature)) {
     throw new Error('Invalid function signature')
+  }
+
+  const paramsMatch = functionSignature.match(paramsRegex)
+
+  if (!paramsMatch[1]) {
+    return []
   }
 
   const web3 = new Web3()
