@@ -20,14 +20,14 @@
     "cli-table": "^0.3.1",
     "ethereumjs-util": "^5.2.0",
     "repl.history": "^0.1.4",
-    "web3": "^1.0.0-beta.34",
-    "yargs": "^11.0.0"
+    "web3": "^1.0.0-beta.37",
+    "yargs": "^11.1.0"
   },
   "devDependencies": {
-    "eslint": "^5.5.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.4.0",
-    "prettier": "^1.9.2"
+    "eslint": "^5.12.1",
+    "eslint-config-prettier": "^2.10.0",
+    "eslint-plugin-prettier": "^2.7.0",
+    "prettier": "^1.16.1"
   },
   "homepage": "https://github.com/huemul/trae#readme",
   "repository": {
