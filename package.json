@@ -29,7 +29,7 @@
     "eslint-plugin-prettier": "^2.7.0",
     "prettier": "^1.16.1"
   },
-  "homepage": "https://github.com/huemul/trae#readme",
+  "homepage": "https://github.com/protofire/eth-cli#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/protofire/eth-cli"
