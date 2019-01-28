@@ -1,8 +1,15 @@
 {
   "name": "eth-cli",
   "description": "A collection of CLI tools to help with ethereum learning and development.",
+  "contributors": [
+    "Fernando Greco",
+    "Franco Victorio",
+    "Gerardo Nardelli",
+    "Lisandro Corbalan",
+    "Mariano Agüero",
+    "Pablo Fullana"
+  ],
   "version": "1.0.0-alpha-1",
-  "author": "Franco Victorio @fvictorio",
   "bin": {
     "eth": "./bin/run"
   },
