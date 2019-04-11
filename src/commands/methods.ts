@@ -10,7 +10,7 @@ export default class MethodsCommand extends Command {
       const { getMethods } = await import('../helpers/getMethods')
       const methods = getMethods(abi)
 
-      methods.forEach(({ signature, signatureHash }: any) => {
+      methods.forEach(({ signature, signatureHash }) => {
         this.log(`${signatureHash}\t${signature}`)
       })
     } catch (e) {

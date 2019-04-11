@@ -1,8 +1,14 @@
 import * as path from 'path'
 import Web3 from 'web3'
+import { Eth } from 'web3-eth';
+import { Contract } from 'web3-eth-contract';
 
 import { replStarter } from './replStarter'
 import { loadABI } from './utils'
+
+interface ReplContext {
+  [key: string]: any;
+}
 
 export function loadContract(abiPath: string, address: string, rest: string, url: string) {
   if (!url) {
@@ -30,7 +36,7 @@ export function loadContract(abiPath: string, address: string, rest: string, url
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
 
   // Default context
-  let rplContext: any = {
+  let replContext: ReplContext = {
     web3,
     eth: web3.eth
   }
@@ -40,17 +46,17 @@ export function loadContract(abiPath: string, address: string, rest: string, url
     const Contract = new web3.eth.Contract(contract.abi, contract.address)
     let [contractName] = path.basename(contract.abiPath).split('.')
 
-    if (rplContext[contractName]) {
-      const suffix = Object.keys(rplContext).filter(function(key) {
+    if (replContext[contractName]) {
+      const suffix = Object.keys(replContext).filter(function(key) {
         return key.includes(contractName)
       }).length
 
       contractName = [contractName, '_', suffix].join('')
     }
 
-    rplContext[contractName] = Contract
+    replContext[contractName] = Contract
   }
 
   // Start REPL
-  replStarter(rplContext)
+  replStarter(replContext)
 }

@@ -12,7 +12,7 @@ export default class IdsCommand extends Command {
     const networksIds = Object.keys(networkConstants).reduce((result, network) => {
       result[network] = networkConstants[network].id
       return result
-    }, {} as any)
+    }, {} as {[name: string]: number})
 
     if (display === 'json') {
       cli.styledJSON(networksIds)

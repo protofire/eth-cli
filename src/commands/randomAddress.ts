@@ -4,11 +4,13 @@ import { cli } from 'cli-ux'
 export class RandomAddressCommand extends Command {
   async run() {
     const { args } = this.parse(RandomAddressCommand)
-    const { amount = 1, prefix = '' } = args
+    const { amount = '1', prefix = '' } = args
+
+    const amountNumber = parseInt(amount, 10)
 
     try {
       const { randomAddress } = await import('../helpers/randomAddress')
-      randomAddress(amount, prefix).forEach((account: any) => cli.styledJSON(account))
+      randomAddress(amountNumber, prefix).forEach(({address, privateKey}) => cli.styledJSON({address, privateKey}))
     } catch (e) {
       this.error(e.message, { exit: 1 })
     }

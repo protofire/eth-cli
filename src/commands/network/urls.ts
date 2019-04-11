@@ -12,7 +12,7 @@ export default class UrlsCommand extends Command {
     const networksIds = Object.keys(networkConstants).reduce((result, network) => {
       result[network] = networkConstants[network].url
       return result
-    }, {} as any)
+    }, {} as {[name: string]: string})
 
     if (display === 'json') {
       cli.styledJSON(networksIds)

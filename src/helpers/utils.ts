@@ -4,7 +4,9 @@ import * as fs from 'fs'
 import { Accounts } from 'web3-eth-accounts'
 import { HttpProvider } from 'web3-providers'
 
-export const showDataWithDisplay = (data: any, display: any) => {
+import { ABI, ABIItem } from '../types';
+
+export const showDataWithDisplay = (data: {[name: string]: any}, display: string) => {
   if (display.toLowerCase() === 'table') {
     const table = new Table({
       head: Object.keys(data)
@@ -14,15 +16,15 @@ export const showDataWithDisplay = (data: any, display: any) => {
 
     return table.toString()
   } else {
-    return data
+    return JSON.stringify(data, null, 2)
   }
 }
 
-export const add0x = (hex: any) => {
+export const add0x = (hex: string) => {
   return hex.indexOf('0x') === 0 ? hex : `0x${hex}`
 }
 
-export const loadABI = (abiPath: any) => {
+export const loadABI = (abiPath: string) => {
   const abiStr = fs.readFileSync(abiPath).toString()
 
   let abi = null
@@ -44,14 +46,14 @@ export const loadABI = (abiPath: any) => {
   return abi
 }
 
-export const extractMethodObjectsFromABI = (abi: any) => {
-  return abi.filter((x: any) => x.type === 'function' && x.name)
+export const extractMethodObjectsFromABI = (abi: ABI) => {
+  return abi.filter((x: ABIItem) => x.type === 'function' && 'name' in x)
 }
 
 /**
  * Evaluates a method call structure and returns an object with the information validated
  */
-export const evaluateMethodCallStructure = (methodCall: any) => {
+export const evaluateMethodCallStructure = (methodCall: string) => {
   const isValidMethod = /^(\w+)\((.*)\)$/
   const method = isValidMethod.exec(methodCall)
 
@@ -63,7 +65,7 @@ export const evaluateMethodCallStructure = (methodCall: any) => {
   }
 }
 
-export const generateAccount = (prefix: any) => () => {
+export const generateAccount = (prefix: string) => () => {
   let account = createAccount()
 
   while (account.address.slice(2, 2 + prefix.length) !== prefix) {
@@ -73,9 +75,9 @@ export const generateAccount = (prefix: any) => () => {
   return account
 }
 
-export const range = (amount: any) => new Array(parseInt(amount, 10)).fill(true)
+export const range = (amount: number) => new Array(amount).fill(true)
 
-export const evaluatePrefix = (prefix: any) => {
+export const evaluatePrefix = (prefix: string) => {
   const isValidPrefix = /(^$|^[a-fA-F0-9]+)$/
   const match = isValidPrefix.exec(prefix)
 

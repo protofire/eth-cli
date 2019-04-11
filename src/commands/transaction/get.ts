@@ -1,4 +1,5 @@
 import { cli } from 'cli-ux'
+import { Transaction, TransactionReceipt } from 'web3-core';
 
 import { BaseCommand } from '../../base'
 import { getNetworkFlags } from '../../helpers/networks'
@@ -13,13 +14,19 @@ export default class GetCommand extends BaseCommand {
 
       const { txHash } = args
       const { getTransaction, getReceipt } = await import('../../helpers/getTransactionObject')
-      const promises: Array<Promise<any>> = [getTransaction(txHash, networkUrl), getReceipt(txHash, networkUrl)]
+      const promises: [Promise<Transaction>, Promise<TransactionReceipt>] = [getTransaction(txHash, networkUrl), getReceipt(txHash, networkUrl)]
       const [transaction, receipt] = await Promise.all(promises)
 
+      let output
       if (transaction) {
-        transaction.receipt = receipt
+        output = {
+          ...transaction,
+          receipt,
+        }
+      } else {
+        output = null
       }
-      cli.styledJSON(transaction)
+      cli.styledJSON(output)
     } catch (e) {
       this.error(e.message, { exit: 1 })
     }
