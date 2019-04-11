@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hash Should run 'hash -- 'updateAppInstance'' and get success 1`] = `
+Array [
+  "2ab3e7c9
+",
+]
+`;

@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`encode Should run 'encode' and get success 1`] = `
+Array [
+  "0x3e7f54a9
+",
+]
+`;

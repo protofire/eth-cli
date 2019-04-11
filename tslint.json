@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "@oclif/tslint",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "file-name-casing": false,
+    "binary-expression-operand-order": false,
+    "no-http-string": false
+  }
+}

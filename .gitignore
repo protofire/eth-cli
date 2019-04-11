@@ -1,4 +1,8 @@
 node_modules
 .idea
 coverage
-.nyc_output
+.nyc_outputlib/
+*-debug.log
+*-error.log
+/lib
+tsconfig.tsbuildinfo
