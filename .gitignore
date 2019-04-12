@@ -6,3 +6,4 @@ coverage
 *-error.log
 /lib
 tsconfig.tsbuildinfo
+oclif.manifest.json
