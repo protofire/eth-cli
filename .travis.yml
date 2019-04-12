@@ -2,5 +2,9 @@ language: node_js
 node_js:
   - "8"
 
+services:
+  - docker
+
 script:
   - npm run lint
+  - cd e2e && ./run-tests.sh
