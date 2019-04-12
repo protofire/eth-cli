@@ -30,7 +30,7 @@ export function decodeTxData(functionSignature: string, txData: string) {
   const paramsStr = paramsMatch[1]
   const params = paramsStr.split(',')
 
-  const args = abi.decodeParameters(params, '0x' + txData.slice(10))
+  const args = abi.decodeParameters(params, add0x(txData.slice(10)))
 
   const result = []
   for (let i = 0; i < args.__length__; i++) {
