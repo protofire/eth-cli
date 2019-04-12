@@ -1,0 +1,9 @@
+{
+  "extends": ["@oclif/tslint", "tslint-config-prettier"],
+  "rules": {
+    "file-name-casing": false,
+    "binary-expression-operand-order": false,
+    "no-http-string": false,
+    "no-implicit-dependencies": [true, ["web3-core", "web3-eth", "web3-eth-contract"]]
+  }
+}

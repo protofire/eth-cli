@@ -1,6 +1,7 @@
 {
   "name": "eth-cli",
   "description": "A collection of CLI tools to help with ethereum learning and development.",
+  "version": "1.0.0-alpha-2",
   "contributors": [
     "Fernando Greco",
     "Franco Victorio",
@@ -9,45 +10,42 @@
     "Mariano Agüero",
     "Pablo Fullana"
   ],
-  "version": "1.0.0-alpha-1",
   "bin": {
     "eth": "./bin/run"
   },
   "bugs": "https://github.com/protofire/eth-cli/issues",
   "dependencies": {
-    "@oclif/command": "^1.5.6",
-    "@oclif/config": "^1.9.0",
-    "@oclif/plugin-help": "^2.1.4",
-    "@oclif/plugin-not-found": "^1.2.2",
-    "@oclif/plugin-warn-if-update-available": "^1.5.4",
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^2",
     "cli-table": "^0.3.1",
-    "cli-ux": "^4.9.3",
-    "ethereumjs-util": "^5.2.0",
+    "cli-ux": "^5.2.1",
+    "ethereumjs-util": "^6.1.0",
     "repl.history": "^0.1.4",
-    "web3": "^1.0.0-beta.34"
+    "rlp": "^2.2.3",
+    "tslib": "^1",
+    "web3": "^1.0.0-beta.52",
+    "web3-eth-accounts": "^1.0.0-beta.52",
+    "web3-providers": "^1.0.0-beta.52"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "^1.19.5",
-    "eslint": "^5.8.0",
-    "eslint-config-oclif": "^3.1.0",
-    "eslint-config-prettier": "^2.10.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "globby": "^8.0.1",
-    "jest": "^23.4.1",
-    "jest-watch-typeahead": "^0.2.0",
-    "prettier": "^1.9.2",
-    "strip-ansi": "^4.0.0"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js}"
-    ],
-    "testEnvironment": "node",
-    "notify": true,
-    "watchPlugins": [
-      "jest-watch-typeahead/filename",
-      "jest-watch-typeahead/testname"
-    ]
+    "@oclif/dev-cli": "^1",
+    "@oclif/tslint": "^3",
+    "@types/chai": "^4",
+    "@types/cli-table": "^0.3.0",
+    "@types/jest": "^24.0.11",
+    "@types/node": "^10",
+    "chai": "^4",
+    "globby": "^8",
+    "jest": "^24.7.1",
+    "jest-watch-typeahead": "^0.3.0",
+    "nyc": "^13",
+    "prettier": "^1.16.4",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8",
+    "tslint": "^5",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.3"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -56,37 +54,58 @@
     "/bin",
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json",
-    "/src"
+    "/lib"
   ],
   "homepage": "https://github.com/protofire/eth-cli#readme",
   "keywords": [
     "ethereum",
     "blockchain",
-    "cli"
+    "cli",
+    "oclif"
   ],
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "oclif": {
-    "commands": "./src/commands",
+    "commands": "./lib/commands",
     "bin": "eth",
     "plugins": [
-      "@oclif/plugin-help",
-      "@oclif/plugin-not-found",
-      "@oclif/plugin-warn-if-update-available"
+      "@oclif/plugin-help"
     ]
-  },
-  "scripts": {
-    "postpack": "rm -f oclif.manifest.json",
-    "posttest": "eslint src test",
-    "lint": "eslint src test",
-    "prepack": "oclif-dev manifest && oclif-dev readme",
-    "test": "jest --coverage --detectOpenHandles",
-    "version": "oclif-dev readme && git add README.md",
-    "opencoverage": "google-chrome coverage/lcov-report/index.html",
-    "clearjest": "jest --clearCache"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/protofire/eth-cli"
+  },
+  "scripts": {
+    "lint": "tslint --project . && npm run prettier-check",
+    "postpack": "rm -f oclif.manifest.json",
+    "posttest": "jest ./test",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "prettier": "prettier --write '**/*.{ts,tsx,json,md}' --ignore-path .gitignore",
+    "prettier-check": "prettier --check '**/*.{ts,tsx,json,md}' --ignore-path .gitignore",
+    "test": "jest --coverage --detectOpenHandles",
+    "version": "oclif-dev readme && git add README.md",
+    "clearjest": "jest --clearCache"
+  },
+  "types": "lib/index.d.ts",
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js}"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "notify": true,
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "node",
+      "json"
+    ]
   }
 }
