@@ -77,9 +77,12 @@
     "url": "https://github.com/protofire/eth-cli"
   },
   "scripts": {
+    "lint": "tslint --project . && npm run prettier-check",
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "jest ./test",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "prettier": "prettier --write '**/*.{ts,tsx,json,md}' --ignore-path .gitignore",
+    "prettier-check": "prettier --check '**/*.{ts,tsx,json,md}' --ignore-path .gitignore",
     "test": "jest --coverage --detectOpenHandles",
     "version": "oclif-dev readme && git add README.md",
     "clearjest": "jest --clearCache"
