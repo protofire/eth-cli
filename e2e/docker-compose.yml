@@ -1,0 +1,13 @@
+version: "3"
+services:
+  ganache:
+    build: ganache
+    ports:
+      - "8545:8545"
+  e2e:
+    build:
+      context: ..
+      dockerfile: e2e/Dockerfile
+    environment:
+      RPC_URL: 'http://ganache:8545'
+    command: 'true'
