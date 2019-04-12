@@ -14,7 +14,7 @@ export default class UrlsCommand extends Command {
         result[network] = networkConstants[network].url
         return result
       },
-      {} as { [name: string]: string }
+      {} as { [name: string]: string },
     )
 
     if (display === 'json') {
@@ -32,8 +32,8 @@ UrlsCommand.flags = {
   display: flags.string({
     description: 'How to display data, table or json.',
     required: false,
-    options: ['table', 'json']
-  })
+    options: ['table', 'json'],
+  }),
 }
 
 UrlsCommand.examples = ['eth network:urls']

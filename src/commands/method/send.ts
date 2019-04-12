@@ -33,23 +33,23 @@ SendCommand.args = [
   {
     name: 'abi',
     required: true,
-    description: `The contract's ABI.`
+    description: `The contract's ABI.`,
   },
   {
     name: 'methodCall',
     required: true,
-    description: `e.g.: 'myMethod(arg1,arg2,["a","b",3,["d","0x123..."]])'`
+    description: `e.g.: 'myMethod(arg1,arg2,["a","b",3,["d","0x123..."]])'`,
   },
   {
     name: 'address',
     required: true,
-    description: `The contract's  address.`
+    description: `The contract's  address.`,
   },
   {
     name: 'pk',
     required: true,
-    description: 'The private key.'
-  }
+    description: 'The private key.',
+  },
 ]
 
 SendCommand.flags = getNetworkFlags()

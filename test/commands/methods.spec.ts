@@ -18,7 +18,7 @@ describe('methods', () => {
 
   it(`Should run 'methods' and throw an error.`, async () => {
     await expect(MethodsCommand.run([])).rejects.toThrow(
-      'Missing 1 required arg:\n' + 'abi  Contract ABI.\n' + 'See more help with --help'
+      'Missing 1 required arg:\n' + 'abi  Contract ABI.\n' + 'See more help with --help',
     )
   })
 
@@ -28,7 +28,7 @@ describe('methods', () => {
 
   it(`Should run 'methods --abi' and throw an error.`, async () => {
     await expect(MethodsCommand.run(['LOL'])).rejects.toThrow(
-      `ENOENT: no such file or directory, open 'LOL'`
+      `ENOENT: no such file or directory, open 'LOL'`,
     )
   })
 

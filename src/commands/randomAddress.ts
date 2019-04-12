@@ -11,7 +11,7 @@ export class RandomAddressCommand extends Command {
     try {
       const { randomAddress } = await import('../helpers/randomAddress')
       randomAddress(amountNumber, prefix).forEach(({ address, privateKey }) =>
-        cli.styledJSON({ address, privateKey })
+        cli.styledJSON({ address, privateKey }),
       )
     } catch (e) {
       this.error(e.message, { exit: 1 })
@@ -28,14 +28,14 @@ RandomAddressCommand.args = [
     name: 'amount',
     required: false,
     default: '1',
-    description: 'Can be specified to generate a list of addresses.'
+    description: 'Can be specified to generate a list of addresses.',
   },
   {
     name: 'prefix',
     required: false,
     default: '',
-    description: 'Generates a random address with the given prefix.'
-  }
+    description: 'Generates a random address with the given prefix.',
+  },
 ]
 
 RandomAddressCommand.examples = ['eth randomAddress 10 fd', 'eth randomAddress 2']

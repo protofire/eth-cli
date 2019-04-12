@@ -14,7 +14,7 @@ export default class IdsCommand extends Command {
         result[network] = networkConstants[network].id
         return result
       },
-      {} as { [name: string]: number }
+      {} as { [name: string]: number },
     )
 
     if (display === 'json') {
@@ -32,8 +32,8 @@ IdsCommand.flags = {
   display: flags.string({
     description: 'How to display data, table or json.',
     required: false,
-    options: ['table', 'json']
-  })
+    options: ['table', 'json'],
+  }),
 }
 
 IdsCommand.examples = ['eth network:ids']

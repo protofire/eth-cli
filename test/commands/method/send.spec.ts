@@ -23,7 +23,7 @@ describe('send', () => {
         'methodCall  e.g.: \'myMethod(arg1,arg2,["a","b",3,["d","0x123..."]])\'\n' +
         "address     The contract's  address.\n" +
         'pk          The private key.\n' +
-        'See more help with --help'
+        'See more help with --help',
     )
   })
 

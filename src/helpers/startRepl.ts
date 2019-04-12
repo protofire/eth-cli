@@ -13,6 +13,6 @@ export function startRepl(url: string) {
   // Start REPL
   replStarter({
     web3,
-    eth: web3.eth
+    eth: web3.eth,
   })
 }

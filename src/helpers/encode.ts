@@ -17,7 +17,7 @@ export function encode(abiPath: string, methodCall: string, url: string) {
 
   const abi = loadABI(abiPath)
   const matchingMethods = extractMethodObjectsFromABI(abi).filter(
-    (x: ABIItem) => x.name === methodName
+    (x: ABIItem) => x.name === methodName,
   )
 
   if (matchingMethods.length > 1) {

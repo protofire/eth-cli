@@ -18,7 +18,7 @@ describe('contract:deploy', () => {
       'Missing 2 required args:\n' +
         'pk   The private key.\n' +
         'bin  The bin file of the contract.\n' +
-        'See more help with --help'
+        'See more help with --help',
     )
   })
 
@@ -30,7 +30,7 @@ describe('contract:deploy', () => {
     await expect(DeployCommand.run(['--bar'])).rejects.toThrow(
       'Missing 1 required arg:\n' +
         'bin  The bin file of the contract.\n' +
-        'See more help with --help'
+        'See more help with --help',
     )
   })
 
@@ -38,13 +38,13 @@ describe('contract:deploy', () => {
     await expect(DeployCommand.run(['--ropsten', '--bar'])).rejects.toThrow(
       'Missing 1 required arg:\n' +
         'bin  The bin file of the contract.\n' +
-        'See more help with --help'
+        'See more help with --help',
     )
   })
 
   it(`Should run 'contract:deploy --bar' with an url and two arg and throw an error.`, async () => {
     await expect(DeployCommand.run(['--ropsten', '--bar', '--fo'])).rejects.toThrow(
-      `Cannot read property 'fromRed' of null`
+      `Cannot read property 'fromRed' of null`,
     )
   })
 

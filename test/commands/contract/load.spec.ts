@@ -17,7 +17,7 @@ describe('contract:load', () => {
       'Missing 2 required args:\n' +
         'abi      The contract abi.\n' +
         'address  The contract address.\n' +
-        'See more help with --help'
+        'See more help with --help',
     )
   })
 
@@ -27,32 +27,36 @@ describe('contract:load', () => {
 
   it(`Should run 'contract:deploy --bar' without url and throw an error.`, async () => {
     await expect(ContractLoadCommand.run(['--bar'])).rejects.toThrow(
-      'Missing 1 required arg:\n' + 'address  The contract address.\n' + 'See more help with --help'
+      'Missing 1 required arg:\n' +
+        'address  The contract address.\n' +
+        'See more help with --help',
     )
   })
 
   it(`Should run 'contract:deploy --bar' with an url and one arg and throw an error.`, async () => {
     await expect(ContractLoadCommand.run(['--ropsten', '--bar'])).rejects.toThrow(
-      'Missing 1 required arg:\n' + 'address  The contract address.\n' + 'See more help with --help'
+      'Missing 1 required arg:\n' +
+        'address  The contract address.\n' +
+        'See more help with --help',
     )
   })
 
   it(`Should run 'contract:deploy --bar' with an url and two arg and throw an error.`, async () => {
     await expect(ContractLoadCommand.run(['--ropsten', '--bar', '--fo'])).rejects.toThrow(
-      `ENOENT: no such file or directory, open '--bar'`
+      `ENOENT: no such file or directory, open '--bar'`,
     )
   })
 
   it(`Should run 'contract:deploy --bar' with an url and two arg and throw an error.`, async () => {
     await expect(ContractLoadCommand.run(['--ropsten', '--bar', '--fo'])).rejects.toThrow(
-      `ENOENT: no such file or directory, open '--bar'`
+      `ENOENT: no such file or directory, open '--bar'`,
     )
   })
 
   it(`Should run 'contract:load ./test/files/contracts/Proxy.abi 0x601fd71f284B1933420A5DB0C43B10efC429A008' an get success.`, async () => {
     await ContractLoadCommand.run([
       './test/files/contracts/Proxy.abi',
-      '0x601fd71f284B1933420A5DB0C43B10efC429A008'
+      '0x601fd71f284B1933420A5DB0C43B10efC429A008',
     ])
     expect(stdoutResult).toMatchSnapshot()
   }, 1200000)
@@ -62,8 +66,8 @@ describe('contract:load', () => {
       ContractLoadCommand.run([
         './test/files/contracts/Proxy.abi',
         '0x601fd71f284B1933420A5DB0C43B10efC429A008',
-        `[['foo']]`
-      ])
+        `[['foo']]`,
+      ]),
     ).rejects.toThrow(`eth load-contract: You must specify an address for each contract`)
   }, 60000)
 })

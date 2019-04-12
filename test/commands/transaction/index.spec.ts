@@ -26,7 +26,7 @@ describe('transaction', () => {
 
   it(`Should run 'transaction --bar' and throw an error.`, async () => {
     await expect(TransactionindexCommand.run(['--bar'])).rejects.toThrow(
-      'Unexpected argument: --bar'
+      'Unexpected argument: --bar',
     )
   })
 })

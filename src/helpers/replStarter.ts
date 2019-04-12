@@ -12,7 +12,7 @@ export function replStarter(context: { [key: string]: any }) {
     eval: (cmd, context, _, callback) => {
       try {
         const result = vm.runInContext(cmd, context, {
-          displayErrors: false
+          displayErrors: false,
         })
 
         if (result && result.then) {
@@ -27,7 +27,7 @@ export function replStarter(context: { [key: string]: any }) {
 
         callback(e, null)
       }
-    }
+    },
   })
 
   r.context.Web3 = Web3

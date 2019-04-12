@@ -31,18 +31,18 @@ SendTransactionCommand.args = [
   {
     name: 'encodedABI',
     required: true,
-    description: 'The encoded ABI.'
+    description: 'The encoded ABI.',
   },
   {
     name: 'address',
     required: true,
-    description: `The contract's address.`
+    description: `The contract's address.`,
   },
   {
     name: 'pk',
     required: true,
-    description: 'The private key.'
-  }
+    description: 'The private key.',
+  },
 ]
 
 SendTransactionCommand.flags = getNetworkFlags()

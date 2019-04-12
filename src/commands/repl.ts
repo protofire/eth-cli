@@ -23,5 +23,5 @@ ReplCommand.flags = getNetworkFlags()
 ReplCommand.examples = [
   'eth repl --ropsten',
   'eth repl --mainnet',
-  'eth repl --url=http://localhost:8545'
+  'eth repl --url=http://localhost:8545',
 ]

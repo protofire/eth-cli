@@ -25,15 +25,15 @@ DecodeCommand.args = [
   {
     name: 'functionSignature',
     required: true,
-    description: 'The function signature.'
+    description: 'The function signature.',
   },
   {
     name: 'txData',
     required: true,
-    description: 'The given transaction data.'
-  }
+    description: 'The given transaction data.',
+  },
 ]
 
 DecodeCommand.examples = [
-  `eth decode 'transfer(address,uint256)' '0xa9059cbb000000000000000000000000697dB915674bAc602F4d6fAfA31c0e45f386416E00000000000000000000000000000000000000000000000000000004ff043b9e'`
+  `eth decode 'transfer(address,uint256)' '0xa9059cbb000000000000000000000000697dB915674bAc602F4d6fAfA31c0e45f386416E00000000000000000000000000000000000000000000000000000004ff043b9e'`,
 ]

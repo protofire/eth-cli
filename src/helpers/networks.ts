@@ -10,48 +10,48 @@ export const networkConstants: { [key: string]: Network } = {
   mainnet: {
     id: 1,
     url: 'https://mainnet.infura.io',
-    label: 'Mainnet'
+    label: 'Mainnet',
   },
   ropsten: {
     id: 3,
     url: 'https://ropsten.infura.io',
-    label: 'Ropsten'
+    label: 'Ropsten',
   },
   rinkeby: {
     id: 4,
     url: 'https://rinkeby.infura.io',
-    label: 'Rinkeby'
+    label: 'Rinkeby',
   },
   rsk: {
     id: 30,
     url: 'https://public-node.rsk.co',
-    label: 'RSK'
+    label: 'RSK',
   },
   'rsk-testnet': {
     id: 31,
     url: 'https://public-node.testnet.rsk.co',
-    label: 'RSK testnet'
+    label: 'RSK testnet',
   },
   kovan: {
     id: 42,
     url: 'https://kovan.infura.io',
-    label: 'Kovan'
+    label: 'Kovan',
   },
   sokol: {
     id: 77,
     url: 'https://sokol.poa.network',
-    label: 'Sokol'
+    label: 'Sokol',
   },
   poa: {
     id: 99,
     url: 'https://core.poa.network',
-    label: 'POA'
+    label: 'POA',
   },
   xdai: {
     id: 100,
     url: 'https://dai.poa.network',
-    label: 'xDAI'
-  }
+    label: 'xDAI',
+  },
 }
 
 export const networkDefaultUrl = 'http://localhost:8545'
@@ -66,8 +66,8 @@ export const getNetworkFlags = () => {
       required: false,
       description: 'URL of the ethereum node to connect.',
       default: defaultUrl,
-      multiple: false
-    })
+      multiple: false,
+    }),
   }
 
   // register a flag for each known network
@@ -78,7 +78,7 @@ export const getNetworkFlags = () => {
     flagsToAdd[network] = flags.boolean({
       required: false,
       description: `Connect to ${label} network`,
-      exclusive: [...networks]
+      exclusive: [...networks],
     })
   })
 

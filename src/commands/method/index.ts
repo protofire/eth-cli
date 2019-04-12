@@ -21,5 +21,5 @@ MethodCommand.examples = [
   'eth method:hash',
   'eth method:encode',
   'eth method:send-transaction',
-  'eth method:send'
+  'eth method:send',
 ]

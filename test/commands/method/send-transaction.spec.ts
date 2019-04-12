@@ -22,7 +22,7 @@ describe('send-transaction', () => {
         'encodedABI  The encoded ABI.\n' +
         "address     The contract's address.\n" +
         'pk          The private key.\n' +
-        'See more help with --help'
+        'See more help with --help',
     )
   })
 

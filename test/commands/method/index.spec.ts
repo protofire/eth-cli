@@ -26,7 +26,7 @@ describe('method', () => {
 
   it(`Should run 'method --bar' and throw an error.`, async () => {
     await expect(MethodIndexCommand.run(['--bar'])).rejects.toThrow(
-      'Unexpected argument: --bar\n' + 'See more help with --help'
+      'Unexpected argument: --bar\n' + 'See more help with --help',
     )
   })
 })

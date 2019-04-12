@@ -18,7 +18,7 @@ describe('transaction:nop', () => {
 
   it(`Should run 'transaction:nop' and throw an error.`, async () => {
     await expect(TransactionNopCommand.run([])).rejects.toThrow(
-      'Missing 1 required arg:\n' + 'pk  The private key.\n' + 'See more help with --help'
+      'Missing 1 required arg:\n' + 'pk  The private key.\n' + 'See more help with --help',
     )
   })
 
@@ -28,13 +28,13 @@ describe('transaction:nop', () => {
 
   it(`Should run 'transaction:nop --bar' without url and throw an error.`, async () => {
     await expect(TransactionNopCommand.run(['--bar'])).rejects.toThrow(
-      `Cannot read property 'fromRed' of null`
+      `Cannot read property 'fromRed' of null`,
     )
   })
 
   it(`Should run 'transaction:nop --bar' and throw an error.`, async () => {
     await expect(TransactionNopCommand.run(['--ropsten', '--bar'])).rejects.toThrow(
-      `Cannot read property 'fromRed' of null`
+      `Cannot read property 'fromRed' of null`,
     )
   })
 })

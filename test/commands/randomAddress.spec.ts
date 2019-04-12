@@ -34,25 +34,25 @@ describe('randomAddress', () => {
 
   it(`Should run 'randomAddress l' and throw an error.`, async () => {
     await expect(RandomAddressCommand.run(['l'])).rejects.toThrow(
-      '[random-address] amount must be an integer number and greater than 0'
+      '[random-address] amount must be an integer number and greater than 0',
     )
   })
 
   it(`Should run 'randomAddress l 1' and throw an error.`, async () => {
     await expect(RandomAddressCommand.run(['l', '1'])).rejects.toThrow(
-      '[random-address] amount must be an integer number and greater than 0'
+      '[random-address] amount must be an integer number and greater than 0',
     )
   })
 
   it(`Should run 'randomAddress 1 Z' and throw an error.`, async () => {
     await expect(RandomAddressCommand.run(['1', 'Z'])).rejects.toThrow(
-      '[random-address] prefix must be a valid hex value'
+      '[random-address] prefix must be a valid hex value',
     )
   })
 
   it(`Should run 'randomAddress --bar' and throw an error.`, async () => {
     await expect(RandomAddressCommand.run(['--bar'])).rejects.toThrow(
-      '[random-address] amount must be an integer number and greater than 0'
+      '[random-address] amount must be an integer number and greater than 0',
     )
   })
 })

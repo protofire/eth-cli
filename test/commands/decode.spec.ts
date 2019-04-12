@@ -21,7 +21,7 @@ describe('decode', () => {
       'Missing 2 required args:\n' +
         'functionSignature  The function signature.\n' +
         'txData             The given transaction data.\n' +
-        'See more help with --help'
+        'See more help with --help',
     )
   })
 
@@ -33,7 +33,7 @@ describe('decode', () => {
     await expect(DecodeCommand.run(['LOL'])).rejects.toThrow(
       `Missing 1 required arg:
 txData  The given transaction data.
-See more help with --help`
+See more help with --help`,
     )
   })
 
@@ -41,7 +41,7 @@ See more help with --help`
   '0xa9059cbb000000000000000000000000697dB915674bAc602F4d6fAfA31c0e45f386416E00000000000000000000000000000000000000000000000000000004ff043b9e'.`, async () => {
     await DecodeCommand.run([
       'transfer(address,uint256)',
-      '0xa9059cbb000000000000000000000000697dB915674bAc602F4d6fAfA31c0e45f386416E00000000000000000000000000000000000000000000000000000004ff043b9e'
+      '0xa9059cbb000000000000000000000000697dB915674bAc602F4d6fAfA31c0e45f386416E00000000000000000000000000000000000000000000000000000004ff043b9e',
     ])
 
     expect(stdoutResult).toMatchSnapshot()

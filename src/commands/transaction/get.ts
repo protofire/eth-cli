@@ -16,7 +16,7 @@ export default class GetCommand extends BaseCommand {
       const { getTransaction, getReceipt } = await import('../../helpers/getTransactionObject')
       const promises: [Promise<Transaction>, Promise<TransactionReceipt>] = [
         getTransaction(txHash, networkUrl),
-        getReceipt(txHash, networkUrl)
+        getReceipt(txHash, networkUrl),
       ]
       const [transaction, receipt] = await Promise.all(promises)
 
@@ -24,7 +24,7 @@ export default class GetCommand extends BaseCommand {
       if (transaction) {
         output = {
           ...transaction,
-          receipt
+          receipt,
         }
       } else {
         output = null
@@ -44,8 +44,8 @@ GetCommand.args = [
   {
     name: 'txHash',
     required: true,
-    description: 'The transaction hash.'
-  }
+    description: 'The transaction hash.',
+  },
 ]
 
 GetCommand.flags = getNetworkFlags()
@@ -53,5 +53,5 @@ GetCommand.flags = getNetworkFlags()
 GetCommand.examples = [
   'eth transaction:get --mainnet 0xc83836f1b3acac94a31de8e24c913aceaa9ebc51c93cd374429590596091584a',
   'eth transaction:get --ropsten 0xc83836f1b3acac94a31de8e24c913aceaa9ebc51c93cd374429590596091584a',
-  'eth transaction:get --url= http://localhost:8545 0xc83836f1b3acac94a31de8e24c913aceaa9ebc51c93cd374429590596091584a'
+  'eth transaction:get --url= http://localhost:8545 0xc83836f1b3acac94a31de8e24c913aceaa9ebc51c93cd374429590596091584a',
 ]

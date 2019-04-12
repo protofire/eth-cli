@@ -31,22 +31,22 @@ LoadCommand.args = [
   {
     name: 'abi',
     required: true,
-    description: 'The contract abi.'
+    description: 'The contract abi.',
   },
   {
     name: 'address',
     required: true,
-    description: 'The contract address.'
+    description: 'The contract address.',
   },
   {
     name: 'rest',
     required: false,
-    description: 'Pairs of ABI address for loading extra contracts [[abi address]..].'
-  }
+    description: 'Pairs of ABI address for loading extra contracts [[abi address]..].',
+  },
 ]
 
 LoadCommand.flags = getNetworkFlags()
 
 LoadCommand.examples = [
-  'eth contract:load ./contracts/proxy.abi 0x601fd71f284B1933420A5DB0C43B10efC429A008'
+  'eth contract:load ./contracts/proxy.abi 0x601fd71f284B1933420A5DB0C43B10efC429A008',
 ]

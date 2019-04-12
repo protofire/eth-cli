@@ -23,12 +23,12 @@ export function deploy(url: string, privateKey: string, bin: string): Promise<De
 
   return deploy
     .estimateGas({
-      from: address
+      from: address,
     })
     .then(gas => {
       const contract = deploy.send({
         from: address,
-        gas
+        gas,
       })
 
       const receiptPromise = new Promise<TransactionReceipt>(resolve => {

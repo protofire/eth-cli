@@ -27,8 +27,8 @@ HashCommand.args = [
   {
     name: 'signature',
     required: true,
-    description: 'The given signature.'
-  }
+    description: 'The given signature.',
+  },
 ]
 
 HashCommand.examples = [`eth method:hash 'transfer(address,uint256)'`]

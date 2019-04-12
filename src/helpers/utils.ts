@@ -9,7 +9,7 @@ import { ABI, ABIItem } from '../types'
 export const showDataWithDisplay = (data: { [name: string]: any }, display: string) => {
   if (display.toLowerCase() === 'table') {
     const table = new Table({
-      head: Object.keys(data)
+      head: Object.keys(data),
     })
 
     table.push(Object.values(data))
@@ -61,7 +61,7 @@ export const evaluateMethodCallStructure = (methodCall: string) => {
     methodCall,
     methodName: method ? method[1] : null,
     methodArgs: method ? method[2] : null,
-    methodValid: !!method
+    methodValid: !!method,
   }
 }
 

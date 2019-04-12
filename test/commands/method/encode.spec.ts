@@ -21,7 +21,7 @@ describe('encode', () => {
       'Missing 2 required args:\n' +
         'abi         The abi file.\n' +
         'methodCall  e.g.: \'myMethod(arg1,arg2,["a","b",3,["d","0x123..."]])\'\n' +
-        'See more help with --help'
+        'See more help with --help',
     )
   })
 
@@ -39,7 +39,7 @@ See more help with --help`)
     await MethodEncodeCommand.run([
       '--sokol',
       './test/files/contracts/Proxy.abi',
-      'updateAppInstance()'
+      'updateAppInstance()',
     ])
     expect(stdoutResult).toMatchSnapshot()
   })

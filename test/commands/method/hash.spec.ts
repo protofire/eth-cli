@@ -20,7 +20,7 @@ describe('hash', () => {
     await expect(MethodHashCommand.run([])).rejects.toThrow(
       'Missing 1 required arg:\n' +
         'signature  The given signature.\n' +
-        'See more help with --help'
+        'See more help with --help',
     )
   })
 

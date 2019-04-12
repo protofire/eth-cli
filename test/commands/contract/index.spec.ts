@@ -26,7 +26,7 @@ describe('contract', () => {
 
   it(`Should run 'contract --bar' and throw an error.`, async () => {
     await expect(ContractIndexCommand.run(['--bar'])).rejects.toThrow(
-      'Unexpected argument: --bar\n' + 'See more help with --help'
+      'Unexpected argument: --bar\n' + 'See more help with --help',
     )
   })
 })

@@ -27,8 +27,8 @@ MethodsCommand.args = [
   {
     name: 'abi',
     required: true,
-    description: 'Contract ABI.'
-  }
+    description: 'Contract ABI.',
+  },
 ]
 
 MethodsCommand.examples = ['eth methods ../contracts/proxy.abi']

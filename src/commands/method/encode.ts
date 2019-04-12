@@ -29,17 +29,17 @@ EncodeCommand.args = [
   {
     name: 'abi',
     required: true,
-    description: 'The abi file.'
+    description: 'The abi file.',
   },
   {
     name: 'methodCall',
     required: true,
-    description: `e.g.: 'myMethod(arg1,arg2,["a","b",3,["d","0x123..."]])'`
-  }
+    description: `e.g.: 'myMethod(arg1,arg2,["a","b",3,["d","0x123..."]])'`,
+  },
 ]
 
 EncodeCommand.flags = getNetworkFlags()
 
 EncodeCommand.examples = [
-  `eth method:encode --sokol ./test/files/contracts/Proxy.abi 'updateAppInstance()'`
+  `eth method:encode --sokol ./test/files/contracts/Proxy.abi 'updateAppInstance()'`,
 ]

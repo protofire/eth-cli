@@ -13,7 +13,7 @@ export function generateNop(url: string, privateKey: string) {
       .sendTransaction({
         from: address,
         to: address,
-        gas: 21000
+        gas: 21000,
       })
       .once('transactionHash', transactionHash => resolve(transactionHash))
   })

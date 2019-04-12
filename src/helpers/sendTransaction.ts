@@ -7,7 +7,7 @@ export function sendTransaction(
   data: string,
   contractAddress: string,
   privateKey: string,
-  url: string
+  url: string,
 ) {
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
 

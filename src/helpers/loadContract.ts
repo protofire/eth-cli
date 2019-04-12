@@ -17,8 +17,8 @@ export function loadContract(abiPath: string, address: string, rest: string, url
     {
       abiPath,
       abi: loadABI(abiPath),
-      address
-    }
+      address,
+    },
   ]
 
   for (let i = 0; i < rest.length; i += 2) {
@@ -26,7 +26,7 @@ export function loadContract(abiPath: string, address: string, rest: string, url
     abisAndAddresses.push({
       abiPath,
       abi: loadABI(abiPath),
-      address
+      address,
     })
   }
 
@@ -36,7 +36,7 @@ export function loadContract(abiPath: string, address: string, rest: string, url
   // Default context
   let replContext: ReplContext = {
     web3,
-    eth: web3.eth
+    eth: web3.eth,
   }
 
   // Add contracts into context

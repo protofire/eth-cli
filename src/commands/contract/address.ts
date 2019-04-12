@@ -24,13 +24,13 @@ AddressCommand.args = [
   {
     name: 'account',
     required: true,
-    description: 'The account.'
+    description: 'The account.',
   },
   {
     name: 'nonce',
     description: 'The nonce.',
-    default: '0'
-  }
+    default: '0',
+  },
 ]
 
 AddressCommand.examples = ['eth ct:address 0x92970dbD5C0Ee6b439422bFd7cD71e1DDA921A03']
