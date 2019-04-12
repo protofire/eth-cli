@@ -1,7 +1,5 @@
 import * as path from 'path'
 import Web3 from 'web3'
-import { Eth } from 'web3-eth';
-import { Contract } from 'web3-eth-contract';
 
 import { replStarter } from './replStarter'
 import { loadABI } from './utils'
