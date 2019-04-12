@@ -4,9 +4,9 @@ import * as fs from 'fs'
 import { Accounts } from 'web3-eth-accounts'
 import { HttpProvider } from 'web3-providers'
 
-import { ABI, ABIItem } from '../types';
+import { ABI, ABIItem } from '../types'
 
-export const showDataWithDisplay = (data: {[name: string]: any}, display: string) => {
+export const showDataWithDisplay = (data: { [name: string]: any }, display: string) => {
   if (display.toLowerCase() === 'table') {
     const table = new Table({
       head: Object.keys(data)

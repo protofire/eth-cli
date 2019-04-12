@@ -5,7 +5,7 @@ import { replStarter } from './replStarter'
 import { loadABI } from './utils'
 
 interface ReplContext {
-  [key: string]: any;
+  [key: string]: any
 }
 
 export function loadContract(abiPath: string, address: string, rest: string, url: string) {

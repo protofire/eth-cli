@@ -9,10 +9,13 @@ export default class IdsCommand extends Command {
     const { display = 'json' } = flags
 
     const { networkConstants } = await import('../../helpers/networks')
-    const networksIds = Object.keys(networkConstants).reduce((result, network) => {
-      result[network] = networkConstants[network].id
-      return result
-    }, {} as {[name: string]: number})
+    const networksIds = Object.keys(networkConstants).reduce(
+      (result, network) => {
+        result[network] = networkConstants[network].id
+        return result
+      },
+      {} as { [name: string]: number }
+    )
 
     if (display === 'json') {
       cli.styledJSON(networksIds)

@@ -10,7 +10,9 @@ export class RandomAddressCommand extends Command {
 
     try {
       const { randomAddress } = await import('../helpers/randomAddress')
-      randomAddress(amountNumber, prefix).forEach(({address, privateKey}) => cli.styledJSON({address, privateKey}))
+      randomAddress(amountNumber, prefix).forEach(({ address, privateKey }) =>
+        cli.styledJSON({ address, privateKey })
+      )
     } catch (e) {
       this.error(e.message, { exit: 1 })
     }

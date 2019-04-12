@@ -3,7 +3,7 @@ import { Command } from '@oclif/command'
 import { networkConstants } from '../helpers/networks'
 
 export abstract class BaseCommand extends Command {
-  getNetworkUrl(flags: {[name: string]: string}) {
+  getNetworkUrl(flags: { [name: string]: string }) {
     const { url } = flags
 
     let networkUrl = url

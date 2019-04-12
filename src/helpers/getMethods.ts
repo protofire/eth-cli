@@ -1,6 +1,6 @@
 import { keccak } from 'ethereumjs-util'
 
-import { ABIInput, ABIItem } from '../types';
+import { ABIInput, ABIItem } from '../types'
 
 import { extractMethodObjectsFromABI, loadABI } from './utils'
 

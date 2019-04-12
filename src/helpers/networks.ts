@@ -1,12 +1,12 @@
 import { flags } from '@oclif/command'
 
 interface Network {
-  id: number;
-  url: string;
-  label: string;
+  id: number
+  url: string
+  label: string
 }
 
-export const networkConstants: {[key:string]: Network} = {
+export const networkConstants: { [key: string]: Network } = {
   mainnet: {
     id: 1,
     url: 'https://mainnet.infura.io',
@@ -61,7 +61,7 @@ export const getNetworkFlags = () => {
   const defaultUrl = networkDefaultUrl
   const networkConstantsKeys = Object.keys(networkConstants)
 
-  let flagsToAdd: {[key: string]: flags.IFlag<string | undefined>} = {
+  let flagsToAdd: { [key: string]: flags.IFlag<string | undefined> } = {
     url: flags.string({
       required: false,
       description: 'URL of the ethereum node to connect.',

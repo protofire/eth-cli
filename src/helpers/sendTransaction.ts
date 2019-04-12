@@ -1,9 +1,14 @@
 import Web3 from 'web3'
-import { TransactionConfig } from 'web3-core';
+import { TransactionConfig } from 'web3-core'
 
 import { add0x } from './utils'
 
-export function sendTransaction(data: string, contractAddress: string, privateKey: string, url: string) {
+export function sendTransaction(
+  data: string,
+  contractAddress: string,
+  privateKey: string,
+  url: string
+) {
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
 
   privateKey = add0x(privateKey)

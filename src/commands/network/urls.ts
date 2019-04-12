@@ -9,10 +9,13 @@ export default class UrlsCommand extends Command {
     const { display = 'json' } = flags
 
     const { networkConstants } = await import('../../helpers/networks')
-    const networksIds = Object.keys(networkConstants).reduce((result, network) => {
-      result[network] = networkConstants[network].url
-      return result
-    }, {} as {[name: string]: string})
+    const networksIds = Object.keys(networkConstants).reduce(
+      (result, network) => {
+        result[network] = networkConstants[network].url
+        return result
+      },
+      {} as { [name: string]: string }
+    )
 
     if (display === 'json') {
       cli.styledJSON(networksIds)

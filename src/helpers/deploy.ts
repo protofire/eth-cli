@@ -1,12 +1,12 @@
 import * as fs from 'fs'
 import Web3 from 'web3'
-import { TransactionReceipt } from 'web3-core/types';
+import { TransactionReceipt } from 'web3-core/types'
 
 import { add0x } from './utils'
 
 interface DeployResult {
-  receipt: TransactionReceipt;
-  address: string;
+  receipt: TransactionReceipt
+  address: string
 }
 
 export function deploy(url: string, privateKey: string, bin: string): Promise<DeployResult> {
@@ -26,17 +26,16 @@ export function deploy(url: string, privateKey: string, bin: string): Promise<De
       from: address
     })
     .then(gas => {
-      const contract = deploy
-          .send({
-            from: address,
-            gas,
-          })
-
-      const receiptPromise = new Promise<TransactionReceipt>(resolve => {
-        contract.on('receipt', receipt => resolve(receipt));
+      const contract = deploy.send({
+        from: address,
+        gas
       })
 
-      return Promise.all([contract, receiptPromise]);
+      const receiptPromise = new Promise<TransactionReceipt>(resolve => {
+        contract.on('receipt', receipt => resolve(receipt))
+      })
+
+      return Promise.all([contract, receiptPromise])
     })
     .then(([contract, receipt]) => {
       return { address: contract.options.address, receipt }

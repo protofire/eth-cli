@@ -6,7 +6,7 @@ import Web3 from 'web3'
 
 const historyFile = path.join(os.homedir(), '.eth_cli_history')
 
-export function replStarter(context: {[key: string]: any}) {
+export function replStarter(context: { [key: string]: any }) {
   const r = repl.start({
     prompt: '> ',
     eval: (cmd, context, _, callback) => {
