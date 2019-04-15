@@ -29,14 +29,20 @@ export default class NetworksCommand extends Command {
       cli.styledJSON(networkConstants)
     } else {
       const networks = Object.values(networkConstants).sort((network1, network2) => {
-        return network1.id - network2.id
+        if (network1.id !== undefined && network2.id !== undefined) {
+          return network1.id - network2.id
+        } else if (network1.id !== undefined) {
+          return -1
+        } else {
+          return 1
+        }
       })
       cli.table(
         networks,
         {
           id: {
+            header: 'Id',
             minWidth: 7,
-            label: 'ID',
           },
           label: {
             header: 'Name',
