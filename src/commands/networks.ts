@@ -10,10 +10,12 @@ export default class NetworksCommand extends Command {
     json: flags.boolean({
       description: 'Display data in a json structure.',
       required: false,
+      exclusive: ['table'],
     }),
     table: flags.boolean({
       description: 'Display data in a table structure.',
       required: false,
+      exclusive: ['json'],
     }),
   }
 
