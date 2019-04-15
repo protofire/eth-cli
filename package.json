@@ -84,7 +84,7 @@
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "prettier": "prettier --write '**/*.{ts,tsx,json,md}' --ignore-path .gitignore",
     "prettier-check": "prettier --check '**/*.{ts,tsx,json,md}' --ignore-path .gitignore",
-    "test": "jest --coverage --detectOpenHandles",
+    "test": "jest --coverage --detectOpenHandles ./test",
     "version": "oclif-dev readme && git add README.md",
     "clearjest": "jest --clearCache"
   },
