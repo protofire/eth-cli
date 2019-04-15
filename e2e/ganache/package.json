@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "ganache-cli": "6.4.2"
+  }
+}
