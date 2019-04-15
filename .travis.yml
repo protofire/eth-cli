@@ -7,4 +7,5 @@ services:
 
 script:
   - npm run lint
+  - npm test
   - cd e2e && ./run-tests.sh
