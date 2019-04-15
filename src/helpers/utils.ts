@@ -1,24 +1,9 @@
-import Table from 'cli-table'
 import { randomBytes } from 'crypto'
 import * as fs from 'fs'
 import { Accounts } from 'web3-eth-accounts'
 import { HttpProvider } from 'web3-providers'
 
 import { ABI, ABIItem } from '../types'
-
-export const showDataWithDisplay = (data: { [name: string]: any }, display: string) => {
-  if (display.toLowerCase() === 'table') {
-    const table = new Table({
-      head: Object.keys(data),
-    })
-
-    table.push(Object.values(data))
-
-    return table.toString()
-  } else {
-    return JSON.stringify(data, null, 2)
-  }
-}
 
 export const add0x = (hex: string) => {
   return hex.indexOf('0x') === 0 ? hex : `0x${hex}`

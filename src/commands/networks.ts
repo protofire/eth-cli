@@ -2,16 +2,18 @@ import { Command, flags } from '@oclif/command'
 import { cli } from 'cli-ux'
 
 import { BaseCommand } from '../base/index'
-import { showDataWithDisplay } from '../helpers/utils'
 
 export default class NetworksCommand extends Command {
   static description = `Show information for each known network.`
 
   static flags = {
-    display: flags.string({
-      description: 'How to display data, table or json.',
+    json: flags.boolean({
+      description: 'Display data in a json structure.',
       required: false,
-      options: ['table', 'json'],
+    }),
+    table: flags.boolean({
+      description: 'Display data in a table structure.',
+      required: false,
     }),
   }
 
@@ -19,15 +21,35 @@ export default class NetworksCommand extends Command {
 
   async run() {
     const { flags } = this.parse(NetworksCommand)
-    const { display = 'json' } = flags
+    const { table } = flags
 
     const networkConstants = BaseCommand.getNetworksInfo()
 
-    if (display === 'json') {
+    if (!table) {
       cli.styledJSON(networkConstants)
     } else {
-      // cli.table does not work with this structure
-      this.log(showDataWithDisplay(networkConstants, 'table'))
+      const networks = Object.values(networkConstants).sort((network1, network2) => {
+        return network1.id - network2.id
+      })
+      cli.table(
+        networks,
+        {
+          id: {
+            minWidth: 7,
+            label: 'ID',
+          },
+          label: {
+            header: 'Name',
+          },
+          url: {
+            header: 'Url',
+          },
+        },
+        {
+          printLine: this.log,
+          ...flags, // parsed flags
+        },
+      )
     }
   }
 }
