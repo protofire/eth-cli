@@ -8,13 +8,18 @@ export function generateNop(url: string, privateKey: string) {
 
   const { address } = web3.eth.accounts.wallet.add(privateKey)
 
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     web3.eth
       .sendTransaction({
         from: address,
         to: address,
         gas: 21000,
       })
-      .once('transactionHash', transactionHash => resolve(transactionHash))
+      .once('transactionHash', transactionHash => {
+        resolve(transactionHash)
+      })
+      .once('error', e => {
+        reject(e)
+      })
   })
 }

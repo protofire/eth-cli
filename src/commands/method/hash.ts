@@ -2,6 +2,20 @@ import { Command } from '@oclif/command'
 import { keccak } from 'ethereumjs-util'
 
 export default class HashCommand extends Command {
+  static description = `Get the hash of the given method.`
+
+  static args = [
+    {
+      name: 'signature',
+      required: true,
+      description: 'The given signature.',
+    },
+  ]
+
+  static examples = [`eth method:hash 'transfer(address,uint256)'`]
+
+  static aliases = ['m:hs', 'm:h']
+
   async run() {
     const { args } = this.parse(HashCommand)
 
@@ -18,17 +32,3 @@ export default class HashCommand extends Command {
     }
   }
 }
-
-HashCommand.aliases = ['m:hs', 'm:h']
-
-HashCommand.description = `Get the hash of the given method.`
-
-HashCommand.args = [
-  {
-    name: 'signature',
-    required: true,
-    description: 'The given signature.',
-  },
-]
-
-HashCommand.examples = [`eth method:hash 'transfer(address,uint256)'`]

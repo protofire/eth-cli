@@ -1,7 +1,18 @@
 import { BaseCommand } from '../base'
-import { getNetworkFlags } from '../helpers/networks'
 
 export default class ReplCommand extends BaseCommand {
+  static description = `Start a REPL that connects to a local eth node and exposes the 'web3' and 'eth' objects.`
+
+  static flags = {
+    ...BaseCommand.flags,
+  }
+
+  static examples = [
+    'eth repl --ropsten',
+    'eth repl --mainnet',
+    'eth repl --url=http://localhost:8545',
+  ]
+
   async run() {
     const { flags } = this.parse(ReplCommand)
     let networkUrl
@@ -15,13 +26,3 @@ export default class ReplCommand extends BaseCommand {
     }
   }
 }
-
-ReplCommand.description = `Start a REPL that connects to a local eth node and exposes the 'web3' and 'eth' objects.`
-
-ReplCommand.flags = getNetworkFlags()
-
-ReplCommand.examples = [
-  'eth repl --ropsten',
-  'eth repl --mainnet',
-  'eth repl --url=http://localhost:8545',
-]
