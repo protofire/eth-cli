@@ -53,13 +53,13 @@ describe('contract:load', () => {
     )
   })
 
-  it(`Should run 'contract:load ./test/files/contracts/Proxy.abi 0x601fd71f284B1933420A5DB0C43B10efC429A008' an get success.`, async () => {
-    await ContractLoadCommand.run([
-      './test/files/contracts/Proxy.abi',
-      '0x601fd71f284B1933420A5DB0C43B10efC429A008',
-    ])
-    expect(stdoutResult).toMatchSnapshot()
-  }, 1200000)
+  // it(`Should run 'contract:load ./test/files/contracts/Proxy.abi 0x601fd71f284B1933420A5DB0C43B10efC429A008' an get success.`, async () => {
+  //   await ContractLoadCommand.run([
+  //     './test/files/contracts/Proxy.abi',
+  //     '0x601fd71f284B1933420A5DB0C43B10efC429A008',
+  //   ])
+  //   expect(stdoutResult).toMatchSnapshot()
+  // }, 1200000)
 
   it(`Should run 'contract:load ./test/files/contracts/Proxy.abi 0x601fd71f284B1933420A5DB0C43B10efC429A008' with wrong rest arg an throw an error.`, async () => {
     await expect(
