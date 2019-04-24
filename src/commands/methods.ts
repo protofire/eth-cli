@@ -1,6 +1,20 @@
 import { Command } from '@oclif/command'
 
 export default class MethodsCommand extends Command {
+  static description = `Get the hash of each method in the given ABI.`
+
+  static args = [
+    {
+      name: 'abi',
+      required: true,
+      description: 'Contract ABI.',
+    },
+  ]
+
+  static examples = ['eth methods ../contracts/proxy.abi']
+
+  static aliases = ['me']
+
   async run() {
     const { args } = this.parse(MethodsCommand)
 
@@ -18,17 +32,3 @@ export default class MethodsCommand extends Command {
     }
   }
 }
-
-MethodsCommand.aliases = ['me']
-
-MethodsCommand.description = `Get the hash of each method in the given ABI.`
-
-MethodsCommand.args = [
-  {
-    name: 'abi',
-    required: true,
-    description: 'Contract ABI.',
-  },
-]
-
-MethodsCommand.examples = ['eth methods ../contracts/proxy.abi']

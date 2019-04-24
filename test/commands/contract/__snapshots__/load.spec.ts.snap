@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`contract:load Should run 'contract:load ./test/files/contracts/Proxy.abi 0x601fd71f284B1933420A5DB0C43B10efC429A008' an get success. 1`] = `
-Array [
-  "> ",
-]
-`;

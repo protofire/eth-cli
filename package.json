@@ -18,7 +18,6 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
-    "cli-table": "^0.3.1",
     "cli-ux": "^5.2.1",
     "ethereumjs-util": "^6.1.0",
     "repl.history": "^0.1.4",
@@ -80,11 +79,10 @@
   "scripts": {
     "lint": "tslint --project . && npm run prettier-check",
     "postpack": "rm -f oclif.manifest.json",
-    "posttest": "jest ./test",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "prettier": "prettier --write '**/*.{ts,tsx,json,md}' --ignore-path .gitignore",
     "prettier-check": "prettier --check '**/*.{ts,tsx,json,md}' --ignore-path .gitignore",
-    "test": "jest --coverage --detectOpenHandles",
+    "test": "jest --coverage --detectOpenHandles ./test",
     "version": "oclif-dev readme && git add README.md",
     "clearjest": "jest --clearCache"
   },
