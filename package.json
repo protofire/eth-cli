@@ -54,7 +54,7 @@
     "/bin",
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json",
-    "/lib"
+    "/lib/**/*"
   ],
   "homepage": "https://github.com/protofire/eth-cli#readme",
   "keywords": [
@@ -79,7 +79,7 @@
   "scripts": {
     "lint": "tslint --project . && npm run prettier-check",
     "postpack": "rm -f oclif.manifest.json",
-    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "prepack": "rm -rf lib tsconfig.tsbuildinfo && tsc -b && oclif-dev manifest && oclif-dev readme",
     "prettier": "prettier --write '**/*.{ts,tsx,json,md}' --ignore-path .gitignore",
     "prettier-check": "prettier --check '**/*.{ts,tsx,json,md}' --ignore-path .gitignore",
     "test": "jest --coverage --detectOpenHandles ./test",
