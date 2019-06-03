@@ -2,7 +2,7 @@ const path = require('path')
 const shell = require('shelljs')
 
 const binPath = path.join(__dirname, '..', 'bin', 'run')
-const testAbis = path.join(__dirname, 'abis')
+const testAbis = path.join(__dirname, 'abi')
 
 const erc20Abi = path.join(testAbis, 'ERC20.json')
 

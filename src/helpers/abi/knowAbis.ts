@@ -1,5 +1,5 @@
-import erc20Abi from './erc20.abi.json'
-import erc721Abi from './erc721.abi.json'
+import erc20Abi from './erc20.json'
+import erc721Abi from './erc721.json'
 interface AbiMetaData {
   name: string
   abiItem: any
