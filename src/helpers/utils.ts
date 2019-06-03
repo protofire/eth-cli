@@ -5,7 +5,7 @@ import { HttpProvider } from 'web3-providers'
 
 import { ABI, ABIItem } from '../types'
 
-import { getAbiByName } from './abi/knownAbis'
+import { getAbiByName } from './knownAbis'
 
 export const add0x = (hex: string) => {
   return hex.indexOf('0x') === 0 ? hex : `0x${hex}`

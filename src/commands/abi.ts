@@ -1,6 +1,6 @@
 import { Command, flags } from '@oclif/command'
 
-import { getAbiByName } from '../helpers/abi/knownAbis'
+import { getAbiByName } from '../helpers/knownAbis'
 
 export default class AbiCommand extends Command {
   static description = 'Displays a known ABI (ERC20, ERC721)'
