@@ -1,4 +1,4 @@
-import AbiCommand from '../../src/commands/abi'
+import AbiCommand from '../../src/commands/abi/show'
 import erc20Abi from '../../src/helpers/abi/erc20.json'
 import erc721Abi from '../../src/helpers/abi/erc721.json'
 describe('abi', () => {

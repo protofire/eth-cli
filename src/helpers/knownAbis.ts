@@ -24,3 +24,9 @@ export const getAbiByName = (abiName: string): string | null => {
   }
   return null
 }
+
+export const getAbiList = (): string[] => {
+  return ABI_META_DATA.map(item => {
+    return item.name
+  })
+}

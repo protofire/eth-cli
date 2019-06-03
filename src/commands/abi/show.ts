@@ -1,8 +1,8 @@
 import { Command, flags } from '@oclif/command'
 
-import { getAbiByName } from '../helpers/knownAbis'
+import { getAbiByName } from '../../helpers/knownAbis'
 
-export default class AbiCommand extends Command {
+export default class ShowCommand extends Command {
   static description = 'Displays a known ABI (ERC20, ERC721)'
 
   static flags = {
@@ -17,10 +17,10 @@ export default class AbiCommand extends Command {
     },
   ]
 
-  static examples = ['eth abi ERC20', 'eth abi ERC721']
+  static examples = ['eth abi:show ERC20', 'eth abi:show ERC721']
 
   async run() {
-    const { args } = this.parse(AbiCommand)
+    const { args } = this.parse(ShowCommand)
     const { abi } = args
     let abiStr: string | null = getAbiByName(abi)
     if (abiStr) {
