@@ -1,4 +1,5 @@
 import { Command, flags } from '@oclif/command'
+import { cli } from 'cli-ux'
 
 import { getAbiByName } from '../../helpers/knownAbis'
 
@@ -22,9 +23,9 @@ export default class ShowCommand extends Command {
   async run() {
     const { args } = this.parse(ShowCommand)
     const { abi } = args
-    let abiStr: string | null = getAbiByName(abi)
-    if (abiStr) {
-      this.log(abiStr)
+    const abiObj = getAbiByName(abi)
+    if (abiObj) {
+      cli.styledJSON(abiObj)
     } else {
       this.error(`ABI for ${abi} not found!`)
     }

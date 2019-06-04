@@ -16,15 +16,14 @@ const ABI_META_DATA: AbiMetaData[] = [
   },
 ]
 
-export const getAbiByName = (abiName: string): string | null => {
+export const getAbiByName = (abiName: string): any => {
   const abiInUpperCase = abiName.toUpperCase()
   const returnAbi = ABI_META_DATA.find(abi => abi.name === abiInUpperCase)
   if (returnAbi) {
-    return JSON.stringify(returnAbi.abiItem)
+    return returnAbi.abiItem
   }
   return null
 }
-
 export const getAbiList = (): string[] => {
   return ABI_META_DATA.map(item => {
     return item.name
