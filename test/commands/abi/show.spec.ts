@@ -26,13 +26,13 @@ describe('abi:show', () => {
 
   it(`Should run 'abi:show ERC20' and receive the ERC20 abi.`, async () => {
     await ShowCommand.run(['ERC20'])
-    const resultExpected = JSON.stringify(erc20Abi)
-    expect(stdoutResult[0]).toContain(resultExpected)
+    const result = JSON.parse(stdoutResult[0])
+    expect(result).toMatchObject(erc20Abi)
   })
 
   it(`Should run 'abi:show ERC721' and receive the ERC721 abi.`, async () => {
     await ShowCommand.run(['ERC721'])
-    const resultExpected = JSON.stringify(erc721Abi)
-    expect(stdoutResult[0]).toContain(resultExpected)
+    const result = JSON.parse(stdoutResult[0])
+    expect(result).toMatchObject(erc721Abi)
   })
 })
