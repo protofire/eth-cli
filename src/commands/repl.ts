@@ -3,6 +3,9 @@ import { BaseCommand } from '../base'
 const parseReplContracts = (args: string[]): Array<{ abiPath: string; address: string }> => {
   const result = args.map(arg => {
     const [abiPath, address] = arg.split('@')
+    if (!abiPath || !address) {
+      throw new Error(`Invalid argument '${arg}', expected <abi>@<contractAddress>`)
+    }
     return { abiPath, address }
   })
 
@@ -48,7 +51,6 @@ learn how to do this.`
       networkUrl = this.getNetworkUrl(flags)
 
       const contracts = parseReplContracts(argv)
-
       const { startRepl } = await import('../helpers/startRepl')
 
       startRepl(networkUrl, contracts)
