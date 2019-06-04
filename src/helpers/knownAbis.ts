@@ -2,7 +2,7 @@ import erc20Abi from './abi/erc20.json'
 import erc721Abi from './abi/erc721.json'
 interface AbiMetaData {
   name: string
-  abiItem: any
+  abiItem: object
 }
 
 const ABI_META_DATA: AbiMetaData[] = [
@@ -16,7 +16,7 @@ const ABI_META_DATA: AbiMetaData[] = [
   },
 ]
 
-export const getAbiByName = (abiName: string): any => {
+export const getAbiByName = (abiName: string): object | null => {
   const abiInUpperCase = abiName.toUpperCase()
   const returnAbi = ABI_META_DATA.find(abi => abi.name === abiInUpperCase)
   if (returnAbi) {
@@ -32,6 +32,7 @@ export const getStringAbiByName = (abiName: string): string | null => {
   }
   return abiObj
 }
+
 export const getAbiList = (): string[] => {
   return ABI_META_DATA.map(item => {
     return item.name
