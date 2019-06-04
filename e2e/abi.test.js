@@ -34,5 +34,10 @@ describe('abi', () => {
       const resultExpected = JSON.parse(result.stdout)
       expect(resultExpected).toMatchObject(erc721Abi)
     })
+    it('errors when an unknown abi is used', () => {
+      const result = shell.exec(`${binPath} abi:show foobar`, { silent: true })
+
+      expect(result.code).not.toEqual(0)
+    })
   })
 })
