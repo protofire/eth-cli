@@ -16,8 +16,8 @@ describe('abi:list', () => {
   it(`Should run 'abi:list' and display the list of available abis.`, async () => {
     await ListCommand.run([])
     const abiList = getAbiList()
-    const resultExpected = `List of available abi's: ${abiList}\n`
-    await expect(stdoutResult[0]).toBe(resultExpected)
+    const listFormated = abiList.join().replace(',', '\n');
+    await expect(stdoutResult[0]).toContain(listFormated)
   })
 
   it(`Should run 'abi:list --help' and throw an error.`, async () => {

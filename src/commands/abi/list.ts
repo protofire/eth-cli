@@ -13,6 +13,7 @@ export default class ListCommand extends Command {
 
   async run() {
     const abiList = getAbiList()
-    this.log(`List of available abi's: ${abiList}`)
+    const listFormated = abiList.join().replace(',', '\n');
+    this.log(listFormated)
   }
 }
