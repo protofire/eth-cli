@@ -16,7 +16,7 @@ describe('abi:list', () => {
   it(`Should run 'abi:list' and display the list of available abis.`, async () => {
     await ListCommand.run([])
     const abiList = getAbiList()
-    const listFormated = abiList.join().replace(',', '\n');
+    const listFormated = abiList.join().replace(',', '\n')
     await expect(stdoutResult[0]).toContain(listFormated)
   })
 

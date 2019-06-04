@@ -13,7 +13,7 @@ export default class ListCommand extends Command {
 
   async run() {
     const abiList = getAbiList()
-    const listFormated = abiList.join().replace(',', '\n');
+    const listFormated = abiList.join().replace(',', '\n')
     this.log(listFormated)
   }
 }
