@@ -11,7 +11,7 @@ export default class MethodsCommand extends Command {
     },
   ]
 
-  static examples = ['eth methods ../contracts/proxy.abi']
+  static examples = ['eth abi:methods ../contracts/proxy.abi']
 
   static aliases = ['me']
 
@@ -21,7 +21,7 @@ export default class MethodsCommand extends Command {
     try {
       const { abi } = args
 
-      const { getMethods } = await import('../helpers/getMethods')
+      const { getMethods } = await import('../../helpers/getMethods')
       const methods = getMethods(abi)
 
       methods.forEach(({ signature, signatureHash }) => {
