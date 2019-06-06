@@ -5,13 +5,19 @@ import { HttpProvider } from 'web3-providers'
 
 import { ABI, ABIItem } from '../types'
 
+import { getStringAbiByName } from './knownAbis'
+
 export const add0x = (hex: string) => {
   return hex.indexOf('0x') === 0 ? hex : `0x${hex}`
 }
 
 export const loadABI = (abiPath: string) => {
-  const abiStr = fs.readFileSync(abiPath).toString()
-
+  // Try to get the abi from the default list of supported abi's
+  let abiStr: string | null = getStringAbiByName(abiPath)
+  // If not found, just return the abi from the abiPath received
+  if (!abiStr) {
+    abiStr = fs.readFileSync(abiPath).toString()
+  }
   let abi = null
 
   try {
