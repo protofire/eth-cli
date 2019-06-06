@@ -77,6 +77,8 @@
     "url": "https://github.com/protofire/eth-cli"
   },
   "scripts": {
+    "build": "tsc -b",
+    "watch": "tsc -b --watch",
     "lint": "tslint --project . && npm run prettier-check",
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "rm -rf lib tsconfig.tsbuildinfo && tsc -b && oclif-dev manifest && oclif-dev readme",
