@@ -340,7 +340,7 @@ Commands to interact with transactions.
 Print the transaction object for the given transaction hash.
 
 ```
-$ tx:get --kovan 0x7f3f2967b93a7eded18071a596b7f3987c9575b6bae0a19399725c19e793517b
+$ eth tx:get --kovan 0x7f3f2967b93a7eded18071a596b7f3987c9575b6bae0a19399725c19e793517b
 {
   "blockHash": "0xc85b64cdb940da308058b1f0ae800954a09287e2b8d30e71f02e1a4cf5b1a03b",
   "blockNumber": 11365979,
