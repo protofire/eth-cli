@@ -219,7 +219,7 @@ Get the bytecode for a method call. The first argument is a path to an ABI file,
 or one of the known ABIs. The second argument is the call to the method.
 
 ```
-$ method:encode erc20 'totalSupply()'
+$ eth method:encode erc20 'totalSupply()'
 0x18160ddd
 ```
 
