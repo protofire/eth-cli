@@ -228,7 +228,7 @@ $ method:encode erc20 'totalSupply()'
 Get the hash of a method signature. These are the first four bytes that compose the data of a transaction that invokes a method contract.
 
 ```
-$ method:hash 'totalSupply()'
+$ eth method:hash 'totalSupply()'
 18160ddd
 ```
 
