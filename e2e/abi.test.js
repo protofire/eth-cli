@@ -16,6 +16,15 @@ describe('abi', () => {
       expect(result.stdout.trim()).toEqual('ERC20\nERC721')
     })
   })
+  describe('abi:methods', () => {
+    it('shows the methods of a given abi', () => {
+      const result = shell.exec(`${binPath} abi:methods erc20`, { silent: true })
+
+      expect(result.code).toEqual(0)
+
+      expect(result.stdout.split('\n')).toHaveLength(10)
+    })
+  })
 
   describe('abi:show', () => {
     it('should return the ERC20 abi', () => {
