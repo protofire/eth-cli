@@ -5,8 +5,6 @@ import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 export default class AbiCommand extends Command {
   static description = `Allows actions with abis.`
 
-  static examples = ['eth abi:show ERC20', 'eth abi:list']
-
   async run() {
     const { args, flags } = this.parse(AbiCommand)
 
