@@ -1,6 +1,5 @@
-import { flags } from '@oclif/command'
-
 import { BaseCommand } from '../base'
+import { privateKeyFlag } from '../flags'
 
 const parseReplContracts = (args: string[]): Array<{ abiPath: string; address: string }> => {
   const result = args.map(arg => {
@@ -28,10 +27,7 @@ learn how to do this.`
 
   static flags = {
     ...BaseCommand.flags,
-    pk: flags.string({
-      description: 'Private key to unlock',
-      env: 'ETH_CLI_PRIVATE_KEY',
-    }),
+    pk: privateKeyFlag,
   }
 
   static args = [
