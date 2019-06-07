@@ -1,12 +1,13 @@
 import { Command, flags } from '@oclif/command'
 
-const defaultUrl = 'http://localhost:8545'
-
 interface NetworkInfo {
   url: string
   id?: number
   label?: string
 }
+
+type NetworkFlag = keyof typeof BaseCommand.flags
+type NetworkName = Exclude<NetworkFlag, 'url'>
 
 export abstract class BaseCommand extends Command {
   static flags = {
@@ -22,9 +23,9 @@ export abstract class BaseCommand extends Command {
     xdai: flags.boolean({ exclusive: ['url'] }),
   }
 
-  static getNetworksInfo(): {
-    [key in Exclude<keyof typeof BaseCommand.flags, 'url'>]: NetworkInfo
-  } {
+  static defaultUrl = 'http://localhost:8545'
+
+  static getNetworksInfo(): { [key in NetworkName]: NetworkInfo } {
     return {
       kovan: { url: 'https://kovan.infura.io', id: 42, label: 'Kovan' },
       mainnet: { url: 'https://mainnet.infura.io', id: 1, label: 'Mainnet' },
@@ -39,8 +40,15 @@ export abstract class BaseCommand extends Command {
   }
 
   getNetworkUrl(flags: { [key in keyof typeof BaseCommand.flags]: any }): string {
+    const [networkUrl] = this.getNetworkUrlAndFlag(flags)
+    return networkUrl
+  }
+
+  getNetworkUrlAndFlag(
+    flags: { [key in keyof typeof BaseCommand.flags]: any },
+  ): [string, NetworkFlag] {
     if (flags.url) {
-      return flags.url
+      return [flags.url, 'url']
     }
 
     const networksInfo = BaseCommand.getNetworksInfo()
@@ -49,10 +57,10 @@ export abstract class BaseCommand extends Command {
       if (flag === 'url') continue
 
       if (flags[flag]) {
-        return networksInfo[flag].url
+        return [networksInfo[flag].url, flag]
       }
     }
 
-    return defaultUrl
+    return [BaseCommand.defaultUrl, 'url']
   }
 }
