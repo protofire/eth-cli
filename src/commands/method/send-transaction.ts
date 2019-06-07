@@ -24,7 +24,9 @@ export default class SendTransactionCommand extends BaseCommand {
     },
   ]
 
-  static examples = ['eth method:send-transaction --pk 0x6db0bdfc7800dcf87b5a88b3363997360395d36ef51db10c3458d51d8aefd37e 0xa9059cbb000000000000000000000000b2e4a264a982039f8e503ea3c83af5537f583069000000000000000000000000da480b4852ca3ade4acf3eeca6901952edbae912 0x15503FBAb2fa57535092ab9c24740142Ab6cabd3']
+  static examples = [
+    'eth method:send-transaction --pk 0x6db0bdfc7800dcf87b5a88b3363997360395d36ef51db10c3458d51d8aefd37e 0xa9059cbb000000000000000000000000b2e4a264a982039f8e503ea3c83af5537f583069000000000000000000000000da480b4852ca3ade4acf3eeca6901952edbae912 0x15503FBAb2fa57535092ab9c24740142Ab6cabd3',
+  ]
 
   static aliases = ['m:st']
 
