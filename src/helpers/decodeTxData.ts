@@ -34,7 +34,7 @@ export function decodeTxData(functionSignature: string, txData: string) {
 
   const result = []
   for (let i = 0; i < Object.keys(args).length; i++) {
-    const value = isBN(args[i]) ? args[i].toString() : args[i];
+    const value = isBN(args[i]) ? args[i].toString() : args[i]
     result.push(value)
   }
 
