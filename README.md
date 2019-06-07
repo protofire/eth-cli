@@ -8,11 +8,11 @@
 [![dependencies Status](https://david-dm.org/protofire/eth-cli/status.svg)](https://david-dm.org/protofire/eth-cli)
 [![devDependencies Status](https://david-dm.org/protofire/eth-cli/dev-status.svg)](https://david-dm.org/protofire/eth-cli?type=dev)
 
-A collection of CLI tools to help with ethereum learning and development.
+CLI swiss knife for Ethereum developers.
 
 ## What is this
 
-`eth-cli` is a collection of commands that can help you while you develop dapps
+`eth-cli` is a collection of commands that can help you develop dapps
 for Ethereum (or if you are just learning about it). Check the [Examples](#examples)
 section or the [list of commands](#commands) to find out what you can do with it.
 
@@ -20,7 +20,6 @@ section or the [list of commands](#commands) to find out what you can do with it
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [What is this](#what-is-this)
 - [Examples](#examples)
   - [Start a REPL to interact with an RPC node](#start-a-repl-to-interact-with-an-rpc-node)
   - [Generate a random address](#generate-a-random-address)
