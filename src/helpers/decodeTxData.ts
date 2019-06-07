@@ -1,6 +1,6 @@
 import Web3 from 'web3'
 
-import { add0x } from './utils'
+import { add0x, isBN } from './utils'
 
 export function decodeTxData(functionSignature: string, txData: string) {
   const paramsRegex = /^[^(].*\((.*)\)$/
@@ -34,7 +34,8 @@ export function decodeTxData(functionSignature: string, txData: string) {
 
   const result = []
   for (let i = 0; i < Object.keys(args).length; i++) {
-    result.push(args[i])
+    const value = isBN(args[i]) ? args[i].toString() : args[i];
+    result.push(value)
   }
 
   return result
