@@ -13,7 +13,7 @@ CLI swiss knife for Ethereum developers.
 ## What is this
 
 `eth-cli` is a collection of commands that can help you develop dapps
-for Ethereum (or if you are just learning about it). Check the [Examples](#examples)
+for Ethereum. Check the [Examples](#examples)
 section or the [list of commands](#commands) to find out what you can do with it.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
