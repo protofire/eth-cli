@@ -1,3 +1,4 @@
+import camelCase from 'lodash.camelcase'
 import * as path from 'path'
 import Web3 from 'web3'
 
@@ -36,7 +37,9 @@ export function startRepl(url: string, contracts: Array<{ abiPath: string; addre
       contractName = [contractName, '_', suffix].join('')
     }
 
-    replContext[contractName] = Contract
+    const contractNameCamelCased = camelCase(contractName)
+
+    replContext[contractNameCamelCased] = Contract
   }
 
   // Start REPL
