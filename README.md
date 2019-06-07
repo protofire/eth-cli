@@ -29,6 +29,7 @@ section or the [list of commands](#commands) to find out what you can do with it
 - [Commands](#commands)
   - [`abi`](#abi)
     - [`abi:list`](#abilist)
+    - [`abi:methods`](#abimethods)
     - [`abi:show`](#abishow)
   - [`contract`](#contract)
     - [`contract:address`](#contractaddress)
@@ -39,7 +40,6 @@ section or the [list of commands](#commands) to find out what you can do with it
     - [`method:hash`](#methodhash)
     - [`method:send`](#methodsend)
     - [`method:send-transaction`](#methodsend-transaction)
-  - [`methods`](#methods)
   - [`networks`](#networks)
   - [`randomAddress`](#randomaddress)
   - [`transaction`](#transaction)
@@ -142,6 +142,23 @@ Show the list of ABIs that `eth-cli` knows.
 $ eth abi:list
 ERC20
 ERC721
+```
+
+#### `abi:methods`
+
+Prints the methods of the given ABI, along with their hashes:
+
+```
+$ eth abi:methods erc20
+06fdde03	name()
+095ea7b3	approve(address,uint256)
+18160ddd	totalSupply()
+23b872dd	transferFrom(address,address,uint256)
+313ce567	decimals()
+70a08231	balanceOf(address)
+95d89b41	symbol()
+a9059cbb	transfer(address,uint256)
+dd62ed3e	allowance(address,address)
 ```
 
 #### `abi:show`
@@ -249,23 +266,6 @@ Like `method:send`, but with the method call already encoded:
 
 ```
 $ eth method:send-transaction 0xa9059cbb000000000000000000000000b2e4a264a982039f8e503ea3c83af5537f583069000000000000000000000000da480b4852ca3ade4acf3eeca6901952edbae912 0x15503FBAb2fa57535092ab9c24740142Ab6cabd3 0x6db0bdfc7800dcf87b5a88b3363997360395d36ef51db10c3458d51d8aefd37e
-```
-
-### `methods`
-
-Prints the methods of the given ABI, along with their hashes:
-
-```
-$ methods erc20
-06fdde03	name()
-095ea7b3	approve(address,uint256)
-18160ddd	totalSupply()
-23b872dd	transferFrom(address,address,uint256)
-313ce567	decimals()
-70a08231	balanceOf(address)
-95d89b41	symbol()
-a9059cbb	transfer(address,uint256)
-dd62ed3e	allowance(address,address)
 ```
 
 ### `networks`

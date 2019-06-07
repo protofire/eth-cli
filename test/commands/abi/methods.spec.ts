@@ -1,4 +1,4 @@
-import MethodsCommand from '../../src/commands/methods'
+import MethodsCommand from '../../../src/commands/abi/methods'
 
 describe('methods', () => {
   let stdoutResult: any
