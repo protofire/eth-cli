@@ -18,11 +18,10 @@ describe('send', () => {
 
   it(`Should run 'send' and throw an error.`, async () => {
     await expect(MethodSendCommand.run([])).rejects.toThrow(
-      'Missing 4 required args:\n' +
+      'Missing 3 required args:\n' +
         "abi         The contract's ABI.\n" +
         'methodCall  e.g.: \'myMethod(arg1,arg2,["a","b",3,["d","0x123..."]])\'\n' +
         "address     The contract's  address.\n" +
-        'pk          The private key.\n' +
         'See more help with --help',
     )
   })
