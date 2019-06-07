@@ -34,8 +34,8 @@ section or the [list of commands](#commands) to find out what you can do with it
   - [`contract`](#contract)
     - [`contract:address`](#contractaddress)
     - [`contract:deploy`](#contractdeploy)
-  - [`decode`](#decode)
   - [`method`](#method)
+    - [`method:decode`](#methoddecode)
     - [`method:encode`](#methodencode)
     - [`method:hash`](#methodhash)
     - [`method:send`](#methodsend)
@@ -214,21 +214,19 @@ $ eth contract:deploy 0xdfc44755392f7b4402a3c32a3c09d6afdbbf8c161261774136c52c57
 **As with all commands that use a private key, this should only be used for
 testing. `eth-cli` is NOT meant to be used with real assets**
 
-### `decode`
+### `method`
 
-Decode the arguments of a transaction that called a contract method.
+#### `method:decode`
+
+Decode the arguments of some transaction data that called a contract method.
 
 ```
-$ eth decode 'transfer(address,uint256)' '0xa9059cbb000000000000000000000000697dB915674bAc602F4d6fAfA31c0e45f386416E00000000000000000000000000000000000000000000000000000004ff043b9e'
+$ eth method:decode 'transfer(address,uint256)' '0xa9059cbb000000000000000000000000697dB915674bAc602F4d6fAfA31c0e45f386416E00000000000000000000000000000000000000000000000000000004ff043b9e'
 [
   "0x697dB915674bAc602F4d6fAfA31c0e45f386416E",
-  {
-    "_hex": "0x04ff043b9e"
-  }
+  "0x04ff043b9e"
 ]
 ```
-
-### `method`
 
 #### `method:encode`
 
