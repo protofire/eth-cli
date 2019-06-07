@@ -1,3 +1,5 @@
+import { flags } from '@oclif/command'
+
 import { BaseCommand } from '../base'
 
 const parseReplContracts = (args: string[]): Array<{ abiPath: string; address: string }> => {
@@ -26,6 +28,10 @@ learn how to do this.`
 
   static flags = {
     ...BaseCommand.flags,
+    pk: flags.string({
+      description: 'Private key to unlock',
+      env: 'ETH_CLI_PRIVATE_KEY',
+    }),
   }
 
   static args = [
@@ -55,9 +61,11 @@ learn how to do this.`
           : `${networkFlag}> `
 
       const contracts = parseReplContracts(argv)
+      const privateKey = flags.pk
+
       const { startRepl } = await import('../helpers/startRepl')
 
-      startRepl(networkUrl, prompt, contracts)
+      startRepl(networkUrl, prompt, contracts, privateKey)
     } catch (e) {
       this.error(e.message, { exit: 1 })
     }

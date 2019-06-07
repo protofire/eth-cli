@@ -12,6 +12,7 @@ export function startRepl(
   url: string,
   prompt: string,
   contracts: Array<{ abiPath: string; address: string }>,
+  privateKey: string | undefined,
 ) {
   if (!url) {
     throw new Error('[startRepl] URL require')
@@ -19,6 +20,10 @@ export function startRepl(
 
   // Connect web3
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
+
+  if (privateKey) {
+    web3.eth.accounts.wallet.add(privateKey)
+  }
 
   // Default context
   let replContext: ReplContext = {
