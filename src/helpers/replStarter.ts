@@ -1,0 +1,47 @@
+import * as os from 'os'
+import * as path from 'path'
+import * as repl from 'repl'
+import * as vm from 'vm'
+import Web3 from 'web3'
+
+const historyFile = path.join(os.homedir(), '.eth_cli_history')
+
+export function replStarter(context: { [key: string]: any }) {
+  const r = repl.start({
+    prompt: '> ',
+    eval: (cmd, context, _, callback) => {
+      try {
+        const result = vm.runInContext(cmd, context, {
+          displayErrors: false,
+        })
+
+        if (result && result.then) {
+          result.then((x: any) => callback(null, x)).catch((e: Error) => callback(e, null))
+        } else {
+          callback(null, result)
+        }
+      } catch (e) {
+        if (isRecoverableError(e)) {
+          return callback(new repl.Recoverable(e), null)
+        }
+
+        callback(e, null)
+      }
+    },
+  })
+
+  r.context.Web3 = Web3
+
+  for (const expose of Object.keys(context)) {
+    r.context[expose] = context[expose]
+  }
+
+  require('repl.history')(r, historyFile)
+}
+
+function isRecoverableError(error: Error) {
+  if (error.name === 'SyntaxError') {
+    return /^(Unexpected end of input|Unexpected token)/.test(error.message)
+  }
+  return false
+}

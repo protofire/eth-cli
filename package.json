@@ -1,37 +1,112 @@
 {
   "name": "eth-cli",
-  "version": "0.8.0",
-  "description": "",
-  "main": "src/index.js",
+  "description": "A collection of CLI tools to help with ethereum learning and development.",
+  "version": "1.0.0-alpha-3",
+  "contributors": [
+    "Fernando Greco",
+    "Franco Victorio",
+    "Gerardo Nardelli",
+    "Lisandro Corbalan",
+    "Mariano Agüero",
+    "Pablo Fullana"
+  ],
   "bin": {
-    "eth": "src/index.js"
+    "eth": "./bin/run"
   },
-  "scripts": {
-    "lint": "eslint src"
+  "bugs": "https://github.com/protofire/eth-cli/issues",
+  "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^2",
+    "cli-ux": "^5.2.1",
+    "ethereumjs-util": "^6.1.0",
+    "repl.history": "^0.1.4",
+    "rlp": "^2.2.3",
+    "tslib": "^1",
+    "web3": "^1.0.0-beta.52",
+    "web3-eth-accounts": "^1.0.0-beta.52",
+    "web3-providers": "^1.0.0-beta.52"
   },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1",
+    "@oclif/tslint": "^3",
+    "@types/chai": "^4",
+    "@types/cli-table": "^0.3.0",
+    "@types/jest": "^24.0.11",
+    "@types/node": "^10",
+    "chai": "^4",
+    "globby": "^8",
+    "jest": "^24.7.1",
+    "jest-watch-typeahead": "^0.3.0",
+    "nyc": "^13",
+    "prettier": "^1.16.4",
+    "shelljs": "^0.8.3",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8",
+    "tslint": "^5",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/lib/**/*"
+  ],
+  "homepage": "https://github.com/protofire/eth-cli#readme",
   "keywords": [
     "ethereum",
     "blockchain",
-    "cli"
+    "cli",
+    "oclif"
   ],
-  "author": "Franco Victorio",
-  "license": "ISC",
-  "dependencies": {
-    "cli-table": "^0.3.1",
-    "ethereumjs-util": "^5.2.0",
-    "repl.history": "^0.1.4",
-    "web3": "^1.0.0-beta.37",
-    "yargs": "^11.1.0"
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "eth",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
   },
-  "devDependencies": {
-    "eslint": "^5.12.1",
-    "eslint-config-prettier": "^2.10.0",
-    "eslint-plugin-prettier": "^2.7.0",
-    "prettier": "^1.16.1"
-  },
-  "homepage": "https://github.com/protofire/eth-cli#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/protofire/eth-cli"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "watch": "tsc -b --watch",
+    "lint": "tslint --project . && npm run prettier-check",
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "rm -rf lib tsconfig.tsbuildinfo && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "prettier": "prettier --write '**/*.{ts,tsx,json}' --ignore-path .gitignore",
+    "prettier-check": "prettier --check '**/*.{ts,tsx,json}' --ignore-path .gitignore",
+    "test": "jest --coverage --detectOpenHandles ./test",
+    "version": "oclif-dev readme && git add README.md",
+    "clearjest": "jest --clearCache"
+  },
+  "types": "lib/index.d.ts",
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js}"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "notify": true,
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "node",
+      "json"
+    ]
   }
 }
