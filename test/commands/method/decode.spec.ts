@@ -1,4 +1,4 @@
-import DecodeCommand from '../../src/commands/decode'
+import DecodeCommand from '../../../src/commands/method/decode'
 
 describe('decode', () => {
   let stdoutResult: any

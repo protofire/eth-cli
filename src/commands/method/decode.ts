@@ -18,7 +18,7 @@ export default class DecodeCommand extends Command {
   ]
 
   static examples = [
-    `eth decode 'transfer(address,uint256)' '0xa9059cbb000000000000000000000000697dB915674bAc602F4d6fAfA31c0e45f386416E00000000000000000000000000000000000000000000000000000004ff043b9e'`,
+    `eth method:decode 'transfer(address,uint256)' '0xa9059cbb000000000000000000000000697dB915674bAc602F4d6fAfA31c0e45f386416E00000000000000000000000000000000000000000000000000000004ff043b9e'`,
   ]
 
   static aliases = ['de']
@@ -28,7 +28,7 @@ export default class DecodeCommand extends Command {
 
     try {
       const { functionSignature, txData } = args
-      const { decodeTxData } = await import('../helpers/decodeTxData')
+      const { decodeTxData } = await import('../../helpers/decodeTxData')
       const result = decodeTxData(functionSignature, txData)
 
       cli.styledJSON(result)

@@ -9,7 +9,11 @@ interface ReplContext {
   [key: string]: any
 }
 
-export function startRepl(url: string, contracts: Array<{ abiPath: string; address: string }>) {
+export function startRepl(
+  url: string,
+  prompt: string,
+  contracts: Array<{ abiPath: string; address: string }>,
+) {
   if (!url) {
     throw new Error('[startRepl] URL require')
   }
@@ -43,5 +47,5 @@ export function startRepl(url: string, contracts: Array<{ abiPath: string; addre
   }
 
   // Start REPL
-  replStarter(replContext)
+  replStarter(replContext, prompt)
 }
