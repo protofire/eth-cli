@@ -5,9 +5,7 @@ exports[`decode Should run 'decode 'transfer(address,uint256)'
 Array [
   "[
   \\"0x697dB915674bAc602F4d6fAfA31c0e45f386416E\\",
-  {
-    \\"_hex\\": \\"0x04ff043b9e\\"
-  }
+  \\"21458336670\\"
 ]
 ",
 ]

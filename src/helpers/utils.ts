@@ -80,3 +80,5 @@ const createAccount = () => {
 
   return wallet.create(1, randomBytes(32).toString('hex'))[0]
 }
+
+export const isBN = (x: any) => x._hex !== undefined

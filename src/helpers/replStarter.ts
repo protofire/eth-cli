@@ -4,6 +4,8 @@ import * as repl from 'repl'
 import * as vm from 'vm'
 import Web3 from 'web3'
 
+import { isBN } from './utils'
+
 const historyFile = path.join(os.homedir(), '.eth_cli_history')
 
 export function replStarter(context: { [key: string]: any }) {
@@ -16,7 +18,17 @@ export function replStarter(context: { [key: string]: any }) {
         })
 
         if (result && result.then) {
-          result.then((x: any) => callback(null, x)).catch((e: Error) => callback(e, null))
+          result
+            .then((x: any) => {
+              if (x && isBN(x)) {
+                callback(null, x.toString())
+                return
+              }
+              callback(null, x)
+            })
+            .catch((e: Error) => callback(e, null))
+        } else if (result && isBN(result)) {
+          callback(null, result.toString())
         } else {
           callback(null, result)
         }
