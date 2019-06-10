@@ -18,10 +18,9 @@ describe('send-transaction', () => {
 
   it(`Should run 'send-transacion' and throw an error.`, async () => {
     await expect(MethodSendTransactionCommand.run([])).rejects.toThrow(
-      'Missing 3 required args:\n' +
+      'Missing 2 required args:\n' +
         'encodedABI  The encoded ABI.\n' +
         "address     The contract's address.\n" +
-        'pk          The private key.\n' +
         'See more help with --help',
     )
   })

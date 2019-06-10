@@ -54,7 +54,7 @@ export abstract class BaseCommand extends Command {
     const networksInfo = BaseCommand.getNetworksInfo()
 
     for (const flag of Object.keys(flags) as Array<keyof typeof flags>) {
-      if (flag === 'url') continue
+      if (flag === 'url' || !BaseCommand.flags[flag]) continue
 
       if (flags[flag]) {
         return [networksInfo[flag].url, flag]

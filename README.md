@@ -353,9 +353,12 @@ receipt object if the transaction was mined, or will be null otherwise.
 Generate a transaction that does nothing (it sends 0 ETH to itself) using the given private key:
 
 ```
-$ eth tx:nop --kovan 0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d
+$ eth tx:nop --kovan --pk 0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d
 "0x7f3f2967b93a7eded18071a596b7f3987c9575b6bae0a19399725c19e793517b"
 ```
+
+**As with all commands that use a private key, this should only be used for
+testing. `eth-cli` is NOT meant to be used with real assets**
 
 ### `repl`
 
