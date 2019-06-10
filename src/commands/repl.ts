@@ -45,15 +45,19 @@ learn how to do this.`
 
   async run() {
     const { flags, argv } = this.parse(ReplCommand)
-    let networkUrl
-
     try {
-      networkUrl = this.getNetworkUrl(flags)
+      const [networkUrl, networkFlag] = this.getNetworkUrlAndFlag(flags)
+      const prompt =
+        networkFlag === 'url'
+          ? networkUrl === BaseCommand.defaultUrl
+            ? '> '
+            : `${networkUrl}> `
+          : `${networkFlag}> `
 
       const contracts = parseReplContracts(argv)
       const { startRepl } = await import('../helpers/startRepl')
 
-      startRepl(networkUrl, contracts)
+      startRepl(networkUrl, prompt, contracts)
     } catch (e) {
       this.error(e.message, { exit: 1 })
     }
