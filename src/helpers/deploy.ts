@@ -1,9 +1,9 @@
+import { cli } from 'cli-ux'
 import * as fs from 'fs'
 import Web3 from 'web3'
 import { TransactionReceipt } from 'web3-core/types'
+import { Contract } from 'web3-eth-contract/types'
 import { Unit } from 'web3-utils/types'
-import { Contract } from 'web3-eth-contract/types';
-import { cli } from 'cli-ux'
 
 import { add0x } from './utils'
 
@@ -29,7 +29,7 @@ export function deploy(url: string, privateKey: string, binPath: string): Promis
   const contract = new Contract([], undefined, options)
 
   const deploy = contract.deploy({ data })
-  let receipt: TransactionReceipt;
+  let receipt: TransactionReceipt
 
   return deploy
     .estimateGas({
@@ -46,10 +46,13 @@ export function deploy(url: string, privateKey: string, binPath: string): Promis
         .on('transactionHash', (tx: string) => {
           cli.log(`TX: ${tx}`)
         })
-        .on('confirmation', (confirmationNumber: number, transactionReceipt: TransactionReceipt) => {
-          receipt = transactionReceipt;
-          cli.log(`Confirmation ${confirmationNumber} of ${transactionConfirmationBlocks}`)
-        })
-        .then((contract: Contract) => ({ address: contract.options.address, receipt }));
+        .on(
+          'confirmation',
+          (confirmationNumber: number, transactionReceipt: TransactionReceipt) => {
+            receipt = transactionReceipt
+            cli.log(`Confirmation ${confirmationNumber} of ${transactionConfirmationBlocks}`)
+          },
+        )
+        .then((contract: Contract) => ({ address: contract.options.address, receipt }))
     })
 }
