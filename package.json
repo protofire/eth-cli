@@ -84,8 +84,8 @@
     "lint": "tslint --project . && npm run prettier-check",
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "rm -rf lib tsconfig.tsbuildinfo && tsc -b && oclif-dev manifest && oclif-dev readme",
-    "prettier": "prettier --write '**/*.{ts,tsx,json}' --ignore-path .gitignore",
-    "prettier-check": "prettier --check '**/*.{ts,tsx,json}' --ignore-path .gitignore",
+    "prettier": "prettier --write \"**/*.{ts,tsx,json}\" --ignore-path .gitignore",
+    "prettier-check": "prettier --check \"**/*.{ts,tsx,json}\" --ignore-path .gitignore",
     "test": "jest --coverage --detectOpenHandles ./test",
     "version": "oclif-dev readme && git add README.md",
     "clearjest": "jest --clearCache"
