@@ -1,8 +1,9 @@
 import * as fs from 'fs'
 import Web3 from 'web3'
 import { TransactionReceipt } from 'web3-core/types'
-import { Unit } from 'web3-utils'
-import { Contract } from 'web3-eth-contract';
+import { Unit } from 'web3-utils/types'
+import { Contract } from 'web3-eth-contract/types';
+import { cli } from 'cli-ux'
 
 import { add0x } from './utils'
 
@@ -35,7 +36,7 @@ export function deploy(url: string, privateKey: string, binPath: string): Promis
       from: address,
     })
     .then((gas: Unit) => {
-      console.log(`Estimated gas: ${gas}`)
+      cli.log(`Estimated gas: ${gas}`)
 
       return deploy
         .send({
@@ -43,11 +44,11 @@ export function deploy(url: string, privateKey: string, binPath: string): Promis
           gas,
         })
         .on('transactionHash', (tx: string) => {
-          console.log(`TX: ${tx}`)
+          cli.log(`TX: ${tx}`)
         })
         .on('confirmation', (confirmationNumber: number, transactionReceipt: TransactionReceipt) => {
           receipt = transactionReceipt;
-          console.log(`Confirmation ${confirmationNumber} of ${transactionConfirmationBlocks}`)
+          cli.log(`Confirmation ${confirmationNumber} of ${transactionConfirmationBlocks}`)
         })
         .then((contract: Contract) => ({ address: contract.options.address, receipt }));
     })
