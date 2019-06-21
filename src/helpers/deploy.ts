@@ -1,4 +1,3 @@
-import { cli } from 'cli-ux'
 import * as fs from 'fs'
 import Web3 from 'web3'
 import { TransactionReceipt } from 'web3-core/types'
