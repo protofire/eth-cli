@@ -36,7 +36,7 @@ export function deploy(url: string, privateKey: string, binPath: string): Promis
       from: address,
     })
     .then((gas: Unit) => {
-      cli.log(`Estimated gas: ${gas}`)
+      process.stderr.write(`Estimated gas: ${gas} \n`)
 
       return deploy
         .send({
@@ -44,13 +44,13 @@ export function deploy(url: string, privateKey: string, binPath: string): Promis
           gas,
         })
         .on('transactionHash', (tx: string) => {
-          cli.log(`TX: ${tx}`)
+          process.stderr.write(`TX: ${tx} \n`)
         })
         .on(
           'confirmation',
           (confirmationNumber: number, transactionReceipt: TransactionReceipt) => {
             receipt = transactionReceipt
-            cli.log(`Confirmation ${confirmationNumber} of ${transactionConfirmationBlocks}`)
+            process.stderr.write(`Confirmation ${confirmationNumber} of ${transactionConfirmationBlocks} \n`)
           },
         )
         .then((contract: Contract) => ({ address: contract.options.address, receipt }))
