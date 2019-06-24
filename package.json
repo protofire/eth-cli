@@ -24,9 +24,9 @@
     "repl.history": "^0.1.4",
     "rlp": "^2.2.3",
     "tslib": "^1",
-    "web3": "^1.0.0-beta.52",
-    "web3-eth-accounts": "^1.0.0-beta.52",
-    "web3-providers": "^1.0.0-beta.52"
+    "web3": "^1.0.0-beta.55",
+    "web3-eth-accounts": "^1.0.0-beta.55",
+    "web3-providers": "^1.0.0-beta.55"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",
@@ -84,8 +84,8 @@
     "lint": "tslint --project . && npm run prettier-check",
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "rm -rf lib tsconfig.tsbuildinfo && tsc -b && oclif-dev manifest && oclif-dev readme",
-    "prettier": "prettier --write '**/*.{ts,tsx,json}' --ignore-path .gitignore",
-    "prettier-check": "prettier --check '**/*.{ts,tsx,json}' --ignore-path .gitignore",
+    "prettier": "prettier --write \"**/*.{ts,tsx,json}\" --ignore-path .gitignore",
+    "prettier-check": "prettier --check \"**/*.{ts,tsx,json}\" --ignore-path .gitignore",
     "test": "jest --coverage --detectOpenHandles ./test",
     "version": "oclif-dev readme && git add README.md",
     "clearjest": "jest --clearCache"
