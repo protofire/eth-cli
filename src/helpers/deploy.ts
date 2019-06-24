@@ -49,7 +49,9 @@ export function deploy(url: string, privateKey: string, binPath: string): Promis
           'confirmation',
           (confirmationNumber: number, transactionReceipt: TransactionReceipt) => {
             receipt = transactionReceipt
-            process.stderr.write(`Confirmation ${confirmationNumber} of ${transactionConfirmationBlocks}\n`)
+            process.stderr.write(
+              `Confirmation ${confirmationNumber} of ${transactionConfirmationBlocks}\n`,
+            )
           },
         )
         .then((contract: Contract) => ({ address: contract.options.address, receipt }))
