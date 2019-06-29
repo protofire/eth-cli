@@ -29,8 +29,12 @@
     "web3-providers": "^1.0.0-beta.55"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^8.0.0",
+    "@commitlint/travis-cli": "^8.1.0",
     "@oclif/dev-cli": "^1",
     "@oclif/tslint": "^3",
+    "@semantic-release/git": "^7.0.15",
+    "@semantic-release/release-notes-generator": "^7.2.1",
     "@types/chai": "^4",
     "@types/cli-table": "^0.3.0",
     "@types/jest": "^24.0.11",
@@ -42,6 +46,7 @@
     "jest-watch-typeahead": "^0.3.0",
     "nyc": "^14.1.1",
     "prettier": "^1.16.4",
+    "semantic-release": "^15.13.18",
     "shelljs": "^0.8.3",
     "ts-jest": "^24.0.2",
     "ts-node": "^8",
@@ -88,7 +93,8 @@
     "prettier-check": "prettier --check \"**/*.{ts,tsx,json}\" --ignore-path .gitignore",
     "test": "jest --coverage --detectOpenHandles ./test",
     "version": "oclif-dev readme && git add README.md",
-    "clearjest": "jest --clearCache"
+    "clearjest": "jest --clearCache",
+    "commitlint-travis": "commitlint-travis"
   },
   "types": "lib/index.d.ts",
   "jest": {
