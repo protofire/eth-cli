@@ -35,7 +35,14 @@ export function startRepl(
   // Add contracts into context
   for (let contract of contracts) {
     const abi = loadABI(contract.abiPath)
-    const Contract = new web3.eth.Contract(abi, contract.address)
+
+    const transactionConfirmationBlocks = 3
+    const options = {
+      transactionConfirmationBlocks,
+    }
+    const Contract: any = web3.eth.Contract // ts hack: transactionConfirmationBlocks is not a valid option
+
+    const contractInstance = new Contract(abi, contract.address, options)
     let [contractName] = path.basename(contract.abiPath).split('.')
 
     if (replContext[contractName]) {
@@ -48,7 +55,7 @@ export function startRepl(
 
     const contractNameCamelCased = camelCase(contractName)
 
-    replContext[contractNameCamelCased] = Contract
+    replContext[contractNameCamelCased] = contractInstance
   }
 
   // Start REPL
