@@ -9,7 +9,7 @@ interface ReplContext {
   [key: string]: any
 }
 
-export function startRepl(
+export async function startRepl(
   url: string,
   prompt: string,
   contracts: Array<{ abiPath: string; address: string }>,
@@ -57,6 +57,9 @@ export function startRepl(
 
     replContext[contractNameCamelCased] = contractInstance
   }
+
+  const accounts = await web3.eth.getAccounts()
+  replContext.accounts = accounts
 
   // Start REPL
   replStarter(replContext, prompt)

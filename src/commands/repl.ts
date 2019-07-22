@@ -61,7 +61,7 @@ learn how to do this.`
 
       const { startRepl } = await import('../helpers/startRepl')
 
-      startRepl(networkUrl, prompt, contracts, privateKey)
+      await startRepl(networkUrl, prompt, contracts, privateKey)
     } catch (e) {
       this.error(e.message, { exit: 1 })
     }
