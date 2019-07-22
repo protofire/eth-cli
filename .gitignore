@@ -1,6 +1,8 @@
 node_modules
+.vscode
 .idea
 coverage
+.vscode/
 .nyc_outputlib/
 *-debug.log
 *-error.log
