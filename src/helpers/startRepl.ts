@@ -34,9 +34,8 @@ export async function startRepl(
 
   const loadedContracts: { [name: string]: string } = {}
 
-  // Add contracts into context
-  for (let contract of contracts) {
-    const abi = loadABI(contract.abiPath)
+  const addContract = (abiPath: string, address: string, replContext: any) => {
+    const abi = loadABI(abiPath)
 
     const transactionConfirmationBlocks = 3
     const options = {
@@ -44,8 +43,8 @@ export async function startRepl(
     }
     const Contract: any = web3.eth.Contract // ts hack: transactionConfirmationBlocks is not a valid option
 
-    const contractInstance = new Contract(abi, contract.address, options)
-    let [contractName] = path.basename(contract.abiPath).split('.')
+    const contractInstance = new Contract(abi, address, options)
+    let [contractName] = path.basename(abiPath).split('.')
 
     let contractNameCamelCased = camelCase(contractName)
 
@@ -58,7 +57,12 @@ export async function startRepl(
     }
 
     replContext[contractNameCamelCased] = contractInstance
-    loadedContracts[contractNameCamelCased] = contract.address
+    loadedContracts[contractNameCamelCased] = address
+  }
+
+  // Add contracts into context
+  for (let contract of contracts) {
+    addContract(contract.abiPath, contract.address, replContext)
   }
 
   const accounts = await web3.eth.getAccounts()
@@ -74,6 +78,16 @@ export async function startRepl(
       for (const [loadedContract, address] of Object.entries(loadedContracts)) {
         console.log(`${loadedContract} (${address})`)
       }
+      this.displayPrompt()
+    },
+  })
+
+  r.defineCommand('loadc', {
+    help: 'Load a contract using the specified ABI and address',
+    action(abiAndAddress: string) {
+      this.clearBufferedCommand()
+      const [abiPath, address] = abiAndAddress.split('@')
+      addContract(abiPath, address, r.context)
       this.displayPrompt()
     },
   })
