@@ -5,14 +5,15 @@ node_js:
 services:
   - docker
 
-script:
-  - npm run lint
-  - npm test
-  - npm run commitlint-travis
-  - cd e2e && ./run-tests.sh
-
 jobs:
   include:
+    - stage: test
+      node_js: "8"
+      script:
+        - npm run lint
+        - npm test
+        - npm run commitlint-travis
+        - cd e2e && ./run-tests.sh
     - stage: release
       node_js: "8"
       script: echo "Running semantic-release..."
