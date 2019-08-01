@@ -34,6 +34,7 @@
     "@commitlint/travis-cli": "^8.1.0",
     "@oclif/dev-cli": "^1",
     "@oclif/tslint": "^3",
+    "@semantic-release/changelog": "^3.0.4",
     "@semantic-release/git": "^7.0.15",
     "@semantic-release/release-notes-generator": "^7.2.1",
     "@types/chai": "^4",
