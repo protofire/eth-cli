@@ -8,7 +8,7 @@ import { isBN } from './utils'
 
 const historyFile = path.join(os.homedir(), '.eth_cli_history')
 
-export function replStarter(context: { [key: string]: any }, prompt: string) {
+export function replStarter(context: { [key: string]: any }, prompt: string): repl.REPLServer {
   const r = repl.start({
     prompt,
     eval: (cmd, context, _, callback) => {
@@ -49,6 +49,8 @@ export function replStarter(context: { [key: string]: any }, prompt: string) {
   }
 
   require('repl.history')(r, historyFile)
+
+  return r
 }
 
 function isRecoverableError(error: Error) {
