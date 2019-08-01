@@ -1,7 +1,7 @@
 {
   "name": "eth-cli",
   "description": "A collection of CLI tools to help with ethereum learning and development.",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "contributors": [
     "Fernando Greco",
     "Franco Victorio",
