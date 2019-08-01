@@ -32,6 +32,8 @@ export async function startRepl(
     eth: web3.eth,
   }
 
+  const loadedContracts: { [name: string]: string } = {}
+
   // Add contracts into context
   for (let contract of contracts) {
     const abi = loadABI(contract.abiPath)
@@ -45,22 +47,34 @@ export async function startRepl(
     const contractInstance = new Contract(abi, contract.address, options)
     let [contractName] = path.basename(contract.abiPath).split('.')
 
-    if (replContext[contractName]) {
+    let contractNameCamelCased = camelCase(contractName)
+
+    if (replContext[contractNameCamelCased]) {
       const suffix = Object.keys(replContext).filter(function(key) {
-        return key.includes(contractName)
+        return key.includes(contractNameCamelCased)
       }).length
 
-      contractName = [contractName, '_', suffix].join('')
+      contractNameCamelCased = [contractNameCamelCased, '_', suffix].join('')
     }
 
-    const contractNameCamelCased = camelCase(contractName)
-
     replContext[contractNameCamelCased] = contractInstance
+    loadedContracts[contractNameCamelCased] = contract.address
   }
 
   const accounts = await web3.eth.getAccounts()
   replContext.accounts = accounts
 
   // Start REPL
-  replStarter(replContext, prompt)
+  const r = replStarter(replContext, prompt)
+
+  r.defineCommand('contracts', {
+    help: 'Show loaded contracts',
+    action() {
+      this.clearBufferedCommand()
+      for (const [loadedContract, address] of Object.entries(loadedContracts)) {
+        console.log(`${loadedContract} (${address})`)
+      }
+      this.displayPrompt()
+    },
+  })
 }
