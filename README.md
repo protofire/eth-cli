@@ -174,6 +174,57 @@ $ eth abi:show erc20
     "outputs": [
 ...
 ```
+### `conf`
+
+Configure eth-cli.
+
+#### `conf:address:add`
+
+Add a known address. You can later use the name of this known address instead of specifying a private key.
+
+```
+$ eth conf:address:add rinkeby1 0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d
+{
+  "name": "rinkeby1",
+  "address": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1"
+}
+$ eth repl --rinkeby --pk rinkeby1
+rinkeby> accounts[0]
+'0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1'
+```
+
+#### `conf:address:get`
+
+Show the data of a known address.
+
+```
+➜ eth conf:address:get rinkeby1   
+{
+  "privateKey": "0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d",
+  "address": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1"
+}
+```
+
+#### `conf:address:list`
+
+List known addresses.
+
+```
+$ eth conf:address:list        
+[
+  "ganache1"
+]
+```
+
+#### `conf:address:remove`
+
+List known addresses.
+
+```
+$ eth conf:address:remove rinkeby1
+% eth conf:address:list           
+[]
+```
 
 ### `contract`
 

@@ -19,6 +19,7 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
     "cli-ux": "^5.2.1",
+    "conf": "^5.0.0",
     "ethereumjs-util": "^6.1.0",
     "lodash.camelcase": "^4.3.0",
     "node-fetch": "^2.6.0",
