@@ -2,6 +2,7 @@ import camelCase from 'lodash.camelcase'
 import * as path from 'path'
 import Web3 from 'web3'
 
+import { config } from './config'
 import { replStarter } from './replStarter'
 import { loadABI } from './utils'
 
@@ -13,7 +14,7 @@ export async function startRepl(
   url: string,
   prompt: string,
   contracts: Array<{ abiPath: string; address: string }>,
-  privateKey: string | undefined,
+  privateKeyOrKnownAddress: string | undefined,
 ) {
   if (!url) {
     throw new Error('[startRepl] URL require')
@@ -22,7 +23,21 @@ export async function startRepl(
   // Connect web3
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
 
-  if (privateKey) {
+  if (privateKeyOrKnownAddress) {
+    const addresses = config.get('addresses', {})
+
+    // if it's a known address, use its private key; throw error if it doesn't have one
+    // otherwise, interpret the parameter as a private key
+    let privateKey
+    if (addresses[privateKeyOrKnownAddress]) {
+      if (addresses[privateKeyOrKnownAddress].privateKey) {
+        privateKey = addresses[privateKeyOrKnownAddress].privateKey
+      } else {
+        throw new Error("Selected address doesn't have a known private key")
+      }
+    } else {
+      privateKey = privateKeyOrKnownAddress
+    }
     web3.eth.accounts.wallet.add(privateKey)
   }
 

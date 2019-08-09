@@ -82,3 +82,11 @@ const createAccount = () => {
 }
 
 export const isBN = (x: any) => x._hex !== undefined
+
+export const isPrivateKey = (s: string) => {
+  return /^(0x)?[0-9a-fA-F]{64}$/.test(s)
+}
+
+export const isAddress = (s: string) => {
+  return /^(0x)?[0-9a-fA-F]{40}$/.test(s)
+}
