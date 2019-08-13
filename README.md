@@ -178,9 +178,26 @@ $ eth abi:show erc20
 
 Configure eth-cli.
 
+#### `conf:abi:add`
+
+Add a known ABI. You can later use the name of this known ABI in other commands.
+
+```
+$ eth conf:abi:add erc777 ./path/to/erc777.json
+$ eth repl --mainnet erc777@0x...
+```
+
+#### `conf:abi:remove`
+
+Remove a known ABI. This only works for ABIs added with `conf:abi:add`; ABIs that come with `eth-cli` cannot be remobed.
+
+```
+$ eth conf:abi:remove erc777
+```
+
 #### `conf:address:add`
 
-Add a known address. You can later use the name of this known address instead of specifying a private key.
+Add a known address. You can later use the name of this known address in other commands.
 
 ```
 $ eth conf:address:add rinkeby1 0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d
@@ -218,7 +235,7 @@ $ eth conf:address:list
 
 #### `conf:address:remove`
 
-List known addresses.
+Remove a known address.
 
 ```
 $ eth conf:address:remove rinkeby1

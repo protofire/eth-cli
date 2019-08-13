@@ -9,7 +9,7 @@ export class RemoveCommand extends Command {
     {
       name: 'name',
       required: true,
-      description: 'Name of the address to add',
+      description: 'Name of the address to remove',
     },
   ]
 

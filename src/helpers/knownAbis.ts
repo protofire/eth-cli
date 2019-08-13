@@ -1,26 +1,30 @@
+import _ from 'lodash'
+
 import erc20Abi from './abi/erc20.json'
 import erc721Abi from './abi/erc721.json'
-interface AbiMetaData {
+import { config } from './config'
+
+interface AbiItem {
   name: string
-  abiItem: object
+  abi: object
 }
 
-const ABI_META_DATA: AbiMetaData[] = [
-  {
-    name: 'ERC20',
-    abiItem: erc20Abi,
-  },
-  {
-    name: 'ERC721',
-    abiItem: erc721Abi,
-  },
+const ABI_META_DATA: AbiItem[] = [
+  { name: 'ERC20', abi: erc20Abi },
+  { name: 'ERC721', abi: erc721Abi },
 ]
 
+const getKnownAbis = () => {
+  const addedAbis: AbiItem[] = config.get('abis', [])
+  const knownAbis = [...ABI_META_DATA, ...addedAbis]
+  return knownAbis
+}
+
 export const getAbiByName = (abiName: string): object | null => {
-  const abiInUpperCase = abiName.toUpperCase()
-  const returnAbi = ABI_META_DATA.find(abi => abi.name === abiInUpperCase)
-  if (returnAbi) {
-    return returnAbi.abiItem
+  const knownAbis = getKnownAbis()
+  const index = _.findIndex(knownAbis, item => item.name.toLowerCase() === abiName.toLowerCase())
+  if (index !== -1) {
+    return knownAbis[index].abi
   }
   return null
 }
@@ -34,7 +38,6 @@ export const getStringAbiByName = (abiName: string): string | null => {
 }
 
 export const getAbiList = (): string[] => {
-  return ABI_META_DATA.map(item => {
-    return item.name
-  })
+  const knownAbis = getKnownAbis()
+  return knownAbis.map(item => item.name)
 }
