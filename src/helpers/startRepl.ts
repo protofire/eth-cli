@@ -1,4 +1,4 @@
-import camelCase from 'lodash.camelcase'
+import _ from 'lodash'
 import * as path from 'path'
 import Web3 from 'web3'
 
@@ -61,7 +61,7 @@ export async function startRepl(
     const contractInstance = new Contract(abi, address, options)
     let [contractName] = path.basename(abiPath).split('.')
 
-    let contractNameCamelCased = camelCase(contractName)
+    let contractNameCamelCased = _.camelCase(contractName)
 
     if (replContext[contractNameCamelCased]) {
       const suffix = Object.keys(replContext).filter(function(key) {
