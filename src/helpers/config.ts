@@ -22,3 +22,11 @@ export const getPrivateKey = (privateKeyOrKnownAddress: string) => {
 
   return add0x(privateKey)
 }
+
+export const getAddress = (addressOrKnownAddress: string) => {
+  const addresses = config.get('addresses', {})
+
+  const knownAddress = addresses[addressOrKnownAddress]
+
+  return add0x(knownAddress ? knownAddress.address : addressOrKnownAddress)
+}

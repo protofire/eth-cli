@@ -2,7 +2,7 @@ import _ from 'lodash'
 import * as path from 'path'
 import Web3 from 'web3'
 
-import { getPrivateKey } from './config'
+import { getAddress, getPrivateKey } from './config'
 import { replStarter } from './replStarter'
 import { loadABI } from './utils'
 
@@ -64,7 +64,7 @@ export async function startRepl(
 
   // Add contracts into context
   for (let contract of contracts) {
-    addContract(contract.abiPath, contract.address, replContext)
+    addContract(contract.abiPath, getAddress(contract.address), replContext)
   }
 
   const accounts = await web3.eth.getAccounts()
