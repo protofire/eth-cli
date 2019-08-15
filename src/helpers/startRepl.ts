@@ -2,7 +2,7 @@ import _ from 'lodash'
 import * as path from 'path'
 import Web3 from 'web3'
 
-import { config } from './config'
+import { getPrivateKey } from './config'
 import { replStarter } from './replStarter'
 import { loadABI } from './utils'
 
@@ -24,20 +24,7 @@ export async function startRepl(
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
 
   if (privateKeyOrKnownAddress) {
-    const addresses = config.get('addresses', {})
-
-    // if it's a known address, use its private key; throw error if it doesn't have one
-    // otherwise, interpret the parameter as a private key
-    let privateKey
-    if (addresses[privateKeyOrKnownAddress]) {
-      if (addresses[privateKeyOrKnownAddress].privateKey) {
-        privateKey = addresses[privateKeyOrKnownAddress].privateKey
-      } else {
-        throw new Error("Selected address doesn't have a known private key")
-      }
-    } else {
-      privateKey = privateKeyOrKnownAddress
-    }
+    const privateKey = getPrivateKey(privateKeyOrKnownAddress)
     web3.eth.accounts.wallet.add(privateKey)
   }
 
