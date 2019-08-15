@@ -4,6 +4,7 @@ import Contract from 'web3/eth/contract'
 import { TransactionReceipt } from 'web3/types'
 import { Unit } from 'web3/utils'
 
+import { getPrivateKey } from './config'
 import { add0x } from './utils'
 
 interface DeployResult {
@@ -11,14 +12,18 @@ interface DeployResult {
   address: string
 }
 
-export function deploy(url: string, privateKey: string, binPath: string): Promise<DeployResult> {
+export function deploy(
+  url: string,
+  privateKeyOrKnownAddress: string,
+  binPath: string,
+): Promise<DeployResult> {
   const transactionConfirmationBlocks = 3
   const options = {
     transactionConfirmationBlocks,
   }
 
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
-  privateKey = add0x(privateKey)
+  const privateKey = getPrivateKey(privateKeyOrKnownAddress)
 
   const { address } = web3.eth.accounts.wallet.add(privateKey)
 
