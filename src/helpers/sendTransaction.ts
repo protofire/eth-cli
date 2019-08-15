@@ -1,5 +1,5 @@
 import Web3 from 'web3'
-import { TransactionConfig } from 'web3-core'
+import { Tx } from 'web3/eth/types'
 
 import { add0x } from './utils'
 
@@ -17,7 +17,7 @@ export function sendTransaction(
   const { address } = web3.eth.accounts.wallet.add(privateKey)
 
   return new Promise((resolve, reject) => {
-    const tx: TransactionConfig = { from: address, data, to: contractAddress }
+    const tx: Tx = { from: address, data, to: contractAddress }
     web3.eth
       .estimateGas(tx)
       .then(gas => {

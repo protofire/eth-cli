@@ -1,5 +1,6 @@
 import { cli } from 'cli-ux'
-import { Transaction, TransactionReceipt } from 'web3-core'
+import { Transaction } from 'web3/eth/types'
+import { TransactionReceipt } from 'web3/types'
 
 import { BaseCommand } from '../../base'
 

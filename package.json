@@ -26,9 +26,9 @@
     "repl.history": "^0.1.4",
     "rlp": "^2.2.3",
     "tslib": "^1",
-    "web3": "1.0.0-beta.55",
-    "web3-eth-accounts": "1.0.0-beta.55",
-    "web3-providers": "1.0.0-beta.55"
+    "web3": "1.2.1",
+    "web3-eth-accounts": "1.2.1",
+    "web3-providers-http": "1.2.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
@@ -45,6 +45,7 @@
     "@types/lodash": "^4.14.136",
     "@types/node": "^12.0.7",
     "@types/node-fetch": "^2.5.0",
+    "@types/web3": "^1.0.19",
     "chai": "^4",
     "globby": "^9.2.0",
     "husky": "^2.7.0",
