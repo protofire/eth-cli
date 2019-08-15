@@ -1,5 +1,3 @@
-import _ from 'lodash'
-
 import erc20Abi from './abi/erc20.json'
 import erc721Abi from './abi/erc721.json'
 import { config } from './config'
@@ -22,7 +20,7 @@ const getKnownAbis = () => {
 
 export const getAbiByName = (abiName: string): object | null => {
   const knownAbis = getKnownAbis()
-  const index = _.findIndex(knownAbis, item => item.name.toLowerCase() === abiName.toLowerCase())
+  const index = knownAbis.findIndex(item => item.name.toLowerCase() === abiName.toLowerCase())
   if (index !== -1) {
     return knownAbis[index].abi
   }
