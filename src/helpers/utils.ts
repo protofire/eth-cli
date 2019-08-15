@@ -1,7 +1,7 @@
 import { randomBytes } from 'crypto'
 import * as fs from 'fs'
-import { Accounts } from 'web3-eth-accounts'
-import { HttpProvider } from 'web3-providers'
+import Accounts from 'web3-eth-accounts'
+import HttpProvider from 'web3-providers-http'
 
 import { ABI, ABIItem } from '../types'
 

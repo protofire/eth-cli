@@ -31,7 +31,7 @@ export class AddCommand extends Command {
     const addresses = config.get('addresses', {})
     if (isPrivateKey(addressOrPk)) {
       const { Accounts } = await import('web3-eth-accounts')
-      const accounts = new Accounts('')
+      const accounts = new Accounts()
       const privateKey = add0x(addressOrPk)
       const address = accounts.privateKeyToAccount(privateKey).address
 

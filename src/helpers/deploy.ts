@@ -1,8 +1,8 @@
 import * as fs from 'fs'
 import Web3 from 'web3'
-import { TransactionReceipt } from 'web3-core/types'
-import { Contract } from 'web3-eth-contract/types'
-import { Unit } from 'web3-utils/types'
+import Contract from 'web3/eth/contract'
+import { TransactionReceipt } from 'web3/types'
+import { Unit } from 'web3/utils'
 
 import { add0x } from './utils'
 

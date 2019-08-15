@@ -32,8 +32,10 @@ export function decodeTxData(functionSignature: string, txData: string) {
 
   const args = abi.decodeParameters(params, add0x(txData.slice(10)))
 
+  // args returns a 'EthAbiDecodeParametersResultArray', which is not exactly an array, so we have to do this
   const result = []
   for (let i = 0; i < Object.keys(args).length; i++) {
+    if (!args[i]) continue
     const value = isBN(args[i]) ? args[i].toString() : args[i]
     result.push(value)
   }
