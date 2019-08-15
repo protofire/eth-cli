@@ -27,7 +27,7 @@ export class AddCommand extends Command {
 
     const abis = config.get('abis', [])
     const abi = loadABI(abiPath)
-    const index = abis.indexOf((item: any) => item.name.toLowerCase() === name.toLowerCase())
+    const index = abis.findIndex((item: any) => item.name.toLowerCase() === name.toLowerCase())
     if (index === -1) {
       abis.push({ name, abi })
     } else {
