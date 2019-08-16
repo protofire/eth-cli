@@ -2,13 +2,13 @@ import { cli } from 'cli-ux'
 import { Transaction } from 'web3/eth/types'
 import { TransactionReceipt } from 'web3/types'
 
-import { BaseCommand } from '../../base'
+import { NetworkCommand } from '../../base/network'
 
-export default class GetCommand extends BaseCommand {
+export default class GetCommand extends NetworkCommand {
   static description = `Print the transaction object for the given transaction hash.`
 
   static flags = {
-    ...BaseCommand.flags,
+    ...NetworkCommand.flags,
   }
 
   static args = [

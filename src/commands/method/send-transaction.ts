@@ -1,13 +1,13 @@
 import { cli } from 'cli-ux'
 
-import { BaseCommand } from '../../base'
+import { NetworkCommand } from '../../base/network'
 import { privateKeyFlag } from '../../flags'
 
-export default class SendTransactionCommand extends BaseCommand {
+export default class SendTransactionCommand extends NetworkCommand {
   static description = `Sends the transaction for the contract in <address> with <encodedABI> using the given private key.`
 
   static flags = {
-    ...BaseCommand.flags,
+    ...NetworkCommand.flags,
     pk: { ...privateKeyFlag, required: true },
   }
 
