@@ -1,13 +1,13 @@
 import { cli } from 'cli-ux'
 
-import { BaseCommand } from '../../base'
+import { NetworkCommand } from '../../base/network'
 import { privateKeyFlag } from '../../flags'
 
-export class DeployCommand extends BaseCommand {
+export class DeployCommand extends NetworkCommand {
   static description = `Deploy contract whose bytecode is in <bin> using private key <pk>.`
 
   static flags = {
-    ...BaseCommand.flags,
+    ...NetworkCommand.flags,
     pk: privateKeyFlag,
   }
 

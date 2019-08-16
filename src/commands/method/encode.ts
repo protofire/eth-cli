@@ -1,10 +1,10 @@
-import { BaseCommand } from '../../base'
+import { NetworkCommand } from '../../base/network'
 
-export default class EncodeCommand extends BaseCommand {
+export default class EncodeCommand extends NetworkCommand {
   static description = `Encodes the ABI for the method <methodCall> and returns the ABI byte code.`
 
   static flags = {
-    ...BaseCommand.flags,
+    ...NetworkCommand.flags,
   }
 
   static args = [

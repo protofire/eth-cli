@@ -6,10 +6,13 @@ interface NetworkInfo {
   label?: string
 }
 
-type NetworkFlag = keyof typeof BaseCommand.flags
+type NetworkFlag = keyof typeof NetworkCommand.flags
 type NetworkName = Exclude<NetworkFlag, 'url'>
 
-export abstract class BaseCommand extends Command {
+/**
+ * Base command that handles the flags used for specifying the desired network.
+ */
+export abstract class NetworkCommand extends Command {
   static flags = {
     url: flags.string(),
     mainnet: flags.boolean({ exclusive: ['url'] }),
@@ -39,28 +42,28 @@ export abstract class BaseCommand extends Command {
     }
   }
 
-  getNetworkUrl(flags: { [key in keyof typeof BaseCommand.flags]: any }): string {
+  getNetworkUrl(flags: { [key in keyof typeof NetworkCommand.flags]: any }): string {
     const [networkUrl] = this.getNetworkUrlAndFlag(flags)
     return networkUrl
   }
 
   getNetworkUrlAndFlag(
-    flags: { [key in keyof typeof BaseCommand.flags]: any },
+    flags: { [key in keyof typeof NetworkCommand.flags]: any },
   ): [string, NetworkFlag] {
     if (flags.url) {
       return [flags.url, 'url']
     }
 
-    const networksInfo = BaseCommand.getNetworksInfo()
+    const networksInfo = NetworkCommand.getNetworksInfo()
 
     for (const flag of Object.keys(flags) as Array<keyof typeof flags>) {
-      if (flag === 'url' || !BaseCommand.flags[flag]) continue
+      if (flag === 'url' || !NetworkCommand.flags[flag]) continue
 
       if (flags[flag]) {
         return [networksInfo[flag].url, flag]
       }
     }
 
-    return [BaseCommand.defaultUrl, 'url']
+    return [NetworkCommand.defaultUrl, 'url']
   }
 }

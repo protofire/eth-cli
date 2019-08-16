@@ -1,7 +1,7 @@
 import { Command, flags } from '@oclif/command'
 import { cli } from 'cli-ux'
 
-import { BaseCommand } from '../base/index'
+import { NetworkCommand } from '../base/network'
 
 export default class NetworksCommand extends Command {
   static description = `Show information for each known network.`
@@ -25,7 +25,7 @@ export default class NetworksCommand extends Command {
     const { flags } = this.parse(NetworksCommand)
     const { table } = flags
 
-    const networkConstants = BaseCommand.getNetworksInfo()
+    const networkConstants = NetworkCommand.getNetworksInfo()
 
     if (!table) {
       cli.styledJSON(networkConstants)

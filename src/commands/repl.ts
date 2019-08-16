@@ -1,4 +1,4 @@
-import { BaseCommand } from '../base'
+import { NetworkCommand } from '../base/network'
 import { privateKeyFlag } from '../flags'
 
 const parseReplContracts = (args: string[]): Array<{ abiPath: string; address: string }> => {
@@ -13,7 +13,7 @@ const parseReplContracts = (args: string[]): Array<{ abiPath: string; address: s
   return result
 }
 
-export default class ReplCommand extends BaseCommand {
+export default class ReplCommand extends NetworkCommand {
   static description = `
 Start a REPL that connects to an RPC node ('localhost:8545' by default).
 
@@ -26,7 +26,7 @@ learn how to do this.`
   static strict = false
 
   static flags = {
-    ...BaseCommand.flags,
+    ...NetworkCommand.flags,
     pk: privateKeyFlag,
   }
 
@@ -51,7 +51,7 @@ learn how to do this.`
       const [networkUrl, networkFlag] = this.getNetworkUrlAndFlag(flags)
       const prompt =
         networkFlag === 'url'
-          ? networkUrl === BaseCommand.defaultUrl
+          ? networkUrl === NetworkCommand.defaultUrl
             ? '> '
             : `${networkUrl}> `
           : `${networkFlag}> `
