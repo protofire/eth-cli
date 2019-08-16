@@ -14,7 +14,9 @@ type NetworkName = Exclude<NetworkFlag, 'url'>
  */
 export abstract class NetworkCommand extends Command {
   static flags = {
-    url: flags.string(),
+    url: flags.string({
+      char: 'u',
+    }),
     mainnet: flags.boolean({ exclusive: ['url'] }),
     ropsten: flags.boolean({ exclusive: ['url'] }),
     rinkeby: flags.boolean({ exclusive: ['url'] }),
@@ -50,11 +52,17 @@ export abstract class NetworkCommand extends Command {
   getNetworkUrlAndFlag(
     flags: { [key in keyof typeof NetworkCommand.flags]: any },
   ): [string, NetworkFlag] {
+    const networksInfo = NetworkCommand.getNetworksInfo()
+
     if (flags.url) {
+      // if a known network is specified through --url, for example `-u mainnet`, use the known url of that network
+      if (flags.url in networksInfo) {
+        const selectedNetwork = (networksInfo as any)[flags.url].url
+        return [selectedNetwork, flags.url]
+      }
+
       return [flags.url, 'url']
     }
-
-    const networksInfo = NetworkCommand.getNetworksInfo()
 
     for (const flag of Object.keys(flags) as Array<keyof typeof flags>) {
       if (flag === 'url' || !NetworkCommand.flags[flag]) continue
