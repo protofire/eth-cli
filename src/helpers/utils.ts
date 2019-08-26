@@ -90,3 +90,6 @@ export const isPrivateKey = (s: string) => {
 export const isAddress = (s: string) => {
   return /^(0x)?[0-9a-fA-F]{40}$/.test(s)
 }
+
+// tslint:disable-next-line no-string-based-set-timeout
+export const sleep = (timeout: number) => new Promise(res => setTimeout(res, timeout))
