@@ -1,10 +1,10 @@
 import Web3 from 'web3'
 
-import { add0x } from './utils'
+import { getPrivateKey } from './config'
 
-export function generateNop(url: string, privateKey: string) {
+export function generateNop(url: string, privateKeyOrKnownAddress: string): Promise<string> {
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
-  privateKey = add0x(privateKey)
+  const privateKey = getPrivateKey(privateKeyOrKnownAddress)
 
   const { address } = web3.eth.accounts.wallet.add(privateKey)
 
