@@ -1,7 +1,8 @@
 import { cli } from 'cli-ux'
 
 import { NetworkCommand } from '../../base/network'
-import { privateKeyFlag } from '../../flags'
+import { confirmationBlocksFlag, privateKeyFlag } from '../../flags'
+import { awaitTransactionMined } from '../../helpers/transactions'
 
 export default class SendCommand extends NetworkCommand {
   static description = `Executes <methodCall> for the contract in <address> given <abi> using the given private key.`
@@ -9,6 +10,7 @@ export default class SendCommand extends NetworkCommand {
   static flags = {
     ...NetworkCommand.flags,
     pk: { ...privateKeyFlag, required: true },
+    'confirmation-blocks': confirmationBlocksFlag,
   }
 
   static args = [
@@ -44,13 +46,15 @@ export default class SendCommand extends NetworkCommand {
       networkUrl = this.getNetworkUrl(flags)
 
       const { abi, methodCall, address } = args
-      const { pk } = flags
+      const { 'confirmation-blocks': confirmationBlocks, pk } = flags
       const { encode } = await import('../../helpers/encode')
       const { sendTransaction } = await import('../../helpers/sendTransaction')
       const abiByteCode = encode(abi, methodCall, networkUrl)
-      const result = await sendTransaction(abiByteCode, address, pk!, networkUrl)
+      const tx = await sendTransaction(abiByteCode, address, pk!, networkUrl)
 
-      cli.styledJSON(result)
+      await awaitTransactionMined(networkUrl, tx, confirmationBlocks)
+
+      cli.styledJSON(tx)
     } catch (e) {
       this.error(e.message, { exit: 1 })
     }
