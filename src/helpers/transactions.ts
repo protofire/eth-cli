@@ -8,7 +8,7 @@ export const awaitTransactionMined = async (
   networkUrl: string,
   txHash: string,
   confirmationBlocks: number,
-) => {
+): Promise<TransactionReceipt> => {
   const web3 = new Web3(new Web3.providers.HttpProvider(networkUrl))
 
   const spinner = ora('Waiting for transaction to be mined').start()
@@ -43,4 +43,6 @@ export const awaitTransactionMined = async (
   }
 
   spinner.stop()
+
+  return receipt
 }

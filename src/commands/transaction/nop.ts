@@ -1,8 +1,7 @@
-import { flags } from '@oclif/command'
 import { cli } from 'cli-ux'
 
 import { NetworkCommand } from '../../base/network'
-import { privateKeyFlag } from '../../flags'
+import { confirmationBlocksFlag, privateKeyFlag } from '../../flags'
 import { awaitTransactionMined } from '../../helpers/transactions'
 
 export default class NopCommand extends NetworkCommand {
@@ -11,10 +10,7 @@ export default class NopCommand extends NetworkCommand {
   static flags = {
     ...NetworkCommand.flags,
     pk: { ...privateKeyFlag, required: true },
-    'confirmation-blocks': flags.integer({
-      default: 0,
-      description: 'Number of confirmation blocks to wait for before the command returns.',
-    }),
+    'confirmation-blocks': confirmationBlocksFlag,
   }
 
   static examples = [

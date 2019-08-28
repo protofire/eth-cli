@@ -1,7 +1,8 @@
 import { cli } from 'cli-ux'
 
 import { NetworkCommand } from '../../base/network'
-import { privateKeyFlag } from '../../flags'
+import { confirmationBlocksFlag, privateKeyFlag } from '../../flags'
+import { awaitTransactionMined } from '../../helpers/transactions'
 
 export class DeployCommand extends NetworkCommand {
   static description = `Deploy contract whose bytecode is in <bin> using private key <pk>.`
@@ -9,6 +10,7 @@ export class DeployCommand extends NetworkCommand {
   static flags = {
     ...NetworkCommand.flags,
     pk: privateKeyFlag,
+    'confirmation-blocks': confirmationBlocksFlag,
   }
 
   static args = [
@@ -34,15 +36,17 @@ export class DeployCommand extends NetworkCommand {
       networkUrl = this.getNetworkUrl(flags)
 
       const { bin } = args
-      const { pk } = flags
+      const { pk, 'confirmation-blocks': confirmationBlocks } = flags
       if (!pk) {
         this.error('You have to specify a private key using --pk', { exit: 1 })
         return
       }
       const { deploy } = await import('../../helpers/deploy')
-      const data = await deploy(networkUrl, pk, bin)
+      const txHash = await deploy(networkUrl, pk, bin)
 
-      cli.styledJSON(data)
+      const receipt = await awaitTransactionMined(networkUrl, txHash, confirmationBlocks)
+
+      cli.styledJSON({ address: receipt.contractAddress, receipt })
     } catch (e) {
       this.error(e.message, { exit: 1 })
     }
