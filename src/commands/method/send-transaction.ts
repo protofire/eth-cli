@@ -1,3 +1,4 @@
+import chalk from 'chalk'
 import { cli } from 'cli-ux'
 
 import { NetworkCommand } from '../../base/network'
@@ -32,6 +33,12 @@ export default class SendTransactionCommand extends NetworkCommand {
 
   async run() {
     const { args, flags } = this.parse(SendTransactionCommand)
+
+    console.warn(
+      chalk.yellow(
+        `Warning: the 'method:send-transaction' command is deprecated and will be removed in the future. Use 'method:send' instead.`,
+      ),
+    )
 
     let networkUrl
 

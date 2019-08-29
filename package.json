@@ -18,6 +18,7 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
+    "chalk": "^2.4.2",
     "cli-ux": "^5.2.1",
     "conf": "^5.0.0",
     "ethereumjs-util": "^6.1.0",
