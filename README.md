@@ -1,32 +1,37 @@
-# eth-cli
+<img src="assets/dummy-logo.jpeg" alt="logo" style="width:30%; margin-left: auto; margin-right: auto; display: block">
+<h1 align="center">eth-cli</h1>
+
+<p align="center">A CLI swiss knife for Ethereum developers</p>
+
+<p align="center">
 
 [![Donate with Ethereum](https://en.cryptobadges.io/badge/micro/0xe8cdf02efd8ab0a490d7b2cb13553389c9bc932e)](https://en.cryptobadges.io/donate/0xe8cdf02efd8ab0a490d7b2cb13553389c9bc932e)
+
+</p>
+
+<p align="center">
 
 [![Build Status](https://travis-ci.org/protofire/eth-cli.svg?branch=master)](https://travis-ci.org/protofire/eth-cli)
 [![NPM version](https://badge.fury.io/js/eth-cli.svg)](https://npmjs.org/package/eth-cli)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/protofire/eth-cli/master/LICENSE)
 [![dependencies Status](https://david-dm.org/protofire/eth-cli/status.svg)](https://david-dm.org/protofire/eth-cli)
-[![devDependencies Status](https://david-dm.org/protofire/eth-cli/dev-status.svg)](https://david-dm.org/protofire/eth-cli?type=dev)
+[![devDependencies Status](https://david-dm.org/protofire/eth-cli/dev-status.svg)](https://david-dm.org/protofire/eth-cli?type=dev)</p>
 
-CLI swiss knife for Ethereum developers.
 
-## What is this
 
-`eth-cli` is a collection of commands that can help you develop dapps
-for Ethereum. Check the [Examples](#examples)
-section or the [list of commands](#commands) to find out what you can do with it.
+## Why use it?
+
+`eth-cli` allows you to play with **transactions** and **ABIs**, interact with **smart contracts** and **Ethereum blockchain** (using your own REPL) and also generate **random addresses / public-private key pairs**, all at the comfort of your **command line**. Checkout the _Table of Contents_ below for details.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [eth-cli](#eth-cli)
-  - [What is this](#what-is-this)
+<h2> Table of Contents</h2>
+  
+  - [Installation](#installation)
   - [Examples](#examples)
     - [Start a REPL to interact with an RPC node](#start-a-repl-to-interact-with-an-rpc-node)
     - [Generate a random address](#generate-a-random-address)
     - [Get info about the most popular chains](#get-info-about-the-most-popular-chains)
-  - [Installation](#installation)
   - [Commands](#commands)
     - [`abi`](#abi)
       - [`abi:list`](#abilist)
@@ -58,6 +63,19 @@ section or the [list of commands](#commands) to find out what you can do with it
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+## Installation
+
+Install it globally:
+
+`npm install -g eth-cli`
+
+You can also try it out with `npx`:
+
+```
+$ npx eth-cli repl --mainnet erc721@0x06012c8cf97bead5deae237070f9587f8e7a266d
+> erc721.methods.name().call()
+'CryptoKitties'
+```
 
 ## Examples
 
@@ -120,20 +138,6 @@ If you have [`jq`](https://stedolan.github.io/jq/) installed, you can do somethi
 ```
 $ eth networks | jq .rinkeby.id
 4
-```
-
-## Installation
-
-Install it globally:
-
-`npm install -g eth-cli`
-
-You can also try it out with `npx`:
-
-```
-$ npx eth-cli repl --mainnet erc721@0x06012c8cf97bead5deae237070f9587f8e7a266d
-> erc721.methods.name().call()
-'CryptoKitties'
 ```
 
 ## Commands
@@ -470,3 +474,7 @@ $ eth repl erc20@0xc0feee...
 eth-cli is free to use and open-sourced. If you value our effort and feel like helping us to keep pushing this tool forward, you can send us a small donation. We'll highly appreciate it :)
 
 [![Donate with Ethereum](https://en.cryptobadges.io/badge/micro/0xe8cdf02efd8ab0a490d7b2cb13553389c9bc932e)](https://en.cryptobadges.io/donate/0xe8cdf02efd8ab0a490d7b2cb13553389c9bc932e)
+
+## Credits
+Table of Contents *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
