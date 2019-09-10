@@ -1,12 +1,14 @@
 import { Command } from '@oclif/command'
 
+import { isEmptyCommand } from '../../helpers/checkCommandInputs'
+
 export default class MethodsCommand extends Command {
   static description = `Get the hash of each method in the given ABI.`
 
   static args = [
     {
       name: 'abi',
-      required: true,
+      required: false,
       description: 'Contract ABI.',
     },
   ]
@@ -16,7 +18,12 @@ export default class MethodsCommand extends Command {
   static aliases = ['me']
 
   async run() {
-    const { args } = this.parse(MethodsCommand)
+    const { args, flags } = this.parse(MethodsCommand)
+
+    if (isEmptyCommand(flags, args)) {
+      this._help()
+      this.exit(1)
+    }
 
     try {
       const { abi } = args

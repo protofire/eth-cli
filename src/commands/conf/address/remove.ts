@@ -1,5 +1,6 @@
 import { Command } from '@oclif/command'
 
+import { isEmptyCommand } from '../../../helpers/checkCommandInputs'
 import { config } from '../../../helpers/config'
 
 export class RemoveCommand extends Command {
@@ -8,7 +9,7 @@ export class RemoveCommand extends Command {
   static args = [
     {
       name: 'name',
-      required: true,
+      required: false,
       description: 'Name of the address to remove',
     },
   ]
@@ -18,9 +19,14 @@ export class RemoveCommand extends Command {
   static examples = ['eth conf:address:rm ganache1']
 
   async run() {
-    const { args } = this.parse(RemoveCommand)
-    const { name } = args
+    const { args, flags } = this.parse(RemoveCommand)
 
+    if (isEmptyCommand(flags, args)) {
+      this._help()
+      this.exit(1)
+    }
+
+    const { name } = args
     const addresses = config.get('addresses', {})
     if (addresses[name]) {
       delete addresses[name]

@@ -1,6 +1,7 @@
 import { Command } from '@oclif/command'
 import cli from 'cli-ux'
 
+import { isEmptyCommand } from '../../../helpers/checkCommandInputs'
 import { config } from '../../../helpers/config'
 
 export class GetCommand extends Command {
@@ -9,7 +10,7 @@ export class GetCommand extends Command {
   static args = [
     {
       name: 'name',
-      required: true,
+      required: false,
       description: 'Name of the address to get',
     },
   ]
@@ -17,9 +18,14 @@ export class GetCommand extends Command {
   static examples = ['eth conf:address:get ganache1']
 
   async run() {
-    const { args } = this.parse(GetCommand)
-    const { name } = args
+    const { args, flags } = this.parse(GetCommand)
 
+    if (isEmptyCommand(flags, args)) {
+      this._help()
+      this.exit(1)
+    }
+
+    const { name } = args
     const addresses = config.get('addresses', {})
     if (addresses[name]) {
       cli.styledJSON(addresses[name])

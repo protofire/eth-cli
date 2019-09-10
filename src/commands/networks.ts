@@ -22,42 +22,46 @@ export default class NetworksCommand extends Command {
   static examples = ['eth networks --display json']
 
   async run() {
-    const { flags } = this.parse(NetworksCommand)
-    const { table } = flags
+    try {
+      const { flags } = this.parse(NetworksCommand)
+      const { table } = flags
 
-    const networkConstants = NetworkCommand.getNetworksInfo()
+      const networkConstants = NetworkCommand.getNetworksInfo()
 
-    if (!table) {
-      cli.styledJSON(networkConstants)
-    } else {
-      const networks = Object.values(networkConstants).sort((network1, network2) => {
-        if (network1.id !== undefined && network2.id !== undefined) {
-          return network1.id - network2.id
-        } else if (network1.id !== undefined) {
-          return -1
-        } else {
-          return 1
-        }
-      })
-      cli.table(
-        networks,
-        {
-          id: {
-            header: 'Id',
-            minWidth: 7,
+      if (!table) {
+        cli.styledJSON(networkConstants)
+      } else {
+        const networks = Object.values(networkConstants).sort((network1, network2) => {
+          if (network1.id !== undefined && network2.id !== undefined) {
+            return network1.id - network2.id
+          } else if (network1.id !== undefined) {
+            return -1
+          } else {
+            return 1
+          }
+        })
+        cli.table(
+          networks,
+          {
+            id: {
+              header: 'Id',
+              minWidth: 7,
+            },
+            label: {
+              header: 'Name',
+            },
+            url: {
+              header: 'Url',
+            },
           },
-          label: {
-            header: 'Name',
+          {
+            printLine: this.log,
+            ...flags, // parsed flags
           },
-          url: {
-            header: 'Url',
-          },
-        },
-        {
-          printLine: this.log,
-          ...flags, // parsed flags
-        },
-      )
+        )
+      }
+    } catch (e) {
+      this.error(e.message, { exit: 1 })
     }
   }
 }

@@ -16,12 +16,6 @@ describe('methods', () => {
     await expect(MethodsCommand.run()).rejects.toThrow()
   })
 
-  it(`Should run 'methods' and throw an error.`, async () => {
-    await expect(MethodsCommand.run([])).rejects.toThrow(
-      'Missing 1 required arg:\n' + 'abi  Contract ABI.\n' + 'See more help with --help',
-    )
-  })
-
   it(`Should run 'methods --help' and throw an error.`, async () => {
     await expect(MethodsCommand.run(['--help'])).rejects.toThrow('EEXIT: 0')
   })

@@ -1,4 +1,5 @@
 import { NetworkCommand } from '../../base/network'
+import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 
 export default class EncodeCommand extends NetworkCommand {
   static description = `Encodes the ABI for the method <methodCall> and returns the ABI byte code.`
@@ -10,12 +11,12 @@ export default class EncodeCommand extends NetworkCommand {
   static args = [
     {
       name: 'abi',
-      required: true,
+      required: false,
       description: 'The abi file.',
     },
     {
       name: 'methodCall',
-      required: true,
+      required: false,
       description: `e.g.: 'myMethod(arg1,arg2,["a","b",3,["d","0x123..."]])'`,
     },
   ]
@@ -28,6 +29,11 @@ export default class EncodeCommand extends NetworkCommand {
 
   async run() {
     const { args, flags } = this.parse(EncodeCommand)
+
+    if (isEmptyCommand(flags, args)) {
+      this._help()
+      this.exit(1)
+    }
 
     let networkUrl
 

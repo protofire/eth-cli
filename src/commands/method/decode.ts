@@ -1,18 +1,20 @@
 import { Command } from '@oclif/command'
 import { cli } from 'cli-ux'
 
+import { isEmptyCommand } from '../../helpers/checkCommandInputs'
+
 export default class DecodeCommand extends Command {
   static description = `Decode the arguments of the given transaction data for the given function signature.`
 
   static args = [
     {
       name: 'functionSignature',
-      required: true,
+      required: false,
       description: 'The function signature.',
     },
     {
       name: 'txData',
-      required: true,
+      required: false,
       description: 'The given transaction data.',
     },
   ]
@@ -24,7 +26,12 @@ export default class DecodeCommand extends Command {
   static aliases = ['de']
 
   async run() {
-    const { args } = this.parse(DecodeCommand)
+    const { args, flags } = this.parse(DecodeCommand)
+
+    if (isEmptyCommand(flags, args)) {
+      this._help()
+      this.exit(1)
+    }
 
     try {
       const { functionSignature, txData } = args
