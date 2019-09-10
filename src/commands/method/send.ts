@@ -2,6 +2,7 @@ import { cli } from 'cli-ux'
 
 import { NetworkCommand } from '../../base/network'
 import { confirmationBlocksFlag, privateKeyFlag } from '../../flags'
+import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 import { awaitTransactionMined } from '../../helpers/transactions'
 
 export default class SendCommand extends NetworkCommand {
@@ -9,24 +10,24 @@ export default class SendCommand extends NetworkCommand {
 
   static flags = {
     ...NetworkCommand.flags,
-    pk: { ...privateKeyFlag, required: true },
+    pk: { ...privateKeyFlag, required: false },
     'confirmation-blocks': confirmationBlocksFlag,
   }
 
   static args = [
     {
       name: 'abi',
-      required: true,
+      required: false,
       description: `The contract's ABI.`,
     },
     {
       name: 'methodCall',
-      required: true,
+      required: false,
       description: `e.g.: 'myMethod(arg1,arg2,["a","b",3,["d","0x123..."]])'`,
     },
     {
       name: 'address',
-      required: true,
+      required: false,
       description: `The contract's  address.`,
     },
   ]
@@ -39,6 +40,11 @@ export default class SendCommand extends NetworkCommand {
 
   async run() {
     const { args, flags } = this.parse(SendCommand)
+
+    if (isEmptyCommand({}, args)) {
+      this._help()
+      this.exit(1)
+    }
 
     let networkUrl
 

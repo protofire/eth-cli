@@ -1,13 +1,15 @@
 import { Command } from '@oclif/command'
 import { keccak } from 'ethereumjs-util'
 
+import { isEmptyCommand } from '../../helpers/checkCommandInputs'
+
 export default class HashCommand extends Command {
   static description = `Get the hash of the given method.`
 
   static args = [
     {
       name: 'signature',
-      required: true,
+      required: false,
       description: 'The given signature.',
     },
   ]
@@ -17,7 +19,12 @@ export default class HashCommand extends Command {
   static aliases = ['m:hs', 'm:h']
 
   async run() {
-    const { args } = this.parse(HashCommand)
+    const { args, flags } = this.parse(HashCommand)
+
+    if (isEmptyCommand(flags, args)) {
+      this._help()
+      this.exit(1)
+    }
 
     try {
       const { signature } = args

@@ -16,25 +16,8 @@ describe('decode', () => {
     await expect(DecodeCommand.run()).rejects.toThrow()
   })
 
-  it(`Should run 'decode' and throw an error.`, async () => {
-    await expect(DecodeCommand.run([])).rejects.toThrow(
-      'Missing 2 required args:\n' +
-        'functionSignature  The function signature.\n' +
-        'txData             The given transaction data.\n' +
-        'See more help with --help',
-    )
-  })
-
   it(`Should run 'decode --help' and throw an error.`, async () => {
     await expect(DecodeCommand.run(['--help'])).rejects.toThrow('EEXIT: 0')
-  })
-
-  it(`Should run 'decode --abi' and throw an error.`, async () => {
-    await expect(DecodeCommand.run(['LOL'])).rejects.toThrow(
-      `Missing 1 required arg:
-txData  The given transaction data.
-See more help with --help`,
-    )
   })
 
   it(`Should run 'decode 'transfer(address,uint256)'

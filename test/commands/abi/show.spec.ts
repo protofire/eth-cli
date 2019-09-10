@@ -14,12 +14,6 @@ describe('abi:show', () => {
 
   afterEach(() => jest.restoreAllMocks())
 
-  it(`Should run 'abi:show' and throw an error.`, async () => {
-    await expect(ShowCommand.run([])).rejects.toThrow(
-      'Missing 1 required arg:\n' + 'abi  The contract name.\n' + 'See more help with --help',
-    )
-  })
-
   it(`Should run 'abi:show --help' and throw an error.`, async () => {
     await expect(ShowCommand.run(['--help'])).rejects.toThrow('EEXIT: 0')
   })

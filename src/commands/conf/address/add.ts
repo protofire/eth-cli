@@ -1,6 +1,7 @@
 import { Command } from '@oclif/command'
 import cli from 'cli-ux'
 
+import { isEmptyCommand } from '../../../helpers/checkCommandInputs'
 import { config } from '../../../helpers/config'
 import { add0x, isAddress, isPrivateKey } from '../../../helpers/utils'
 
@@ -10,12 +11,12 @@ export class AddCommand extends Command {
   static args = [
     {
       name: 'name',
-      required: true,
+      required: false,
       description: 'Name of the address to add',
     },
     {
       name: 'addressOrPk',
-      required: true,
+      required: false,
       description: 'Address or private key of the address',
     },
   ]
@@ -25,25 +26,35 @@ export class AddCommand extends Command {
   ]
 
   async run() {
-    const { args } = this.parse(AddCommand)
-    const { name, addressOrPk } = args
+    const { args, flags } = this.parse(AddCommand)
 
-    const addresses = config.get('addresses', {})
-    if (isPrivateKey(addressOrPk)) {
-      const { Accounts } = await import('web3-eth-accounts')
-      const accounts = new Accounts()
-      const privateKey = add0x(addressOrPk)
-      const address = accounts.privateKeyToAccount(privateKey).address
-
-      addresses[name] = { privateKey, address }
-    } else if (isAddress(addressOrPk)) {
-      const address = add0x(addressOrPk)
-      addresses[name] = { address }
-    } else {
-      this.warn('You have to specify an address or private key')
+    if (isEmptyCommand(flags, args)) {
+      this._help()
       this.exit(1)
     }
-    config.set('addresses', addresses)
-    cli.styledJSON(addresses[name])
+
+    try {
+      const { name, addressOrPk } = args
+
+      const addresses = config.get('addresses', {})
+      if (isPrivateKey(addressOrPk)) {
+        const { Accounts } = await import('web3-eth-accounts')
+        const accounts = new Accounts()
+        const privateKey = add0x(addressOrPk)
+        const address = accounts.privateKeyToAccount(privateKey).address
+
+        addresses[name] = { privateKey, address }
+      } else if (isAddress(addressOrPk)) {
+        const address = add0x(addressOrPk)
+        addresses[name] = { address }
+      } else {
+        this.warn('You have to specify an address or private key')
+        this.exit(1)
+      }
+      config.set('addresses', addresses)
+      cli.styledJSON(addresses[name])
+    } catch (e) {
+      this.error(e.message, { exit: 1 })
+    }
   }
 }

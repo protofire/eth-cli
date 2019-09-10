@@ -11,5 +11,5 @@ export const hasFlags = (flags: object) => {
 }
 
 export const hasArgs = (args: object) => {
-  return Object.keys(args).length
+  return Object.values(args).filter(v => v !== null).length
 }

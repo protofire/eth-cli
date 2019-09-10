@@ -16,14 +16,6 @@ describe('hash', () => {
     await expect(MethodHashCommand.run()).rejects.toThrow()
   })
 
-  it(`Should run 'hash' and throw an error.`, async () => {
-    await expect(MethodHashCommand.run([])).rejects.toThrow(
-      'Missing 1 required arg:\n' +
-        'signature  The given signature.\n' +
-        'See more help with --help',
-    )
-  })
-
   it(`Should run 'hash --help' and throw an error.`, async () => {
     await expect(MethodHashCommand.run(['--help'])).rejects.toThrow('EEXIT: 0')
   })

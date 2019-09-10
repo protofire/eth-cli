@@ -3,24 +3,25 @@ import { cli } from 'cli-ux'
 
 import { NetworkCommand } from '../../base/network'
 import { privateKeyFlag } from '../../flags'
+import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 
 export default class SendTransactionCommand extends NetworkCommand {
   static description = `Sends the transaction for the contract in <address> with <encodedABI> using the given private key.`
 
   static flags = {
     ...NetworkCommand.flags,
-    pk: { ...privateKeyFlag, required: true },
+    pk: { ...privateKeyFlag, required: false },
   }
 
   static args = [
     {
       name: 'encodedABI',
-      required: true,
+      required: false,
       description: 'The encoded ABI.',
     },
     {
       name: 'address',
-      required: true,
+      required: false,
       description: `The contract's address.`,
     },
   ]
@@ -33,6 +34,11 @@ export default class SendTransactionCommand extends NetworkCommand {
 
   async run() {
     const { args, flags } = this.parse(SendTransactionCommand)
+
+    if (isEmptyCommand(flags, args)) {
+      this._help()
+      this.exit(1)
+    }
 
     console.warn(
       chalk.yellow(

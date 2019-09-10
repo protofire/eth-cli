@@ -1,5 +1,6 @@
 import { Command } from '@oclif/command'
 
+import { isEmptyCommand } from '../../../helpers/checkCommandInputs'
 import { config } from '../../../helpers/config'
 
 export class RemoveCommand extends Command {
@@ -8,7 +9,7 @@ export class RemoveCommand extends Command {
   static args = [
     {
       name: 'name',
-      required: true,
+      required: false,
       description: 'Name of the ABI to remove',
     },
   ]
@@ -18,7 +19,13 @@ export class RemoveCommand extends Command {
   static examples = ['eth conf:abi:rm erc777']
 
   async run() {
-    const { args } = this.parse(RemoveCommand)
+    const { args, flags } = this.parse(RemoveCommand)
+
+    if (isEmptyCommand(flags, args)) {
+      this._help()
+      this.exit(1)
+    }
+
     const { name } = args
 
     const abis = config.get('abis', [])

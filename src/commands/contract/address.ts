@@ -1,12 +1,14 @@
 import { Command } from '@oclif/command'
 
+import { isEmptyCommand } from '../../helpers/checkCommandInputs'
+
 export default class AddressCommand extends Command {
   static description = `Get the address for a contract created from the given <account> with the given <nonce>.`
 
   static args = [
     {
       name: 'account',
-      required: true,
+      required: false,
       description: 'The account.',
     },
     {
@@ -21,7 +23,11 @@ export default class AddressCommand extends Command {
   static aliases = ['ct:a', 'ct:address']
 
   async run() {
-    const { args } = this.parse(AddressCommand)
+    const { args, flags } = this.parse(AddressCommand)
+    if (isEmptyCommand(flags, args)) {
+      this._help()
+      this.exit(1)
+    }
 
     try {
       const { account, nonce } = args

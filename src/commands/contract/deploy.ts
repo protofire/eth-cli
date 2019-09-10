@@ -2,6 +2,7 @@ import { cli } from 'cli-ux'
 
 import { NetworkCommand } from '../../base/network'
 import { confirmationBlocksFlag, privateKeyFlag } from '../../flags'
+import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 import { awaitTransactionMined } from '../../helpers/transactions'
 
 export class DeployCommand extends NetworkCommand {
@@ -16,7 +17,7 @@ export class DeployCommand extends NetworkCommand {
   static args = [
     {
       name: 'bin',
-      required: true,
+      required: false,
       description: 'The bin file of the contract.',
     },
   ]
@@ -29,6 +30,11 @@ export class DeployCommand extends NetworkCommand {
 
   async run() {
     const { args, flags } = this.parse(DeployCommand)
+
+    if (isEmptyCommand({}, args)) {
+      this._help()
+      this.exit(1)
+    }
 
     let networkUrl
 

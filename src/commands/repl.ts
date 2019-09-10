@@ -1,5 +1,6 @@
 import { NetworkCommand } from '../base/network'
 import { privateKeyFlag } from '../flags'
+import { isEmptyCommand } from '../helpers/checkCommandInputs'
 
 const parseReplContracts = (args: string[]): Array<{ abiPath: string; address: string }> => {
   const result = args.map(arg => {
@@ -47,6 +48,12 @@ learn how to do this.`
 
   async run() {
     const { flags, argv } = this.parse(ReplCommand)
+
+    if (isEmptyCommand(flags, argv)) {
+      this._help()
+      this.exit(1)
+    }
+
     try {
       const [networkUrl, networkFlag] = this.getNetworkUrlAndFlag(flags)
       const prompt =

@@ -2,6 +2,7 @@ import { cli } from 'cli-ux'
 
 import { NetworkCommand } from '../../base/network'
 import { confirmationBlocksFlag, privateKeyFlag } from '../../flags'
+import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 import { awaitTransactionMined } from '../../helpers/transactions'
 
 export default class NopCommand extends NetworkCommand {
@@ -9,7 +10,7 @@ export default class NopCommand extends NetworkCommand {
 
   static flags = {
     ...NetworkCommand.flags,
-    pk: { ...privateKeyFlag, required: true },
+    pk: { ...privateKeyFlag, required: false },
     'confirmation-blocks': confirmationBlocksFlag,
   }
 
@@ -22,6 +23,12 @@ export default class NopCommand extends NetworkCommand {
 
   async run() {
     const { flags } = this.parse(NopCommand)
+
+    if (isEmptyCommand(flags, {})) {
+      this._help()
+      this.exit(1)
+    }
+
     let networkUrl
 
     try {

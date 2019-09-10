@@ -16,16 +16,6 @@ describe('send', () => {
     await expect(MethodSendCommand.run()).rejects.toThrow()
   })
 
-  it(`Should run 'send' and throw an error.`, async () => {
-    await expect(MethodSendCommand.run([])).rejects.toThrow(
-      'Missing 3 required args:\n' +
-        "abi         The contract's ABI.\n" +
-        'methodCall  e.g.: \'myMethod(arg1,arg2,["a","b",3,["d","0x123..."]])\'\n' +
-        "address     The contract's  address.\n" +
-        'See more help with --help',
-    )
-  })
-
   it(`Should run 'send --help' and throw an error.`, async () => {
     await expect(MethodSendCommand.run(['--help'])).rejects.toThrow('EEXIT: 0')
   })

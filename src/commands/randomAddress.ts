@@ -1,6 +1,8 @@
 import { Command } from '@oclif/command'
 import { cli } from 'cli-ux'
 
+import { isEmptyCommand } from '../helpers/checkCommandInputs'
+
 export class RandomAddressCommand extends Command {
   static description = `Prints a random Ethereum checksum address with its Private Key.`
 
@@ -24,7 +26,13 @@ export class RandomAddressCommand extends Command {
   static aliases = ['ra']
 
   async run() {
-    const { args } = this.parse(RandomAddressCommand)
+    const { args, flags } = this.parse(RandomAddressCommand)
+
+    if (isEmptyCommand(flags, args)) {
+      this._help()
+      this.exit(1)
+    }
+
     const { amount = '1', prefix = '' } = args
 
     const amountNumber = parseInt(amount, 10)

@@ -16,12 +16,6 @@ describe('transaction:get', () => {
     await expect(TransactionGetCommand.run()).rejects.toThrow()
   })
 
-  it(`Should run 'transaction:get' and throw an error.`, async () => {
-    await expect(TransactionGetCommand.run([])).rejects.toThrow(
-      'Missing 1 required arg:\n' + 'txHash  The transaction hash.\n' + 'See more help with --help',
-    )
-  })
-
   it(`Should run 'transaction:get --help' and throw an error.`, async () => {
     await expect(TransactionGetCommand.run(['--help'])).rejects.toThrow('EEXIT: 0')
   })
