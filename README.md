@@ -19,6 +19,15 @@ A CLI swiss knife for Ethereum developers
 
 `eth-cli` allows you to play with **transactions** and **ABIs**, interact with **smart contracts** and **Ethereum blockchain** (using your own REPL) and also generate **random addresses / public-private key pairs**, all at the comfort of your **command line**. Checkout the _Table of Contents_ below for details.
 
+## What can it do
+- [abi](#abi) Use `eth abi` to see what contract ABIs the tool currently knows about, the methods available in each, and the JSON representation of each 
+- [conf](#conf)  Use `eth conf` to configure `eth-cli`by adding and removing ABIs and preconfigure addresses for use with `eth-cli`
+- [contract](#contract)  Use `eth contract` to deploy contracts directly from the command line and identify their addresses once deployed
+- [method](#method) Use `eth method` to decode/encode contract method calls and invoke contract methods directly from the command line
+- [networks](#networks) Use `eth networks` to display information (e.g. RPC address, network ID, etc.) about the networks `eth-cli` knows
+- [randomAddress](#randomaddress) Use `eth randomAddress` to generate addresses and private keys for use with other `eth-cli` commands
+- [transaction](#transaction) Use `eth transaction` to retrieve transaction objects given a transaction hash or generate empty transactions
+- [repl](#repl) Use `eth repl` to start an interactive session where you can make any web3 call or load contract ABIs and then interact with the contract's methods
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents 
