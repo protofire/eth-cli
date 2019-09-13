@@ -23,16 +23,21 @@ export async function startRepl(
   // Connect web3
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
 
-  if (privateKeyOrKnownAddress) {
-    const privateKey = getPrivateKey(privateKeyOrKnownAddress)
-    web3.eth.accounts.wallet.add(privateKey)
-  }
-
   // Default context
   let replContext: ReplContext = {
     web3,
     eth: web3.eth,
   }
+
+  const accounts = await web3.eth.getAccounts()
+  if (privateKeyOrKnownAddress) {
+    const privateKey = getPrivateKey(privateKeyOrKnownAddress)
+    const account = web3.eth.accounts.wallet.add(privateKey)
+    if (!accounts.includes(account.address)) {
+      accounts.push(account.address)
+    }
+  }
+  replContext.accounts = accounts
 
   const loadedContracts: { [name: string]: string } = {}
 
@@ -66,9 +71,6 @@ export async function startRepl(
   for (let contract of contracts) {
     addContract(contract.abiPath, getAddress(contract.address), replContext)
   }
-
-  const accounts = await web3.eth.getAccounts()
-  replContext.accounts = accounts
 
   // Start REPL
   const r = replStarter(replContext, prompt)
