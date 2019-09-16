@@ -173,7 +173,7 @@ mainnet> web3.eth.getCode("0xD29F0b5b3F50b07Fe9a9511F7d86F4f4bAc3f8c4").then(con
 '0x6080604052600436106100af576000357c010000000000000000000000000000...
 ```
 
-You can also preload some contracts using a `<abi>@<address>` syntax:
+You can also preload contracts using a `<abi>@<address>` syntax:
 
 ```
 $ eth repl --mainnet erc721@0x06012c8cf97bead5deae237070f9587f8e7a266d
@@ -195,7 +195,7 @@ $ eth ra
 
 ### Get info about the most popular chains
 
-Do you keep forgetting what is the id of rinkeby? Just run `eth networks
+Do you keep forgetting the id of rinkeby? Just run `eth networks
 --table` to get information about each chain known by `eth-cli`.
 
 ```
@@ -241,11 +241,11 @@ eth repl erc20@0x34ee482D419229dAad23f27C44B82075B9418D31
 
 ## Installation
 
-Install it globally:
+Install eth-cli globally:
 
 `npm install -g eth-cli`
 
-You can also try it out with `npx`:
+You can also try installing eth-cli with `npx`:
 
 ```
 $ npx eth-cli repl --mainnet erc721@0x06012c8cf97bead5deae237070f9587f8e7a266d
@@ -540,7 +540,7 @@ $ eth tx:get --kovan 0x7f3f2967b93a7eded18071a596b7f3987c9575b6bae0a19399725c19e
   ...
 ```
 
-The transaction object will also include a `receipt` key, that will have the
+The transaction object also includes a `receipt` key, that has the
 receipt object if the transaction was mined, or will be null otherwise.
 
 #### `transaction:nop`
