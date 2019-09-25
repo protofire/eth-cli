@@ -1,6 +1,6 @@
 # eth-cli
 
-A CLI swiss knife for Ethereum developers
+A CLI swiss-knife for Ethereum developers
 
 
 
