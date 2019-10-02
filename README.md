@@ -31,40 +31,42 @@ A CLI swiss knife for Ethereum developers
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents 
-  
-  - [Installation](#installation)
-  - [Examples](#examples)
-    - [Start a REPL to interact with an RPC node](#start-a-repl-to-interact-with-an-rpc-node)
-    - [Generate a random address](#generate-a-random-address)
-    - [Get info about the most popular chains](#get-info-about-the-most-popular-chains)
-  - [Commands](#commands)
-    - [`abi`](#abi)
-      - [`abi:list`](#abilist)
-      - [`abi:methods`](#abimethods)
-      - [`abi:show`](#abishow)
-    - [`conf`](#conf)
-      - [`conf:abi:add`](#confabiadd)
-      - [`conf:abi:remove`](#confabiremove)
-      - [`conf:address:add`](#confaddressadd)
-      - [`conf:address:get`](#confaddressget)
-      - [`conf:address:list`](#confaddresslist)
-      - [`conf:address:remove`](#confaddressremove)
-    - [`contract`](#contract)
-      - [`contract:address`](#contractaddress)
-      - [`contract:deploy`](#contractdeploy)
-    - [`method`](#method)
-      - [`method:decode`](#methoddecode)
-      - [`method:encode`](#methodencode)
-      - [`method:hash`](#methodhash)
-      - [`method:send`](#methodsend)
-      - [`method:send-transaction`](#methodsend-transaction)
-    - [`networks`](#networks)
-    - [`randomAddress`](#randomaddress)
-    - [`transaction`](#transaction)
-      - [`transaction:get`](#transactionget)
-      - [`transaction:nop`](#transactionnop)
-    - [`repl`](#repl)
-  - [Back us](#back-us)
+
+- [Installation](#installation)
+- [Examples](#examples)
+  - [Start a REPL to interact with an RPC node](#start-a-repl-to-interact-with-an-rpc-node)
+  - [Generate a random address](#generate-a-random-address)
+  - [Get info about the most popular chains](#get-info-about-the-most-popular-chains)
+- [Commands](#commands)
+  - [`abi`](#abi)
+    - [`abi:list`](#abilist)
+    - [`abi:methods`](#abimethods)
+    - [`abi:show`](#abishow)
+  - [`conf`](#conf)
+    - [`conf:abi:add`](#confabiadd)
+    - [`conf:abi:remove`](#confabiremove)
+    - [`conf:address:add`](#confaddressadd)
+    - [`conf:address:get`](#confaddressget)
+    - [`conf:address:list`](#confaddresslist)
+    - [`conf:address:remove`](#confaddressremove)
+  - [`contract`](#contract)
+    - [`contract:address`](#contractaddress)
+    - [`contract:deploy`](#contractdeploy)
+  - [`method`](#method)
+    - [`method:decode`](#methoddecode)
+    - [`method:encode`](#methodencode)
+    - [`method:hash`](#methodhash)
+    - [`method:send`](#methodsend)
+    - [`method:send-transaction`](#methodsend-transaction)
+  - [`networks`](#networks)
+  - [`randomAddress`](#randomaddress)
+  - [`transaction`](#transaction)
+    - [`transaction:get`](#transactionget)
+    - [`transaction:nop`](#transactionnop)
+  - [`repl`](#repl)
+- [Related projects](#related-projects)
+- [Back us](#back-us)
+- [Credits](#credits)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -476,6 +478,10 @@ $ eth repl erc20@0xc0feee...
 > myContract.methods.totalSupply().call()
 ```
 
+## Related projects
+
+- [Solhint](https://github.com/protofire/solhint): A linter for the Solidity language.
+
 ## Back us
 
 eth-cli is free to use and open-sourced. If you value our effort and feel like helping us to keep pushing this tool forward, you can send us a small donation. We'll highly appreciate it :)
@@ -485,4 +491,3 @@ eth-cli is free to use and open-sourced. If you value our effort and feel like h
 ## Credits
 
 Table of Contents *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
