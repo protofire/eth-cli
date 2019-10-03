@@ -1,9 +1,9 @@
 import { Command } from '@oclif/command'
 import cli from 'cli-ux'
 
-import { isEmptyCommand } from '../../../helpers/checkCommandInputs'
-import { config } from '../../../helpers/config'
-import { add0x, isAddress, isPrivateKey } from '../../../helpers/utils'
+import { isEmptyCommand } from '../../helpers/checkCommandInputs'
+import { config } from '../../helpers/config'
+import { add0x, isAddress, isPrivateKey } from '../../helpers/utils'
 
 export class AddCommand extends Command {
   static description = 'Add a known address'
@@ -22,7 +22,7 @@ export class AddCommand extends Command {
   ]
 
   static examples = [
-    'eth conf:address:add ganache1 0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d',
+    'eth address:add ganache1 0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d',
   ]
 
   async run() {

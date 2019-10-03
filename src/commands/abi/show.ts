@@ -5,7 +5,7 @@ import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 import { getAbiByName } from '../../helpers/knownAbis'
 
 export default class ShowCommand extends Command {
-  static description = 'Displays a known ABI (ERC20, ERC721)'
+  static description = 'Displays a known ABI'
 
   static flags = {
     help: flags.help({ char: 'h' }),

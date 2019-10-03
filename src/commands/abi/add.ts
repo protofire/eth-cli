@@ -1,8 +1,8 @@
 import { Command } from '@oclif/command'
 
-import { isEmptyCommand } from '../../../helpers/checkCommandInputs'
-import { config } from '../../../helpers/config'
-import { loadABI } from '../../../helpers/utils'
+import { isEmptyCommand } from '../../helpers/checkCommandInputs'
+import { config } from '../../helpers/config'
+import { loadABI } from '../../helpers/utils'
 
 export class AddCommand extends Command {
   static description = 'Add a known ABI'
@@ -20,7 +20,7 @@ export class AddCommand extends Command {
     },
   ]
 
-  static examples = ['eth conf:abi:add erc777 ./path/to/erc777.json']
+  static examples = ['eth abi:add erc777 ./path/to/erc777.json']
 
   async run() {
     const { args, flags } = this.parse(AddCommand)

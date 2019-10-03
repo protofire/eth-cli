@@ -1,7 +1,7 @@
 import { Command } from '@oclif/command'
 
-import { isEmptyCommand } from '../../../helpers/checkCommandInputs'
-import { config } from '../../../helpers/config'
+import { isEmptyCommand } from '../../helpers/checkCommandInputs'
+import { config } from '../../helpers/config'
 
 export class RemoveCommand extends Command {
   static description = 'Remove a known address'
@@ -16,7 +16,7 @@ export class RemoveCommand extends Command {
 
   static aliases = ['rm']
 
-  static examples = ['eth conf:address:rm ganache1']
+  static examples = ['eth address:rm ganache1']
 
   async run() {
     const { args, flags } = this.parse(RemoveCommand)
