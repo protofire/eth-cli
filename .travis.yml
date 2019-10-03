@@ -5,11 +5,7 @@ node_js:
 services:
   - docker
 
-jobs:
-  include:
-    - stage: test
-      node_js: "8"
-      script:
-        - npm run lint
-        - npm test
-        - cd e2e && ./run-tests.sh
+script:
+  - npm run lint
+  - npm test
+  - cd e2e && ./run-tests.sh
