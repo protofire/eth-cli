@@ -1,9 +1,9 @@
-import { Command } from '@oclif/command'
+import { Command, flags } from '@oclif/command'
 import { cli } from 'cli-ux'
 
-import { isEmptyCommand } from '../helpers/checkCommandInputs'
+import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 
-export class RandomAddressCommand extends Command {
+export class RandomCommand extends Command {
   static description = `Prints a random Ethereum checksum address with its Private Key.`
 
   static args = [
@@ -13,32 +13,31 @@ export class RandomAddressCommand extends Command {
       default: '1',
       description: 'Can be specified to generate a list of addresses.',
     },
-    {
-      name: 'prefix',
-      required: false,
-      default: '',
-      description: 'Generates a random address with the given prefix.',
-    },
   ]
+
+  static flags = {
+    prefix: flags.string(),
+  }
 
   static examples = ['eth randomAddress 10 fd', 'eth randomAddress 2']
 
   static aliases = ['ra']
 
   async run() {
-    const { args, flags } = this.parse(RandomAddressCommand)
+    const { args, flags } = this.parse(RandomCommand)
 
     if (isEmptyCommand(flags, args)) {
       this._help()
       this.exit(1)
     }
 
-    const { amount = '1', prefix = '' } = args
+    const { amount = '1' } = args
+    const { prefix = '' } = flags
 
     const amountNumber = parseInt(amount, 10)
 
     try {
-      const { randomAddress } = await import('../helpers/randomAddress')
+      const { randomAddress } = await import('../../helpers/randomAddress')
       randomAddress(amountNumber, prefix).forEach(({ address, privateKey }) =>
         cli.styledJSON({ address, privateKey }),
       )
