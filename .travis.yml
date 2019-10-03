@@ -12,13 +12,4 @@ jobs:
       script:
         - npm run lint
         - npm test
-        - npm run commitlint-travis
         - cd e2e && ./run-tests.sh
-    - stage: release
-      node_js: "8"
-      script: echo "Running semantic-release..."
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script:
-          - npx semantic-release
