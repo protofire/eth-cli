@@ -24,9 +24,8 @@ export abstract class NetworkCommand extends Command {
     flags: { [key in keyof typeof NetworkCommand.flags]: any },
   ): ['name' | 'url', string] {
     const networks = getNetworks()
-    const network = networks.find(n => n.name === flags.network)
-    if (network) {
-      return ['name', network.url]
+    if (networks[name]) {
+      return ['name', networks[name].url]
     }
 
     return ['url', flags.network]

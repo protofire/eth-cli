@@ -13,7 +13,6 @@ export interface ABIInput {
 }
 
 export interface NetworkInfo {
-  name: string
   url: string
   id?: number
   label?: string

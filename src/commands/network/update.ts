@@ -1,5 +1,4 @@
 import { Command, flags } from '@oclif/command'
-import _ from 'lodash'
 
 import { getNetworks, updateNetworks } from '../../helpers/config'
 
@@ -36,9 +35,8 @@ export class UpdateCommand extends Command {
       const { id, label, url } = flags
 
       const networks = getNetworks()
-      const index = _.findIndex(networks, { name })
-      if (index !== -1) {
-        const network = networks[index]
+      if (networks[name]) {
+        const network = networks[name]
         if (url) {
           network.url = url
         }
@@ -48,7 +46,7 @@ export class UpdateCommand extends Command {
         if (label) {
           network.label = label
         }
-        networks[index] = network
+        networks[name] = network
         updateNetworks(networks)
       } else {
         this.warn(`No network found for '${name}'`)

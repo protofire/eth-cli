@@ -1,5 +1,4 @@
 import Conf from 'conf'
-import _ from 'lodash'
 
 import { NetworkInfo } from '../types'
 
@@ -34,20 +33,22 @@ export const getAddress = (addressOrKnownAddress: string) => {
   return add0x(knownAddress ? knownAddress.address : addressOrKnownAddress)
 }
 
-const defaultNetworks: NetworkInfo[] = [
-  { name: 'mainnet', url: 'https://mainnet.infura.io', id: 1, label: 'Mainnet' },
-  { name: 'ropsten', url: 'https://ropsten.infura.io', id: 3, label: 'Ropsten' },
-  { name: 'rinkeby', url: 'https://rinkeby.infura.io', id: 4, label: 'Rinkeby' },
-  { name: 'goerli', url: 'https://goerli.infura.io', id: 5, label: 'Görli' },
-  { name: 'kovan', url: 'https://kovan.infura.io', id: 42, label: 'Kovan' },
-]
+type Networks = { [name: string]: NetworkInfo }
 
-export const getNetworks = (): NetworkInfo[] => {
-  const addedNetworks = config.get('networks', [])
-
-  return _.uniqBy([...addedNetworks, ...defaultNetworks], 'name')
+const defaultNetworks: Networks = {
+  mainnet: { url: 'https://mainnet.infura.io', id: 1, label: 'Mainnet' },
+  ropsten: { url: 'https://ropsten.infura.io', id: 3, label: 'Ropsten' },
+  rinkeb: { url: 'https://rinkeby.infura.io', id: 4, label: 'Rinkeby' },
+  goerli: { url: 'https://goerli.infura.io', id: 5, label: 'Görli' },
+  kovan: { url: 'https://kovan.infura.io', id: 42, label: 'Kovan' },
 }
 
-export const updateNetworks = (networks: NetworkInfo[]): void => {
+export const getNetworks = (): Networks => {
+  const addedNetworks = config.get('networks', {})
+
+  return { ...defaultNetworks, ...addedNetworks }
+}
+
+export const updateNetworks = (networks: Networks): void => {
   config.set('networks', networks)
 }

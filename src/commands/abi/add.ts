@@ -33,14 +33,13 @@ export class AddCommand extends Command {
     try {
       const { name, abiPath } = args
 
-      const abis = config.get('abis', [])
+      const abis = config.get('abis', {})
       const abi = loadABI(abiPath)
-      const index = abis.findIndex((item: any) => item.name.toLowerCase() === name.toLowerCase())
-      if (index === -1) {
-        abis.push({ name, abi })
-        config.set('abis', abis)
-      } else {
+      if (abis[name]) {
         this.warn(`ABI '${name}' already exists. Use abi:update if you want to modify it.`)
+      } else {
+        abis[name] = abi
+        config.set('abis', abis)
       }
     } catch (e) {
       this.error(e.message, { exit: 1 })

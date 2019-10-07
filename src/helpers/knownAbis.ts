@@ -2,27 +2,23 @@ import erc20Abi from './abi/erc20.json'
 import erc721Abi from './abi/erc721.json'
 import { config } from './config'
 
-interface AbiItem {
-  name: string
-  abi: object
+type Abis = { [name: string]: object }
+
+const ABI_META_DATA: Abis = {
+  erc20: erc20Abi,
+  erc721: erc721Abi,
 }
 
-const ABI_META_DATA: AbiItem[] = [
-  { name: 'ERC20', abi: erc20Abi },
-  { name: 'ERC721', abi: erc721Abi },
-]
-
 const getKnownAbis = () => {
-  const addedAbis: AbiItem[] = config.get('abis', [])
-  const knownAbis = [...ABI_META_DATA, ...addedAbis]
+  const addedAbis: Abis = config.get('abis', {})
+  const knownAbis = { ...ABI_META_DATA, ...addedAbis }
   return knownAbis
 }
 
-export const getAbiByName = (abiName: string): object | null => {
+export const getAbiByName = (name: string): object | null => {
   const knownAbis = getKnownAbis()
-  const index = knownAbis.findIndex(item => item.name.toLowerCase() === abiName.toLowerCase())
-  if (index !== -1) {
-    return knownAbis[index].abi
+  if (knownAbis[name]) {
+    return knownAbis[name]
   }
   return null
 }
@@ -37,5 +33,5 @@ export const getStringAbiByName = (abiName: string): string | null => {
 
 export const getAbiList = (): string[] => {
   const knownAbis = getKnownAbis()
-  return knownAbis.map(item => item.name)
+  return Object.keys(knownAbis)
 }

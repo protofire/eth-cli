@@ -28,7 +28,10 @@ export default class ListCommand extends Command {
       const { flags } = this.parse(ListCommand)
       const { table, json } = flags
 
-      const networkConstants = getNetworks()
+      const networkConstants = Object.entries(getNetworks()).map(([name, network]) => ({
+        name,
+        ...network,
+      }))
 
       // display as table by default
       const displayAsTable = (!table && !json) || table

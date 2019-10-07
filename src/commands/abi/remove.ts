@@ -28,10 +28,9 @@ export class RemoveCommand extends Command {
 
     const { name } = args
 
-    const abis = config.get('abis', [])
-    const index = abis.findIndex((item: any) => item.name.toLowerCase() === name.toLowerCase())
-    if (index !== -1) {
-      abis.splice(index, 1)
+    const abis = config.get('abis', {})
+    if (abis[name]) {
+      delete abis[name]
       config.set('abis', abis)
     } else {
       this.warn(`No ABI found for '${name}'`)

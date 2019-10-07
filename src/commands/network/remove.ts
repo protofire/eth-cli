@@ -1,5 +1,4 @@
 import { Command } from '@oclif/command'
-import _ from 'lodash'
 
 import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 import { getNetworks, updateNetworks } from '../../helpers/config'
@@ -27,9 +26,8 @@ export class RemoveCommand extends Command {
 
     const { name } = args
     const networks = getNetworks()
-    const index = _.findIndex(networks, { name })
-    if (index !== -1) {
-      networks.splice(index, 1)
+    if (networks[name]) {
+      delete networks[name]
       updateNetworks(networks)
     } else {
       this.warn(`No network found for '${name}'`)

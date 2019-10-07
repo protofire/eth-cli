@@ -33,11 +33,10 @@ export class UpdateCommand extends Command {
     try {
       const { name, abiPath } = args
 
-      const abis = config.get('abis', [])
+      const abis = config.get('abis', {})
       const abi = loadABI(abiPath)
-      const index = abis.findIndex((item: any) => item.name.toLowerCase() === name.toLowerCase())
-      if (index !== -1) {
-        abis[index] = { name, abi }
+      if (abis[name]) {
+        abis[name] = abi
         config.set('abis', abis)
       } else {
         this.warn(`No ABI found for '${name}'`)

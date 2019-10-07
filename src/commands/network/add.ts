@@ -35,7 +35,7 @@ export class AddCommand extends Command {
       const { name } = args
       const { id, label, url } = flags
 
-      const newNetwork: NetworkInfo = { name, url }
+      const newNetwork: NetworkInfo = { url }
       if (id) {
         newNetwork.id = +id
       }
@@ -44,12 +44,11 @@ export class AddCommand extends Command {
       }
 
       const networks = getNetworks()
-      const index = networks.findIndex(network => network.name === name.toLowerCase())
-      if (index === -1) {
-        networks.push(newNetwork)
-        updateNetworks(networks)
-      } else {
+      if (networks[name]) {
         this.warn(`Network '${name}' already exists. Use network:update if you want to modify it.`)
+      } else {
+        networks[name] = newNetwork
+        updateNetworks(networks)
       }
     } catch (e) {
       this.error(e.message, { exit: 1 })
