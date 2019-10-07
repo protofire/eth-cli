@@ -11,3 +11,10 @@ export interface ABIInput {
   type: string
   components: any
 }
+
+export interface NetworkInfo {
+  name: string
+  url: string
+  id?: number
+  label?: string
+}
