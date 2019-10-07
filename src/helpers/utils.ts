@@ -37,8 +37,16 @@ export const loadABI = (abiPath: string) => {
   return abi
 }
 
-export const extractMethodObjectsFromABI = (abi: ABI) => {
-  return abi.filter((x: ABIItem) => x.type === 'function' && 'name' in x)
+export const extractMethodsAndEventsFromABI = (
+  abi: ABI,
+): Array<{ name: string | undefined; inputs: any | undefined; kind: 'function' | 'event' }> => {
+  return abi
+    .filter((x: ABIItem) => x.type === 'function' || (x.type === 'event' && 'name' in x))
+    .map(({ name, inputs, type }) => ({
+      name,
+      inputs,
+      kind: type === 'function' ? 'function' : 'event',
+    }))
 }
 
 /**

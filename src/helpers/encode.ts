@@ -1,8 +1,6 @@
 import Web3 from 'web3'
 
-import { ABIItem } from '../types'
-
-import { evaluateMethodCallStructure, extractMethodObjectsFromABI, loadABI } from './utils'
+import { evaluateMethodCallStructure, extractMethodsAndEventsFromABI, loadABI } from './utils'
 
 export function encode(abiPath: string, methodCall: string, url: string) {
   if (!methodCall) {
@@ -16,9 +14,7 @@ export function encode(abiPath: string, methodCall: string, url: string) {
   }
 
   const abi = loadABI(abiPath)
-  const matchingMethods = extractMethodObjectsFromABI(abi).filter(
-    (x: ABIItem) => x.name === methodName,
-  )
+  const matchingMethods = extractMethodsAndEventsFromABI(abi).filter(x => x.name === methodName)
 
   if (matchingMethods.length > 1) {
     throw new Error('[encode] function overloading is not supported in the current version')

@@ -2,8 +2,8 @@ import { Command } from '@oclif/command'
 
 import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 
-export default class MethodsCommand extends Command {
-  static description = `Get the hash of each method in the given ABI.`
+export default class EventsCommand extends Command {
+  static description = `Get the hash of each event in the given ABI.`
 
   static args = [
     {
@@ -13,12 +13,10 @@ export default class MethodsCommand extends Command {
     },
   ]
 
-  static examples = ['eth abi:methods ../contracts/proxy.abi']
-
-  static aliases = ['me']
+  static examples = ['eth abi:events erc20']
 
   async run() {
-    const { args, flags } = this.parse(MethodsCommand)
+    const { args, flags } = this.parse(EventsCommand)
 
     if (isEmptyCommand(flags, args)) {
       this._help()
@@ -28,10 +26,10 @@ export default class MethodsCommand extends Command {
     try {
       const { abi } = args
 
-      const { getMethods } = await import('../../helpers/abi')
-      const methods = getMethods(abi)
+      const { getEvents } = await import('../../helpers/abi')
+      const events = getEvents(abi)
 
-      methods.forEach(({ signature, signatureHash }) => {
+      events.forEach(({ signature, signatureHash }) => {
         this.log(`${signatureHash}\t${signature}`)
       })
     } catch (e) {

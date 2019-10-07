@@ -15,8 +15,7 @@ const parseReplContracts = (args: string[]): Array<{ abiPath: string; address: s
 }
 
 export default class ReplCommand extends NetworkCommand {
-  static description = `
-Start a REPL that connects to an RPC node ('localhost:8545' by default).
+  static description = `Start a REPL that connects to an RPC node ('localhost:8545' by default).
 
 The started REPL exposes a 'web3' object that you can use to interact with the
 node. There's also an 'eth' object to save you from typing 'web3.eth'.
