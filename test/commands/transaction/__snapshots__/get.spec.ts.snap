@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`transaction:get Should run 'transaction:get --ropsten 0xc83836f1b3acac94a31de8e24c913aceaa9ebc51c93cd374429590596091584a' and match snapshot. 1`] = `
+exports[`transaction:get Should run 'transaction:get -n ropsten 0xc83836f1b3acac94a31de8e24c913aceaa9ebc51c93cd374429590596091584a' and match snapshot. 1`] = `
 Array [
   "{
   \\"blockHash\\": \\"0x0779e77a7c2354b2375a47c70d445744700af4b90bf89dfa74b44435182b556e\\",

@@ -1,6 +1,6 @@
-import NetworksCommand from '../../src/commands/networks'
+import ListCommand from '../../../src/commands/network/list'
 
-describe('networks', () => {
+describe('network:list', () => {
   let stdoutResult: any
 
   beforeEach(() => {
@@ -13,25 +13,25 @@ describe('networks', () => {
   afterEach(() => jest.restoreAllMocks())
 
   it(`Should run 'networks --help' and throw an error.`, async () => {
-    await expect(NetworksCommand.run(['--help'])).rejects.toThrow('EEXIT: 0')
+    await expect(ListCommand.run(['--help'])).rejects.toThrow('EEXIT: 0')
   })
 
   it(`Should run 'networks' and match snapshot.`, async () => {
-    await NetworksCommand.run([])
+    await ListCommand.run([])
     expect(stdoutResult).toMatchSnapshot()
   })
 
   it(`Should run 'networks --json' and match snapshot.`, async () => {
-    await NetworksCommand.run(['--json'])
+    await ListCommand.run(['--json'])
     expect(stdoutResult).toMatchSnapshot()
   })
 
   it(`Should run 'networks --table' and match snapshot.`, async () => {
-    await NetworksCommand.run(['--table'])
+    await ListCommand.run(['--table'])
     expect(stdoutResult).toMatchSnapshot()
   })
 
   it(`Should run 'network:urls --bar' and throw an error.`, async () => {
-    await expect(NetworksCommand.run(['--bar'])).rejects.toThrow('Unexpected argument: --bar')
+    await expect(ListCommand.run(['--bar'])).rejects.toThrow('Unexpected argument: --bar')
   })
 })

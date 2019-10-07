@@ -20,22 +20,20 @@ describe('transaction:get', () => {
     await expect(TransactionGetCommand.run(['--help'])).rejects.toThrow('EEXIT: 0')
   })
 
-  it(`Should run 'transaction:get --bar' and throw an error.`, async () => {
-    await expect(TransactionGetCommand.run(['--ropsten', '--bar'])).rejects.toThrow()
-  })
-
-  it(`Should run 'transaction:get --ropsten 0xc83836f1b3acac94a31de8e24c913aceaa9ebc51c93cd374429590596091584a' and match snapshot.`, async () => {
+  it(`Should run 'transaction:get -n ropsten 0xc83836f1b3acac94a31de8e24c913aceaa9ebc51c93cd374429590596091584a' and match snapshot.`, async () => {
     await TransactionGetCommand.run([
-      '--ropsten',
+      '-n',
+      'ropsten',
       '0xc83836f1b3acac94a31de8e24c913aceaa9ebc51c93cd374429590596091584a',
     ])
     expect(stdoutResult).toMatchSnapshot()
   })
 
-  it(`Should run 'transaction:get --ropsten 83836f1b3acac94a31de8e24c913aceaa9ebc51c93cd374429590596091584a' and match snapshot.`, async () => {
+  it(`Should run 'transaction:get -n ropsten 83836f1b3acac94a31de8e24c913aceaa9ebc51c93cd374429590596091584a' and match snapshot.`, async () => {
     await expect(
       TransactionGetCommand.run([
-        '--ropsten',
+        '-n',
+        'ropsten',
         '83836f1b3acac94a31de8e24c913aceaa9ebc51c93cd374429590596091584a',
       ]),
     ).rejects.toThrow()

@@ -21,11 +21,7 @@ describe('encode', () => {
   })
 
   it(`Should run 'encode' and get success`, async () => {
-    await MethodEncodeCommand.run([
-      '--sokol',
-      './test/files/contracts/Proxy.abi',
-      'updateAppInstance()',
-    ])
+    await MethodEncodeCommand.run(['./test/files/contracts/Proxy.abi', 'updateAppInstance()'])
     expect(stdoutResult).toMatchSnapshot()
   })
 })

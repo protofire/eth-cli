@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`network:list Should run 'networks --json' and match snapshot. 1`] = `
+Array [
+  "[
+  {
+    \\"name\\": \\"mainnet\\",
+    \\"url\\": \\"https://mainnet.infura.io\\",
+    \\"id\\": 1,
+    \\"label\\": \\"Mainnet\\"
+  },
+  {
+    \\"name\\": \\"ropsten\\",
+    \\"url\\": \\"https://ropsten.infura.io\\",
+    \\"id\\": 3,
+    \\"label\\": \\"Ropsten\\"
+  },
+  {
+    \\"name\\": \\"rinkeby\\",
+    \\"url\\": \\"https://rinkeby.infura.io/v3/2d81f43f9b6d4b9a88dcbcc3026ab758\\",
+    \\"id\\": 4,
+    \\"label\\": \\"Rinkeby\\"
+  },
+  {
+    \\"name\\": \\"goerli\\",
+    \\"url\\": \\"https://goerli.infura.io\\",
+    \\"id\\": 5,
+    \\"label\\": \\"Görli\\"
+  },
+  {
+    \\"name\\": \\"kovan\\",
+    \\"url\\": \\"https://kovan.infura.io\\",
+    \\"id\\": 42,
+    \\"label\\": \\"Kovan\\"
+  }
+]
+",
+]
+`;
+
+exports[`network:list Should run 'networks --table' and match snapshot. 1`] = `
+Array [
+  "Id     Name    Label   Url                                                           
+",
+  "1      mainnet Mainnet https://mainnet.infura.io                                     
+",
+  "3      ropsten Ropsten https://ropsten.infura.io                                     
+",
+  "4      rinkeby Rinkeby https://rinkeby.infura.io/v3/2d81f43f9b6d4b9a88dcbcc3026ab758 
+",
+  "5      goerli  Görli   https://goerli.infura.io                                      
+",
+  "42     kovan   Kovan   https://kovan.infura.io                                       
+",
+]
+`;
+
+exports[`network:list Should run 'networks' and match snapshot. 1`] = `
+Array [
+  "Id     Name    Label   Url                                                           
+",
+  "1      mainnet Mainnet https://mainnet.infura.io                                     
+",
+  "3      ropsten Ropsten https://ropsten.infura.io                                     
+",
+  "4      rinkeby Rinkeby https://rinkeby.infura.io/v3/2d81f43f9b6d4b9a88dcbcc3026ab758 
+",
+  "5      goerli  Görli   https://goerli.infura.io                                      
+",
+  "42     kovan   Kovan   https://kovan.infura.io                                       
+",
+]
+`;

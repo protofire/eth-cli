@@ -38,7 +38,7 @@ type Networks = { [name: string]: NetworkInfo }
 const defaultNetworks: Networks = {
   mainnet: { url: 'https://mainnet.infura.io', id: 1, label: 'Mainnet' },
   ropsten: { url: 'https://ropsten.infura.io', id: 3, label: 'Ropsten' },
-  rinkeb: { url: 'https://rinkeby.infura.io', id: 4, label: 'Rinkeby' },
+  rinkeby: { url: 'https://rinkeby.infura.io', id: 4, label: 'Rinkeby' },
   goerli: { url: 'https://goerli.infura.io', id: 5, label: 'Görli' },
   kovan: { url: 'https://kovan.infura.io', id: 42, label: 'Kovan' },
 }
