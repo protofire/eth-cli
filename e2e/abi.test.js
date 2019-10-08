@@ -13,7 +13,7 @@ describe('abi', () => {
 
       expect(result.code).toEqual(0)
 
-      expect(result.stdout.trim()).toEqual('ERC20\nERC721')
+      expect(result.stdout.trim()).toEqual('erc20\nerc721')
     })
   })
   describe('abi:methods', () => {
@@ -28,7 +28,7 @@ describe('abi', () => {
 
   describe('abi:show', () => {
     it('should return the ERC20 abi', () => {
-      const result = shell.exec(`${binPath} abi:show ERC20`, { silent: true })
+      const result = shell.exec(`${binPath} abi:show erc20`, { silent: true })
 
       expect(result.code).toEqual(0)
 
@@ -36,7 +36,7 @@ describe('abi', () => {
       expect(resultExpected).toMatchObject(erc20Abi)
     })
     it('should return the ERC721 abi', () => {
-      const result = shell.exec(`${binPath} abi:show ERC721`, { silent: true })
+      const result = shell.exec(`${binPath} abi:show erc721`, { silent: true })
 
       expect(result.code).toEqual(0)
 
