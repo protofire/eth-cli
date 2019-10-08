@@ -2,11 +2,12 @@ const path = require('path')
 const shell = require('shelljs')
 
 const binPath = path.join(__dirname, '..', 'bin', 'run')
+const eth = args => shell.exec(`${binPath} ${args}`, { silent: true })
 
 describe('address', () => {
   describe('address:random', () => {
     it('should print a random address with its private key', async () => {
-      const result = shell.exec(`${binPath} address:random`, { silent: true })
+      const result = eth('address:random')
 
       expect(result.code).toEqual(0)
 
@@ -18,7 +19,7 @@ describe('address', () => {
     })
 
     it('should print two random addresses with their private key', async () => {
-      const result = shell.exec(`${binPath} address:random 2`, { silent: true })
+      const result = eth('address:random 2')
 
       expect(result.code).toEqual(0)
 
@@ -32,7 +33,7 @@ describe('address', () => {
     })
 
     it('should print different addresseses with their private key', async () => {
-      const result = shell.exec(`${binPath} address:random 3`, { silent: true })
+      const result = eth('address:random 3')
 
       expect(result.code).toEqual(0)
 
@@ -48,6 +49,16 @@ describe('address', () => {
     })
   })
 
+  /**
+   * Convert a stdout consisting in a series of objects to an array:
+   *
+   * { "a": 1}
+   * { "b": 2 }
+   *
+   * becomes
+   *
+   * [{"a": 1}, {"b": 2}]
+   */
   function parse(output) {
     const outputReplaced = `[${output.replace(/}/g, '},')}]`
     const lastBrace = outputReplaced.lastIndexOf('},')

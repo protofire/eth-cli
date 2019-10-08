@@ -28,16 +28,16 @@ export default class ListCommand extends Command {
       const { flags } = this.parse(ListCommand)
       const { table, json } = flags
 
-      const networkConstants = Object.entries(getNetworks()).map(([name, network]) => ({
-        name,
-        ...network,
-      }))
-
       // display as table by default
       const displayAsTable = (!table && !json) || table
 
       if (displayAsTable) {
-        const networks = Object.values(networkConstants)
+        const networkConstants = Object.entries(getNetworks()).map(([name, network]) => ({
+          name,
+          ...network,
+        }))
+
+        const networks = networkConstants
           .sort((network1, network2) => {
             if (network1.id !== undefined && network2.id !== undefined) {
               return network1.id - network2.id
@@ -75,7 +75,7 @@ export default class ListCommand extends Command {
           },
         )
       } else {
-        cli.styledJSON(networkConstants)
+        cli.styledJSON(getNetworks())
       }
     } catch (e) {
       this.error(e.message, { exit: 1 })
