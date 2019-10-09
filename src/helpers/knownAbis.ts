@@ -1,6 +1,6 @@
 import erc20Abi from './abi/erc20.json'
 import erc721Abi from './abi/erc721.json'
-import { config } from './config'
+import { getAbis } from './config'
 
 type Abis = { [name: string]: object }
 
@@ -10,7 +10,7 @@ const ABI_META_DATA: Abis = {
 }
 
 const getKnownAbis = () => {
-  const addedAbis: Abis = config.get('abis', {})
+  const addedAbis: Abis = getAbis()
   const knownAbis = { ...ABI_META_DATA, ...addedAbis }
   return knownAbis
 }

@@ -2,7 +2,7 @@ import { Command } from '@oclif/command'
 import cli from 'cli-ux'
 
 import { isEmptyCommand } from '../../helpers/checkCommandInputs'
-import { config } from '../../helpers/config'
+import { getAddresses } from '../../helpers/config'
 
 export class ShowCommand extends Command {
   static description = 'Displays a known address'
@@ -26,7 +26,7 @@ export class ShowCommand extends Command {
     }
 
     const { name } = args
-    const addresses = config.get('addresses', {})
+    const addresses = getAddresses()
     if (addresses[name]) {
       cli.styledJSON(addresses[name])
     } else {

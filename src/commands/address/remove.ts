@@ -1,7 +1,7 @@
 import { Command } from '@oclif/command'
 
 import { isEmptyCommand } from '../../helpers/checkCommandInputs'
-import { config } from '../../helpers/config'
+import { getAddresses, updateAddresses } from '../../helpers/config'
 
 export class RemoveCommand extends Command {
   static description = 'Remove a known address'
@@ -27,10 +27,10 @@ export class RemoveCommand extends Command {
     }
 
     const { name } = args
-    const addresses = config.get('addresses', {})
+    const addresses = getAddresses()
     if (addresses[name]) {
       delete addresses[name]
-      config.set('addresses', addresses)
+      updateAddresses(addresses)
     } else {
       this.warn(`No address found for '${name}'`)
     }

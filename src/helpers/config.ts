@@ -4,7 +4,7 @@ import { NetworkInfo } from '../types'
 
 import { add0x } from './utils'
 
-export const config = new Conf<any>({ projectName: 'eth-cli' })
+const config = new Conf<any>({ projectName: 'eth-cli' })
 
 export const getPrivateKey = (privateKeyOrKnownAddress: string) => {
   const addresses = config.get('addresses', {})
@@ -25,8 +25,24 @@ export const getPrivateKey = (privateKeyOrKnownAddress: string) => {
   return add0x(privateKey)
 }
 
+export const getAbis = () => {
+  return config.get('abis', {})
+}
+
+export const updateAbis = (abis: any): void => {
+  config.set('abis', abis)
+}
+
+export const getAddresses = () => {
+  return config.get('addresses', {})
+}
+
+export const updateAddresses = (addresses: any) => {
+  config.set('addresses', addresses)
+}
+
 export const getAddress = (addressOrKnownAddress: string) => {
-  const addresses = config.get('addresses', {})
+  const addresses = getAddresses()
 
   const knownAddress = addresses[addressOrKnownAddress]
 

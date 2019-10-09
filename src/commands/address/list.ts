@@ -1,7 +1,7 @@
 import { Command } from '@oclif/command'
 import cli from 'cli-ux'
 
-import { config } from '../../helpers/config'
+import { getAddresses } from '../../helpers/config'
 
 export class ListCommand extends Command {
   static description = 'List known addresses'
@@ -9,7 +9,7 @@ export class ListCommand extends Command {
   static examples = ['eth address:list']
 
   async run() {
-    const addresses = config.get('addresses', {})
+    const addresses = getAddresses()
     cli.styledJSON(Object.keys(addresses))
   }
 }

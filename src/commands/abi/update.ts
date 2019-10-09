@@ -1,7 +1,7 @@
 import { Command } from '@oclif/command'
 
 import { isEmptyCommand } from '../../helpers/checkCommandInputs'
-import { config } from '../../helpers/config'
+import { getAbis, updateAbis } from '../../helpers/config'
 import { loadABI } from '../../helpers/utils'
 
 export class UpdateCommand extends Command {
@@ -33,11 +33,11 @@ export class UpdateCommand extends Command {
     try {
       const { name, abiPath } = args
 
-      const abis = config.get('abis', {})
+      const abis = getAbis()
       const abi = loadABI(abiPath)
       if (abis[name]) {
         abis[name] = abi
-        config.set('abis', abis)
+        updateAbis(abis)
       } else {
         this.warn(`No ABI found for '${name}'`)
       }

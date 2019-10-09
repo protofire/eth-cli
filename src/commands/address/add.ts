@@ -2,7 +2,7 @@ import { Command } from '@oclif/command'
 import cli from 'cli-ux'
 
 import { isEmptyCommand } from '../../helpers/checkCommandInputs'
-import { config } from '../../helpers/config'
+import { getAddresses, updateAddresses } from '../../helpers/config'
 import { add0x, isAddress, isPrivateKey } from '../../helpers/utils'
 
 export class AddCommand extends Command {
@@ -36,7 +36,7 @@ export class AddCommand extends Command {
     try {
       const { name, addressOrPk } = args
 
-      const addresses = config.get('addresses', {})
+      const addresses = getAddresses()
       if (isPrivateKey(addressOrPk)) {
         const { Accounts } = await import('web3-eth-accounts')
         const accounts = new Accounts()
@@ -51,7 +51,7 @@ export class AddCommand extends Command {
         this.warn('You have to specify an address or private key')
         this.exit(1)
       }
-      config.set('addresses', addresses)
+      updateAddresses(addresses)
       cli.styledJSON(addresses[name])
     } catch (e) {
       this.error(e.message, { exit: 1 })
