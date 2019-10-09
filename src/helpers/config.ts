@@ -36,11 +36,31 @@ export const getAddress = (addressOrKnownAddress: string) => {
 type Networks = { [name: string]: NetworkInfo }
 
 const defaultNetworks: Networks = {
-  mainnet: { url: 'https://mainnet.infura.io', id: 1, label: 'Mainnet' },
-  ropsten: { url: 'https://ropsten.infura.io', id: 3, label: 'Ropsten' },
-  rinkeby: { url: 'https://rinkeby.infura.io', id: 4, label: 'Rinkeby' },
-  goerli: { url: 'https://goerli.infura.io', id: 5, label: 'Görli' },
-  kovan: { url: 'https://kovan.infura.io', id: 42, label: 'Kovan' },
+  mainnet: {
+    url: 'https://mainnet.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad',
+    id: 1,
+    label: 'Mainnet',
+  },
+  ropsten: {
+    url: 'https://ropsten.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad',
+    id: 3,
+    label: 'Ropsten',
+  },
+  rinkeby: {
+    url: 'https://rinkeby.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad',
+    id: 4,
+    label: 'Rinkeby',
+  },
+  goerli: {
+    url: 'https://goerli.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad',
+    id: 5,
+    label: 'Görli',
+  },
+  kovan: {
+    url: 'https://kovan.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad',
+    id: 42,
+    label: 'Kovan',
+  },
 }
 
 export const getNetworks = (): Networks => {

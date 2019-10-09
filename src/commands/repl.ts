@@ -54,13 +54,13 @@ learn how to do this.`
     }
 
     try {
-      const [networkKind, networkUrl] = this.getNetworkUrlAndKind(flags)
+      const [networkKind, networkUrl, networkName] = this.getNetworkUrlAndKind(flags)
       const prompt =
         networkKind === 'url'
           ? networkUrl === NetworkCommand.defaultUrl
             ? '> '
             : `${networkUrl}> `
-          : `${flags.network}> `
+          : `${networkName || flags.network}> `
 
       const contracts = parseReplContracts(argv)
       const privateKey = flags.pk
