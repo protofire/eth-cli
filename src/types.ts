@@ -17,3 +17,9 @@ export interface NetworkInfo {
   id?: number
   label?: string
 }
+
+export enum Unit {
+  Eth = 'eth',
+  Gwei = 'gwei',
+  Wei = 'wei',
+}

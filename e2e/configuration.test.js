@@ -77,9 +77,15 @@ describe('configuration', () => {
       expect(result.code).toEqual(0)
     }
 
-    // try to use a custom abi before adding it
+    // to use a custom abi after adding it
     {
       const result = eth('abi:methods box')
+      expect(result.code).toEqual(0)
+    }
+
+    // remove custom abi
+    {
+      const result = eth('abi:remove box')
       expect(result.code).toEqual(0)
     }
   })
