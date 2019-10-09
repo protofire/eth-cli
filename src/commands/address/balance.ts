@@ -1,5 +1,4 @@
 import { NetworkCommand } from '../../base/network'
-import { getAddress } from '../../helpers/config'
 
 export default class BalanceCommand extends NetworkCommand {
   static description = `Get the balance for the given address`
@@ -20,7 +19,7 @@ export default class BalanceCommand extends NetworkCommand {
 
   async run() {
     const { args, flags } = this.parse(BalanceCommand)
-    const { address: addressRaw } = args
+    const { address } = args
 
     let networkUrl
 
@@ -28,7 +27,6 @@ export default class BalanceCommand extends NetworkCommand {
       networkUrl = this.getNetworkUrl(flags)
 
       const { getBalance } = await import('../../helpers/getBalance')
-      const address = getAddress(addressRaw)
       const balance = await getBalance(address, networkUrl)
 
       this.log(balance)

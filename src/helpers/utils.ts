@@ -1,3 +1,4 @@
+import { Interface } from '@ethersproject/abi'
 import { randomBytes } from 'crypto'
 import * as fs from 'fs'
 import Accounts from 'web3-eth-accounts'
@@ -14,9 +15,17 @@ export const add0x = (hex: string) => {
 export const loadABI = (abiPath: string) => {
   // Try to get the abi from the default list of supported abi's
   let abiStr: string | null = getStringAbiByName(abiPath)
-  // If not found, just return the abi from the abiPath received
+
+  // If not found, check if the given string is a path to a file
   if (!abiStr) {
-    abiStr = fs.readFileSync(abiPath).toString()
+    if (fs.existsSync(abiPath)) {
+      abiStr = fs.readFileSync(abiPath).toString()
+      console.trace(abiStr)
+    } else {
+      // if it's not a file, check if it's a human readable ABI
+      const iface = new Interface([abiPath])
+      abiStr = JSON.stringify(iface.fragments)
+    }
   }
   let abi = null
 

@@ -1,8 +1,12 @@
 import Web3 from 'web3'
 
-export const getBalance = function(address: string, url: string) {
+import { getAddress } from './config'
+
+export const getBalance = async function(addressOrName: string, url: string) {
   // Connect web3
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
+  const networkId = await web3.eth.net.getId()
+  const address = getAddress(addressOrName, String(networkId))
 
   return web3.eth.getBalance(address)
 }

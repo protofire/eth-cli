@@ -6,15 +6,15 @@ import { add0x } from './utils'
 
 const config = new Conf<any>({ projectName: 'eth-cli' })
 
-export const getPrivateKey = (privateKeyOrKnownAddress: string) => {
+export const getPrivateKey = (privateKeyOrKnownAddress: string, networkId: string) => {
   const addresses = config.get('addresses', {})
 
   // if it's a known address, use its private key; throw error if it doesn't have one
   // otherwise, interpret the parameter as a private key
   let privateKey
-  if (addresses[privateKeyOrKnownAddress]) {
-    if (addresses[privateKeyOrKnownAddress].privateKey) {
-      privateKey = addresses[privateKeyOrKnownAddress].privateKey
+  if (addresses[privateKeyOrKnownAddress] && addresses[privateKeyOrKnownAddress][networkId]) {
+    if (addresses[privateKeyOrKnownAddress][networkId].privateKey) {
+      privateKey = addresses[privateKeyOrKnownAddress][networkId].privateKey
     } else {
       throw new Error("Selected address doesn't have a known private key")
     }
@@ -41,7 +41,7 @@ export const updateAddresses = (addresses: any) => {
   config.set('addresses', addresses)
 }
 
-export const getAddress = (name: string, networkId?: string) => {
+export const getAddress = (name: string, networkId: string) => {
   const addresses = getAddresses()
 
   if (addresses[name]) {

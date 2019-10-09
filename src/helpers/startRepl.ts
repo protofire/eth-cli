@@ -32,7 +32,7 @@ export async function startRepl(
 
   const accounts = await web3.eth.getAccounts()
   if (privateKeyOrKnownAddress) {
-    const privateKey = getPrivateKey(privateKeyOrKnownAddress)
+    const privateKey = getPrivateKey(privateKeyOrKnownAddress, String(networkId))
     const account = web3.eth.accounts.wallet.add(privateKey)
     if (!accounts.includes(account.address)) {
       accounts.push(account.address)

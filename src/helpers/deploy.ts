@@ -10,7 +10,8 @@ export async function deploy(
   binPath: string,
 ): Promise<string> {
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
-  const privateKey = getPrivateKey(privateKeyOrKnownAddress)
+  const networkId = await web3.eth.net.getId()
+  const privateKey = getPrivateKey(privateKeyOrKnownAddress, String(networkId))
 
   const { address } = web3.eth.accounts.wallet.add(privateKey)
 
