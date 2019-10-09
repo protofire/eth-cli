@@ -41,12 +41,20 @@ export const updateAddresses = (addresses: any) => {
   config.set('addresses', addresses)
 }
 
-export const getAddress = (addressOrKnownAddress: string) => {
+export const getAddress = (name: string, networkId?: string) => {
   const addresses = getAddresses()
 
-  const knownAddress = addresses[addressOrKnownAddress]
-
-  return add0x(knownAddress ? knownAddress.address : addressOrKnownAddress)
+  if (addresses[name]) {
+    if (networkId && addresses[name][networkId]) {
+      return add0x(addresses[name][networkId].address)
+    } else if (addresses[name]['*']) {
+      return add0x(addresses[name]['*'].address)
+    } else {
+      throw new Error(`No known address named ${name}`)
+    }
+  } else {
+    return add0x(name)
+  }
 }
 
 type Networks = { [name: string]: NetworkInfo }

@@ -1,6 +1,5 @@
-import { Command } from '@oclif/command'
+import { Command, flags } from '@oclif/command'
 
-import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 import { getAddresses, updateAddresses } from '../../helpers/config'
 
 export class RemoveCommand extends Command {
@@ -9,10 +8,18 @@ export class RemoveCommand extends Command {
   static args = [
     {
       name: 'name',
-      required: false,
+      required: true,
       description: 'Name of the address to remove',
     },
   ]
+
+  static flags = {
+    'network-id': flags.string({
+      char: 'n',
+      required: false,
+      default: '*',
+    }),
+  }
 
   static aliases = ['rm']
 
@@ -21,15 +28,11 @@ export class RemoveCommand extends Command {
   async run() {
     const { args, flags } = this.parse(RemoveCommand)
 
-    if (isEmptyCommand(flags, args)) {
-      this._help()
-      this.exit(1)
-    }
-
     const { name } = args
+    const { 'network-id': networkId } = flags
     const addresses = getAddresses()
-    if (addresses[name]) {
-      delete addresses[name]
+    if (addresses[name] && addresses[name][networkId]) {
+      delete addresses[name][networkId]
       updateAddresses(addresses)
     } else {
       this.warn(`No address found for '${name}'`)

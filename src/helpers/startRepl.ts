@@ -22,6 +22,7 @@ export async function startRepl(
 
   // Connect web3
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
+  const networkId = await web3.eth.net.getId()
 
   // Default context
   let replContext: ReplContext = {
@@ -69,7 +70,7 @@ export async function startRepl(
 
   // Add contracts into context
   for (let contract of contracts) {
-    addContract(contract.abiPath, getAddress(contract.address), replContext)
+    addContract(contract.abiPath, getAddress(contract.address, String(networkId)), replContext)
   }
 
   // Start REPL
