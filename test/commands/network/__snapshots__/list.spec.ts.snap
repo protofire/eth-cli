@@ -2,38 +2,33 @@
 
 exports[`network:list Should run 'networks --json' and match snapshot. 1`] = `
 Array [
-  "[
-  {
-    \\"name\\": \\"mainnet\\",
-    \\"url\\": \\"https://mainnet.infura.io\\",
+  "{
+  \\"mainnet\\": {
+    \\"url\\": \\"https://mainnet.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad\\",
     \\"id\\": 1,
     \\"label\\": \\"Mainnet\\"
   },
-  {
-    \\"name\\": \\"ropsten\\",
-    \\"url\\": \\"https://ropsten.infura.io\\",
+  \\"ropsten\\": {
+    \\"url\\": \\"https://ropsten.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad\\",
     \\"id\\": 3,
     \\"label\\": \\"Ropsten\\"
   },
-  {
-    \\"name\\": \\"rinkeby\\",
-    \\"url\\": \\"https://rinkeby.infura.io/v3/2d81f43f9b6d4b9a88dcbcc3026ab758\\",
+  \\"rinkeby\\": {
+    \\"url\\": \\"https://rinkeby.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad\\",
     \\"id\\": 4,
     \\"label\\": \\"Rinkeby\\"
   },
-  {
-    \\"name\\": \\"goerli\\",
-    \\"url\\": \\"https://goerli.infura.io\\",
+  \\"goerli\\": {
+    \\"url\\": \\"https://goerli.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad\\",
     \\"id\\": 5,
     \\"label\\": \\"Görli\\"
   },
-  {
-    \\"name\\": \\"kovan\\",
-    \\"url\\": \\"https://kovan.infura.io\\",
+  \\"kovan\\": {
+    \\"url\\": \\"https://kovan.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad\\",
     \\"id\\": 42,
     \\"label\\": \\"Kovan\\"
   }
-]
+}
 ",
 ]
 `;
@@ -42,15 +37,15 @@ exports[`network:list Should run 'networks --table' and match snapshot. 1`] = `
 Array [
   "Id     Name    Label   Url                                                           
 ",
-  "1      mainnet Mainnet https://mainnet.infura.io                                     
+  "1      mainnet Mainnet https://mainnet.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad 
 ",
-  "3      ropsten Ropsten https://ropsten.infura.io                                     
+  "3      ropsten Ropsten https://ropsten.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad 
 ",
-  "4      rinkeby Rinkeby https://rinkeby.infura.io/v3/2d81f43f9b6d4b9a88dcbcc3026ab758 
+  "4      rinkeby Rinkeby https://rinkeby.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad 
 ",
-  "5      goerli  Görli   https://goerli.infura.io                                      
+  "5      goerli  Görli   https://goerli.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad  
 ",
-  "42     kovan   Kovan   https://kovan.infura.io                                       
+  "42     kovan   Kovan   https://kovan.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad   
 ",
 ]
 `;
@@ -59,15 +54,15 @@ exports[`network:list Should run 'networks' and match snapshot. 1`] = `
 Array [
   "Id     Name    Label   Url                                                           
 ",
-  "1      mainnet Mainnet https://mainnet.infura.io                                     
+  "1      mainnet Mainnet https://mainnet.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad 
 ",
-  "3      ropsten Ropsten https://ropsten.infura.io                                     
+  "3      ropsten Ropsten https://ropsten.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad 
 ",
-  "4      rinkeby Rinkeby https://rinkeby.infura.io/v3/2d81f43f9b6d4b9a88dcbcc3026ab758 
+  "4      rinkeby Rinkeby https://rinkeby.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad 
 ",
-  "5      goerli  Görli   https://goerli.infura.io                                      
+  "5      goerli  Görli   https://goerli.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad  
 ",
-  "42     kovan   Kovan   https://kovan.infura.io                                       
+  "42     kovan   Kovan   https://kovan.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad   
 ",
 ]
 `;
