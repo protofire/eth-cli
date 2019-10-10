@@ -1,4 +1,6 @@
 import { NetworkCommand } from '../../base/network'
+import { convert } from '../../helpers/convert'
+import { Unit } from '../../types'
 
 export default class BalanceCommand extends NetworkCommand {
   static description = `Get the balance for the given address`
@@ -28,8 +30,9 @@ export default class BalanceCommand extends NetworkCommand {
 
       const { getBalance } = await import('../../helpers/getBalance')
       const balance = await getBalance(address, networkUrl)
+      const balanceInEth = convert(balance, Unit.Wei, Unit.Eth)
 
-      this.log(balance)
+      this.log(balanceInEth)
     } catch (e) {
       this.error(e.message, { exit: 1 })
     }

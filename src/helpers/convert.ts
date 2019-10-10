@@ -33,7 +33,7 @@ export const convert = (amount: string, from: Unit, to: Unit): string => {
   const scale = new Big(10).pow(exp)
 
   if (to === Unit.Eth) {
-    return amountBN.mul(scale).toFixed(2)
+    return amountBN.mul(scale).toFixed(4)
   }
   return amountBN.mul(scale).toFixed(0)
 }
