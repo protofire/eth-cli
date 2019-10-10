@@ -2,10 +2,7 @@
 
 A CLI swiss knife for Ethereum developers
 
-
-
 [![Donate with Ethereum](https://en.cryptobadges.io/badge/micro/0xe8cdf02efd8ab0a490d7b2cb13553389c9bc932e)](https://en.cryptobadges.io/donate/0xe8cdf02efd8ab0a490d7b2cb13553389c9bc932e)
-
 
 [![Build Status](https://travis-ci.org/protofire/eth-cli.svg?branch=master)](https://travis-ci.org/protofire/eth-cli)
 [![NPM version](https://badge.fury.io/js/eth-cli.svg)](https://npmjs.org/package/eth-cli)
@@ -13,11 +10,27 @@ A CLI swiss knife for Ethereum developers
 [![dependencies Status](https://david-dm.org/protofire/eth-cli/status.svg)](https://david-dm.org/protofire/eth-cli)
 [![devDependencies Status](https://david-dm.org/protofire/eth-cli/dev-status.svg)](https://david-dm.org/protofire/eth-cli?type=dev)
 
-
-
 ## Why use it?
 
 `eth-cli` allows you to play with **transactions** and **ABIs**, interact with **smart contracts** and **Ethereum blockchain** (using your own REPL) and also generate **random addresses / public-private key pairs**, all at the comfort of your **command line**. Checkout the _Table of Contents_ below for details.
+
+### Fetch data from the blockchain
+
+Use commands like `block:number`, `tx:get` and `address:balance` to get information from the blockchain.
+
+![Fetch data from the blockchain](img/fetching-data.gif)
+
+### Start an interactive REPL connected to some node
+
+Use `eth repl` to start an interactive REPL connected to an Ethereum node.
+
+![Start a REPL](img/repl.gif)
+
+### Call methods on deployed contracts
+
+Use `contract:call` to call methods on contracts deployed on any network.
+
+![Call a contract method](img/contract-call.gif)
 
 ## What can it do
 - [abi](#abi) Use `eth abi` to see what contract ABIs the tool currently knows about, the methods available in each, and the JSON representation of each 
