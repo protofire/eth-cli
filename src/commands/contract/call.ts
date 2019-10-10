@@ -1,5 +1,3 @@
-import { cli } from 'cli-ux'
-
 import { NetworkCommand } from '../../base/network'
 
 export default class CallCommand extends NetworkCommand {
@@ -43,7 +41,7 @@ export default class CallCommand extends NetworkCommand {
       const { contractCall } = await import('../../helpers/contractCall')
       const result = await contractCall(abi, methodCall, address, networkUrl)
 
-      cli.styledJSON(result)
+      this.log(result)
     } catch (e) {
       this.error(e.message, { exit: 1 })
     }
