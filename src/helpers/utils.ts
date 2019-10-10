@@ -23,8 +23,28 @@ export const loadABI = (abiPath: string) => {
       console.trace(abiStr)
     } else {
       // if it's not a file, check if it's a human readable ABI
-      const iface = new Interface([abiPath])
-      abiStr = JSON.stringify(iface.fragments)
+      const iface: any = new Interface([abiPath])
+
+      // fix for null components
+      const fragment = JSON.parse(JSON.stringify(iface.fragments[0]))
+      const inputs = fragment.inputs.map((x: any) => {
+        if (x.components === null) {
+          delete x.components
+        }
+        return x
+      })
+      const outputs = fragment.outputs.map((x: any) => {
+        if (x.components === null) {
+          delete x.components
+        }
+        return x
+      })
+      const fixedFragment = {
+        ...fragment,
+        inputs,
+        outputs,
+      }
+      abiStr = JSON.stringify([fixedFragment])
     }
   }
   let abi = null
