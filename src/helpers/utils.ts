@@ -20,7 +20,6 @@ export const loadABI = (abiPath: string) => {
   if (!abiStr) {
     if (fs.existsSync(abiPath)) {
       abiStr = fs.readFileSync(abiPath).toString()
-      console.trace(abiStr)
     } else {
       // if it's not a file, check if it's a human readable ABI
       const iface: any = new Interface([abiPath])
