@@ -9,6 +9,8 @@
       ["web3-core", "web3-eth", "web3-eth-contract", "web3-utils"]
     ],
     "no-console": false,
-    "no-constant-condition": false
+    "no-constant-condition": false,
+    "no-unused": false,
+    "no-string-based-set-timeout": false
   }
 }

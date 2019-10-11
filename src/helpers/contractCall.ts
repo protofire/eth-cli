@@ -7,18 +7,18 @@ export async function contractCall(abiPath: string, methodCall: string, name: st
   const { methodValid, methodName } = evaluateMethodCallStructure(methodCall)
 
   if (!methodValid) {
-    throw new Error('[encode] methodCall invalid structure')
+    throw new Error('[contractCall] methodCall invalid structure')
   }
 
   const abi = loadABI(abiPath)
   const matchingMethods = extractMethodsAndEventsFromABI(abi).filter(x => x.name === methodName)
 
   if (matchingMethods.length > 1) {
-    throw new Error('[encode] function overloading is not supported in the current version')
+    throw new Error('[contractCall] function overloading is not supported in the current version')
   }
 
   if (!matchingMethods.length) {
-    throw new Error('[encode] method specified does not exist in the ABI file provided')
+    throw new Error('[contractCall] method specified does not exist in the ABI file provided')
   }
 
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
