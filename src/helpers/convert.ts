@@ -2,6 +2,9 @@ import Big from 'big.js'
 
 import { Unit } from '../types'
 
+// avoid exponential notation in most cases
+Big.NE = -19
+
 export const stringToUnit = (unit: string): Maybe<Unit> => {
   const unitLowerCased = unit.toLowerCase()
   if (unitLowerCased === Unit.Eth) {
@@ -33,7 +36,7 @@ export const convert = (amount: string, from: Unit, to: Unit): string => {
   const scale = new Big(10).pow(exp)
 
   if (to === Unit.Eth) {
-    return amountBN.mul(scale).toFixed(4)
+    return amountBN.mul(scale).toString()
   }
   return amountBN.mul(scale).toFixed(0)
 }
