@@ -2,7 +2,7 @@ import { Command, flags } from '@oclif/command'
 import { cli } from 'cli-ux'
 
 import { isEmptyCommand } from '../../helpers/checkCommandInputs'
-import { getAbiByName } from '../../helpers/knownAbis'
+import { loadABI } from '../../helpers/utils'
 
 export default class ShowCommand extends Command {
   static description = 'Displays a known ABI'
@@ -30,7 +30,7 @@ export default class ShowCommand extends Command {
     }
 
     const { abi } = args
-    const abiObj = getAbiByName(abi)
+    const abiObj = loadABI(abi)
     if (abiObj) {
       cli.styledJSON(abiObj)
     } else {
