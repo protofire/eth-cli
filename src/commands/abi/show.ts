@@ -1,7 +1,6 @@
 import { Command, flags } from '@oclif/command'
 import { cli } from 'cli-ux'
 
-import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 import { loadABI } from '../../helpers/utils'
 
 export default class ShowCommand extends Command {
@@ -14,7 +13,7 @@ export default class ShowCommand extends Command {
   static args = [
     {
       name: 'abi',
-      required: false,
+      required: true,
       description: 'The contract name.',
     },
   ]
@@ -22,12 +21,7 @@ export default class ShowCommand extends Command {
   static examples = ['eth abi:show ERC20', 'eth abi:show ERC721']
 
   async run() {
-    const { args, flags } = this.parse(ShowCommand)
-
-    if (isEmptyCommand(flags, args)) {
-      this._help()
-      this.exit(1)
-    }
+    const { args } = this.parse(ShowCommand)
 
     const { abi } = args
     const abiObj = loadABI(abi)
