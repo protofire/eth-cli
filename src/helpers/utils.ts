@@ -32,12 +32,14 @@ export const loadABI = (abiPath: string) => {
         }
         return x
       })
-      const outputs = fragment.outputs.map((x: any) => {
-        if (x.components === null) {
-          delete x.components
-        }
-        return x
-      })
+      const outputs = fragment.outputs
+        ? fragment.outputs.map((x: any) => {
+            if (x.components === null) {
+              delete x.components
+            }
+            return x
+          })
+        : []
       const fixedFragment = {
         ...fragment,
         inputs,
