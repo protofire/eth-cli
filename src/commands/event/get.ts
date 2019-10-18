@@ -1,4 +1,5 @@
 import { flags } from '@oclif/command'
+import cli from 'cli-ux'
 
 import { NetworkCommand } from '../../base/network'
 import { getContract } from '../../helpers/utils'
@@ -21,6 +22,9 @@ export default class GetCommand extends NetworkCommand {
       default: 'latest',
       description:
         'End of the block range. Can be a positive number, a negative number, or "latest" (default). A negative number is interpreted as substracted from the current block number.',
+    }),
+    json: flags.boolean({
+      description: 'Print events in JSON format',
     }),
   }
 
@@ -50,8 +54,8 @@ export default class GetCommand extends NetworkCommand {
       networkUrl = this.getNetworkUrl(flags)
 
       const { contract: abiAtAddress, event } = args
-      const { from, to } = flags
-      const { getEvents } = await import('../../helpers/getEvents')
+      const { from, to, json } = flags
+      const { getEvents, parseEvent, processEvent } = await import('../../helpers/getEvents')
 
       const { getBlockNumber } = await import('../../helpers/getBlockNumber')
       const blockNumber = await getBlockNumber(networkUrl)
@@ -70,12 +74,18 @@ export default class GetCommand extends NetworkCommand {
       const networkId = await getNetworkId(networkUrl)
       const { abi, address } = getContract(abiAtAddress, String(networkId))
 
-      const events = await getEvents(abi, event, address, networkUrl, {
+      const { events, eventAbi } = await getEvents(abi, event, address, networkUrl, {
         from: fromBlock,
         to: toBlock,
       })
 
-      events.forEach(event => this.log(event))
+      if (json) {
+        events.forEach(event => {
+          cli.styledJSON(processEvent(event, eventAbi))
+        })
+      } else {
+        events.forEach(event => this.log(parseEvent(event, eventAbi)))
+      }
     } catch (e) {
       this.error(e.message, { exit: 1 })
     }

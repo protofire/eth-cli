@@ -1,3 +1,6 @@
+import { flags } from '@oclif/command'
+import cli from 'cli-ux'
+
 import { NetworkCommand } from '../../base/network'
 import { getContract } from '../../helpers/utils'
 
@@ -6,6 +9,9 @@ export default class GetCommand extends NetworkCommand {
 
   static flags = {
     ...NetworkCommand.flags,
+    json: flags.boolean({
+      description: 'Print events in JSON format',
+    }),
   }
 
   static args = [
@@ -27,6 +33,7 @@ export default class GetCommand extends NetworkCommand {
 
   async run() {
     const { args, flags } = this.parse(GetCommand)
+    const { json } = flags
 
     let networkUrl
 
@@ -34,7 +41,7 @@ export default class GetCommand extends NetworkCommand {
       networkUrl = this.getNetworkUrl(flags)
 
       const { contract: abiAtAddress, event } = args
-      const { getEvents } = await import('../../helpers/getEvents')
+      const { getEvents, parseEvent, processEvent } = await import('../../helpers/getEvents')
       const { getBlockNumber } = await import('../../helpers/getBlockNumber')
       let fromBlock = await getBlockNumber(networkUrl)
 
@@ -45,11 +52,17 @@ export default class GetCommand extends NetworkCommand {
       while (true) {
         const toBlock = await getBlockNumber(networkUrl)
         if (fromBlock <= toBlock) {
-          const events = await getEvents(abi, event, address, networkUrl, {
+          const { events, eventAbi } = await getEvents(abi, event, address, networkUrl, {
             from: fromBlock,
             to: toBlock,
           })
-          events.forEach(event => this.log(event))
+
+          if (json) {
+            events.forEach(event => cli.styledJSON(processEvent(event, eventAbi)))
+          } else {
+            events.forEach(event => this.log(parseEvent(event, eventAbi)))
+          }
+
           fromBlock = toBlock + 1
         }
         await new Promise((res: any) => setTimeout(res, 5000))

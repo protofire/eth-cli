@@ -1,4 +1,5 @@
 import Web3 from 'web3'
+import { EventLog } from 'web3/types'
 
 import { getAddress } from './config'
 import { extractMethodsAndEventsFromABI, loadABI } from './utils'
@@ -26,10 +27,30 @@ export async function getEvents(
   const contract = new web3.eth.Contract(abi, address)
   const events = await contract.getPastEvents(eventName, { fromBlock: from, toBlock: to })
 
-  const parsedEvents = events.map(event => {
-    const returnValues = eventAbi.inputs.map((x: any, i: number) => event.returnValues[i]).join(',')
-    return `${eventAbi.name}(${returnValues})`
+  return { eventAbi, events }
+}
+
+export const parseEvent = (event: EventLog, eventAbi: any) => {
+  const returnValues = eventAbi.inputs.map((x: any, i: number) => event.returnValues[i]).join(',')
+  const parsedEvent = `${eventAbi.name}(${returnValues})`
+  const block = event.blockNumber
+  return `#${block}: ${parsedEvent}`
+}
+
+export const processEvent = (event: EventLog, eventAbi: any) => {
+  const eventJson = {
+    blockNumber: event.blockNumber,
+    name: eventAbi.name,
+    arguments: {} as any,
+  }
+
+  Object.entries(event.returnValues).forEach(([key, value]) => {
+    if (/\d+/.test(key)) {
+      return
+    }
+
+    eventJson.arguments[key] = value
   })
 
-  return parsedEvents
+  return eventJson
 }
