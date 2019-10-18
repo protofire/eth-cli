@@ -1,7 +1,8 @@
 import { NetworkCommand } from '../../base/network'
+import { getContract } from '../../helpers/utils'
 
 export default class CallCommand extends NetworkCommand {
-  static description = `Calls method <methodCall> in contract with abi <abi> at address <address>`
+  static description = `Calls method <methodCall> in the given contract`
 
   static flags = {
     ...NetworkCommand.flags,
@@ -9,24 +10,19 @@ export default class CallCommand extends NetworkCommand {
 
   static args = [
     {
-      name: 'abi',
+      name: 'contract',
       required: true,
-      description: `The contract's ABI.`,
+      description: `The contract's ABI and address, in abi@address format.`,
     },
     {
       name: 'methodCall',
       required: true,
       description: `e.g.: 'myMethod(arg1,arg2,["a","b",3,["d","0x123..."]])'`,
     },
-    {
-      name: 'address',
-      required: true,
-      description: `The contract's  address.`,
-    },
   ]
 
   static examples = [
-    `eth contract:call --rinkeby erc20 'totalSupply()' 0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea`,
+    `eth contract:call --rinkeby erc20@0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea 'totalSupply()'`,
   ]
 
   async run() {
@@ -37,8 +33,11 @@ export default class CallCommand extends NetworkCommand {
     try {
       networkUrl = this.getNetworkUrl(flags)
 
-      const { abi, methodCall, address } = args
+      const { contract: abiAtAddress, methodCall } = args
       const { contractCall } = await import('../../helpers/contractCall')
+      const { getNetworkId } = await import('../../helpers/getNetworkId')
+      const networkId = await getNetworkId(networkUrl)
+      const { abi, address } = getContract(abiAtAddress, String(networkId))
       const result = await contractCall(abi, methodCall, address, networkUrl)
 
       this.log(result)

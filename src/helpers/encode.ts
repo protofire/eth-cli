@@ -13,7 +13,7 @@ export function encode(abiPath: string, methodCall: string, url: string) {
     throw new Error('[encode] methodCall invalid structure')
   }
 
-  const abi = loadABI(abiPath)
+  const { abi } = loadABI(abiPath)
   const matchingMethods = extractMethodsAndEventsFromABI(abi).filter(x => x.name === methodName)
 
   if (matchingMethods.length > 1) {

@@ -1,6 +1,7 @@
 import { flags } from '@oclif/command'
 
 import { NetworkCommand } from '../../base/network'
+import { getContract } from '../../helpers/utils'
 
 export default class GetCommand extends NetworkCommand {
   static description = `Get the events in the given block range`
@@ -25,19 +26,14 @@ export default class GetCommand extends NetworkCommand {
 
   static args = [
     {
-      name: 'abi',
+      name: 'contract',
       required: true,
-      description: `The contract's ABI.`,
+      description: `The contract's ABI and address, in abi@address format.`,
     },
     {
       name: 'event',
       required: true,
       description: `e.g.: 'MyEvent'`,
-    },
-    {
-      name: 'address',
-      required: true,
-      description: `The contract's  address.`,
     },
   ]
 
@@ -53,7 +49,7 @@ export default class GetCommand extends NetworkCommand {
     try {
       networkUrl = this.getNetworkUrl(flags)
 
-      const { abi, event, address } = args
+      const { contract: abiAtAddress, event } = args
       const { from, to } = flags
       const { getEvents } = await import('../../helpers/getEvents')
 
@@ -69,6 +65,10 @@ export default class GetCommand extends NetworkCommand {
       if (toBlock !== 'latest' && +toBlock < 0) {
         toBlock = String(blockNumber + Number(to))
       }
+
+      const { getNetworkId } = await import('../../helpers/getNetworkId')
+      const networkId = await getNetworkId(networkUrl)
+      const { abi, address } = getContract(abiAtAddress, String(networkId))
 
       const events = await getEvents(abi, event, address, networkUrl, {
         from: fromBlock,

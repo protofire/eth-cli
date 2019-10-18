@@ -76,7 +76,8 @@ export class DeployCommand extends NetworkCommand {
 
       let abi = []
       if (abiPath) {
-        abi = loadABI(abiPath)
+        const { abi: loadedAbi } = loadABI(abiPath)
+        abi = loadedAbi
       }
 
       const { deploy } = await import('../../helpers/deploy')

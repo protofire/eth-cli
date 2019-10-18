@@ -1,16 +1,15 @@
 import Web3 from 'web3'
 
 import { getAddress } from './config'
-import { evaluateMethodCallStructure, extractMethodsAndEventsFromABI, loadABI } from './utils'
+import { evaluateMethodCallStructure, extractMethodsAndEventsFromABI } from './utils'
 
-export async function contractCall(abiPath: string, methodCall: string, name: string, url: string) {
+export async function contractCall(abi: any, methodCall: string, name: string, url: string) {
   const { methodValid, methodName } = evaluateMethodCallStructure(methodCall)
 
   if (!methodValid) {
     throw new Error('[contractCall] methodCall invalid structure')
   }
 
-  const abi = loadABI(abiPath)
   const matchingMethods = extractMethodsAndEventsFromABI(abi).filter(x => x.name === methodName)
 
   if (matchingMethods.length > 1) {

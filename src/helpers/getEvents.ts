@@ -4,13 +4,12 @@ import { getAddress } from './config'
 import { extractMethodsAndEventsFromABI, loadABI } from './utils'
 
 export async function getEvents(
-  abiPath: string,
+  abi: any,
   eventName: string,
   name: string,
   url: string,
   { from, to }: any,
 ) {
-  const abi = loadABI(abiPath)
   const matchingEvents = extractMethodsAndEventsFromABI(abi).filter(x => x.name === eventName)
 
   if (!matchingEvents.length) {

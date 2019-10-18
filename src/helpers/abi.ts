@@ -5,7 +5,7 @@ import { ABIInput } from '../types'
 import { extractMethodsAndEventsFromABI, loadABI } from './utils'
 
 function getMethodsAndEvents(abiPath: string) {
-  let abi = loadABI(abiPath)
+  let { abi } = loadABI(abiPath)
 
   const methods = extractMethodsAndEventsFromABI(abi).map(({ name, inputs, kind }) => {
     const params = inputs.map((x: ABIInput) => x.type).join(',')

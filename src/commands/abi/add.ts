@@ -34,7 +34,7 @@ export class AddCommand extends Command {
       const { name, abiPath } = args
 
       const abis = getAbis()
-      const abi = loadABI(abiPath)
+      const { abi } = loadABI(abiPath)
       if (abis[name]) {
         this.warn(`ABI '${name}' already exists. Use abi:update if you want to modify it.`)
       } else {

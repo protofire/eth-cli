@@ -1,4 +1,5 @@
 import { NetworkCommand } from '../../base/network'
+import { getContract } from '../../helpers/utils'
 
 export default class GetCommand extends NetworkCommand {
   static description = `Emit new events from the given type in the given contract`
@@ -9,19 +10,14 @@ export default class GetCommand extends NetworkCommand {
 
   static args = [
     {
-      name: 'abi',
+      name: 'contract',
       required: true,
-      description: `The contract's ABI.`,
+      description: `The contract's ABI and address, in abi@address format.`,
     },
     {
       name: 'event',
       required: true,
       description: `e.g.: 'MyEvent'`,
-    },
-    {
-      name: 'address',
-      required: true,
-      description: `The contract's  address.`,
     },
   ]
 
@@ -37,10 +33,15 @@ export default class GetCommand extends NetworkCommand {
     try {
       networkUrl = this.getNetworkUrl(flags)
 
-      const { abi, event, address } = args
+      const { contract: abiAtAddress, event } = args
       const { getEvents } = await import('../../helpers/getEvents')
       const { getBlockNumber } = await import('../../helpers/getBlockNumber')
       let fromBlock = await getBlockNumber(networkUrl)
+
+      const { getNetworkId } = await import('../../helpers/getNetworkId')
+      const networkId = await getNetworkId(networkUrl)
+      const { abi, address } = getContract(abiAtAddress, String(networkId))
+
       while (true) {
         const toBlock = await getBlockNumber(networkUrl)
         if (fromBlock <= toBlock) {

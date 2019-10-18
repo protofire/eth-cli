@@ -23,12 +23,12 @@ export default class ShowCommand extends Command {
   async run() {
     const { args } = this.parse(ShowCommand)
 
-    const { abi } = args
-    const abiObj = loadABI(abi)
-    if (abiObj) {
-      cli.styledJSON(abiObj)
+    const { abi: abiArg } = args
+    const { abi } = loadABI(abiArg)
+    if (abi) {
+      cli.styledJSON(abi)
     } else {
-      this.error(`ABI for ${abi} not found!`)
+      this.error(`ABI for ${abiArg} not found!`)
     }
   }
 }

@@ -34,7 +34,7 @@ export class UpdateCommand extends Command {
       const { name, abiPath } = args
 
       const abis = getAbis()
-      const abi = loadABI(abiPath)
+      const { abi } = loadABI(abiPath)
       if (abis[name]) {
         abis[name] = abi
         updateAbis(abis)
