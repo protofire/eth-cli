@@ -46,7 +46,13 @@
     "@types/node": "^12.0.7",
     "@types/node-fetch": "^2.5.0",
     "@types/web3": "^1.0.19",
+    "@typescript-eslint/eslint-plugin": "^2.4.0",
+    "@typescript-eslint/parser": "^2.4.0",
     "chai": "^4",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-implicit-dependencies": "^1.0.4",
+    "eslint-plugin-oclif": "^0.1.0",
     "get-stream": "^5.1.0",
     "husky": "^3.0.4",
     "jest": "^24.7.1",
@@ -56,8 +62,6 @@
     "shelljs": "^0.8.3",
     "ts-jest": "^24.0.2",
     "ts-node": "^8",
-    "tslint": "^5",
-    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.3"
   },
   "engines": {
@@ -98,7 +102,8 @@
   "scripts": {
     "build": "tsc -b",
     "watch": "tsc -b --watch",
-    "lint": "tslint --project . && npm run prettier-check",
+    "lint": "npm run eslint:fix && npm run prettier-check",
+    "eslint:fix": "eslint --fix . --ext .ts",
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "rm -rf lib tsconfig.tsbuildinfo && tsc -b && oclif-dev manifest && oclif-dev readme",
     "prettier": "prettier --write \"**/*.{ts,tsx,json}\" --ignore-path .gitignore",
