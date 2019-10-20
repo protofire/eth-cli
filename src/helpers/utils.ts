@@ -84,7 +84,6 @@ export const loadABI = (abiPath: string): { abi: any; name: string } => {
       abi = abi.abi
     }
   } catch (e) {
-    // tslint:disable-next-line:no-console
     console.error('Error parsing abi', e)
     process.exit(1)
   }
@@ -119,6 +118,12 @@ export const evaluateMethodCallStructure = (methodCall: string) => {
   }
 }
 
+const createAccount = () => {
+  const { wallet } = new Accounts(new HttpProvider(''))
+
+  return wallet.create(1, randomBytes(32).toString('hex'))[0]
+}
+
 export const generateAccount = (prefix: string) => () => {
   let account = createAccount()
 
@@ -138,12 +143,6 @@ export const evaluatePrefix = (prefix: string) => {
   return match ? match[1] : null
 }
 
-const createAccount = () => {
-  const { wallet } = new Accounts(new HttpProvider(''))
-
-  return wallet.create(1, randomBytes(32).toString('hex'))[0]
-}
-
 export const isBN = (x: any) => x._hex !== undefined
 
 export const isPrivateKey = (s: string) => {
@@ -154,5 +153,4 @@ export const isAddress = (s: string) => {
   return /^(0x)?[0-9a-fA-F]{40}$/.test(s)
 }
 
-// tslint:disable-next-line no-string-based-set-timeout
 export const sleep = (timeout: number) => new Promise(res => setTimeout(res, timeout))
