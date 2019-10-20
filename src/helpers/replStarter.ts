@@ -8,6 +8,13 @@ import { isBN } from './utils'
 
 const historyFile = path.join(os.homedir(), '.eth_cli_history')
 
+function isRecoverableError(error: Error) {
+  if (error.name === 'SyntaxError') {
+    return /^(Unexpected end of input|Unexpected token)/.test(error.message)
+  }
+  return false
+}
+
 export function replStarter(context: { [key: string]: any }, prompt: string): repl.REPLServer {
   const r = repl.start({
     prompt,
@@ -51,11 +58,4 @@ export function replStarter(context: { [key: string]: any }, prompt: string): re
   require('repl.history')(r, historyFile)
 
   return r
-}
-
-function isRecoverableError(error: Error) {
-  if (error.name === 'SyntaxError') {
-    return /^(Unexpected end of input|Unexpected token)/.test(error.message)
-  }
-  return false
 }
