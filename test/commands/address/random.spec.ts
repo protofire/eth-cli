@@ -1,3 +1,5 @@
+import stripAnsi from 'strip-ansi'
+
 import { RandomCommand } from '../../../src/commands/address/random'
 
 describe('address:random', () => {
@@ -7,7 +9,7 @@ describe('address:random', () => {
     stdoutResult = []
     jest
       .spyOn(process.stdout, 'write')
-      .mockImplementation(val => stdoutResult.push(require('strip-ansi')(val.toString())))
+      .mockImplementation(val => stdoutResult.push(stripAnsi(val.toString())))
   })
 
   afterEach(() => jest.restoreAllMocks())

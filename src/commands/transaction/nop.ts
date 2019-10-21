@@ -10,7 +10,7 @@ export default class NopCommand extends NetworkCommand {
 
   static flags = {
     ...NetworkCommand.flags,
-    pk: { ...privateKeyFlag, required: false },
+    pk: { ...privateKeyFlag, required: true },
     'confirmation-blocks': confirmationBlocksFlag,
   }
 
@@ -35,8 +35,14 @@ export default class NopCommand extends NetworkCommand {
       networkUrl = this.getNetworkUrl(flags)
 
       const { 'confirmation-blocks': confirmationBlocks, pk } = flags
+
+      if (!pk) {
+        this.error('Please specify a private key using --pk', { exit: 1 })
+        return
+      }
+
       const { generateNop } = await import('../../helpers/generateNop')
-      const tx = await generateNop(networkUrl, pk!)
+      const tx = await generateNop(networkUrl, pk)
 
       await awaitTransactionMined(networkUrl, tx, confirmationBlocks)
 

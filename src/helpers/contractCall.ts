@@ -26,8 +26,8 @@ export async function contractCall(abi: any, methodCall: string, name: string, u
   const address = getAddress(name, String(networkId))
 
   // `contract` is being used as part of the eval call
-  // tslint:disable-next-line:no-unused
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const contract = new web3.eth.Contract(abi, address)
-  // tslint:disable-next-line:no-eval
+  // eslint-disable-next-line no-eval
   return eval(`contract.methods.${methodCall}.call()`)
 }

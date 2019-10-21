@@ -1,3 +1,5 @@
+import stripAnsi from 'strip-ansi'
+
 import ListCommand from '../../../src/commands/abi/list'
 import { getAbiList } from '../../../src/helpers/knownAbis'
 
@@ -8,7 +10,7 @@ describe('abi:list', () => {
     stdoutResult = []
     jest
       .spyOn(process.stdout, 'write')
-      .mockImplementation(val => stdoutResult.push(require('strip-ansi')(val.toString())))
+      .mockImplementation(val => stdoutResult.push(stripAnsi(val.toString())))
   })
 
   afterEach(() => jest.restoreAllMocks())

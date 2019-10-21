@@ -1,3 +1,5 @@
+import stripAnsi from 'strip-ansi'
+
 import TransactionGetCommand from '../../../src/commands/transaction/get'
 
 describe('transaction:get', () => {
@@ -7,7 +9,7 @@ describe('transaction:get', () => {
     stdoutResult = []
     jest
       .spyOn(process.stdout, 'write')
-      .mockImplementation(val => stdoutResult.push(require('strip-ansi')(val.toString())))
+      .mockImplementation(val => stdoutResult.push(stripAnsi(val.toString())))
   })
 
   afterEach(() => jest.restoreAllMocks())

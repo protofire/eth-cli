@@ -1,3 +1,5 @@
+import stripAnsi from 'strip-ansi'
+
 import MethodSendCommand from '../../../src/commands/method/send'
 
 describe('send', () => {
@@ -7,7 +9,7 @@ describe('send', () => {
     stdoutResult = []
     jest
       .spyOn(process.stdout, 'write')
-      .mockImplementation(val => stdoutResult.push(require('strip-ansi')(val.toString())))
+      .mockImplementation(val => stdoutResult.push(stripAnsi(val.toString())))
   })
 
   afterEach(() => jest.restoreAllMocks())

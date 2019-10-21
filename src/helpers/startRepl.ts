@@ -1,5 +1,3 @@
-import _ from 'lodash'
-import * as path from 'path'
 import Web3 from 'web3'
 
 import { getAddress, getPrivateKey } from './config'
