@@ -2,7 +2,7 @@ import Web3 from 'web3'
 import { EventLog } from 'web3/types'
 
 import { getAddress } from './config'
-import { extractMethodsAndEventsFromABI, loadABI } from './utils'
+import { extractMethodsAndEventsFromABI } from './utils'
 
 export async function getEvents(
   abi: any,

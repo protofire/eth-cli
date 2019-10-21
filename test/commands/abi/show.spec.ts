@@ -1,3 +1,5 @@
+import stripAnsi from 'strip-ansi'
+
 import ShowCommand from '../../../src/commands/abi/show'
 import erc20Abi from '../../../src/helpers/abi/erc20.json'
 import erc721Abi from '../../../src/helpers/abi/erc721.json'
@@ -9,7 +11,7 @@ describe('abi:show', () => {
     stdoutResult = []
     jest
       .spyOn(process.stdout, 'write')
-      .mockImplementation(val => stdoutResult.push(require('strip-ansi')(val.toString())))
+      .mockImplementation(val => stdoutResult.push(stripAnsi(val.toString())))
   })
 
   afterEach(() => jest.restoreAllMocks())

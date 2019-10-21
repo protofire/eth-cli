@@ -11,22 +11,6 @@ import { ABI, ABIItem } from '../types'
 import { getAddress } from './config'
 import { getStringAbiByName } from './knownAbis'
 
-export const getContract = (abiAtAddress: string, networkId: string) => {
-  const [abiArg, addressArg] = abiAtAddress.split('@')
-  if (!abiArg || !addressArg) {
-    throw new Error(`Invalid argument '${abiAtAddress}', expected <abi>@<contractAddress>`)
-  }
-
-  const { abi, name } = loadABI(abiArg)
-  const address = getAddress(addressArg, networkId)
-
-  return {
-    abi,
-    address,
-    name,
-  }
-}
-
 export const add0x = (hex: string) => {
   return hex.indexOf('0x') === 0 ? hex : `0x${hex}`
 }
@@ -41,7 +25,7 @@ export const loadABI = (abiPath: string): { abi: any; name: string } => {
   } else {
     if (fs.existsSync(abiPath)) {
       // If not found, check if the given string is a path to a file
-      let [filename] = path.basename(abiPath).split('.')
+      const [filename] = path.basename(abiPath).split('.')
       name = _.camelCase(filename)
       abiStr = fs.readFileSync(abiPath).toString()
     } else {
@@ -89,6 +73,22 @@ export const loadABI = (abiPath: string): { abi: any; name: string } => {
   }
 
   return { abi, name }
+}
+
+export const getContract = (abiAtAddress: string, networkId: string) => {
+  const [abiArg, addressArg] = abiAtAddress.split('@')
+  if (!abiArg || !addressArg) {
+    throw new Error(`Invalid argument '${abiAtAddress}', expected <abi>@<contractAddress>`)
+  }
+
+  const { abi, name } = loadABI(abiArg)
+  const address = getAddress(addressArg, networkId)
+
+  return {
+    abi,
+    address,
+    name,
+  }
 }
 
 export const extractMethodsAndEventsFromABI = (

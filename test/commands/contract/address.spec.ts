@@ -1,3 +1,5 @@
+import stripAnsi from 'strip-ansi'
+
 import AddressCommand from '../../../src/commands/contract/address'
 
 describe('contract:address', () => {
@@ -7,7 +9,7 @@ describe('contract:address', () => {
     stdoutResult = []
     jest
       .spyOn(process.stdout, 'write')
-      .mockImplementation(val => stdoutResult.push(require('strip-ansi')(val.toString())))
+      .mockImplementation(val => stdoutResult.push(stripAnsi(val.toString())))
   })
 
   afterEach(() => jest.restoreAllMocks())

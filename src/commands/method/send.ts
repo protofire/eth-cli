@@ -10,7 +10,7 @@ export default class SendCommand extends NetworkCommand {
 
   static flags = {
     ...NetworkCommand.flags,
-    pk: { ...privateKeyFlag, required: false },
+    pk: { ...privateKeyFlag, required: true },
     'confirmation-blocks': confirmationBlocksFlag,
   }
 
@@ -53,10 +53,16 @@ export default class SendCommand extends NetworkCommand {
 
       const { abi, methodCall, address } = args
       const { 'confirmation-blocks': confirmationBlocks, pk } = flags
+
+      if (!pk) {
+        this.error('Please specify a private key using --pk', { exit: 1 })
+        return
+      }
+
       const { encode } = await import('../../helpers/encode')
       const { sendTransaction } = await import('../../helpers/sendTransaction')
       const abiByteCode = encode(abi, methodCall, networkUrl)
-      const tx = await sendTransaction(abiByteCode, address, pk!, networkUrl)
+      const tx = await sendTransaction(abiByteCode, address, pk, networkUrl)
 
       await awaitTransactionMined(networkUrl, tx, confirmationBlocks)
 
