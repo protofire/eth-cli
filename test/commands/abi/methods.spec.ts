@@ -22,12 +22,6 @@ describe('methods', () => {
     await expect(MethodsCommand.run(['--help'])).rejects.toThrow('EEXIT: 0')
   })
 
-  it(`Should run 'methods --abi' and throw an error.`, async () => {
-    await expect(MethodsCommand.run(['LOL'])).rejects.toThrow(
-      `ENOENT: no such file or directory, open 'LOL'`,
-    )
-  })
-
   it(`Should run 'methods ./test/files/contracts/Proxy.abi' and success.`, async () => {
     await MethodsCommand.run(['./test/files/contracts/Proxy.abi'])
 
