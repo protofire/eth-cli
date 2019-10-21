@@ -9,7 +9,7 @@ describe('convert', () => {
   it('should convert from wei to ether by default', async () => {
     const result = eth('convert 1000000000000000000')
     expect(result.code).toEqual(0)
-    expect(result.stdout.trim()).toEqual('1.00')
+    expect(result.stdout.trim()).toEqual('1')
   })
   it('should convert from ether to wei', async () => {
     const result = eth('convert --from eth --to wei 1')
@@ -34,6 +34,6 @@ describe('convert', () => {
 
     const result = (await stdout).trim()
 
-    expect(result).toEqual('1.00')
+    expect(result).toEqual('1')
   })
 })
