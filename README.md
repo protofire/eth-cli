@@ -20,9 +20,9 @@ A CLI swiss knife for Ethereum developers
 
 - [Installation](#installation)
 - [Examples](#examples)
-  - [Start a REPL to interact with an RPC node](#start-a-repl-to-interact-with-an-rpc-node)
-  - [Generate a random address](#generate-a-random-address)
-  - [Get info about the most popular chains](#get-info-about-the-most-popular-chains)
+  - [Fetch data from the blockchain](#fetch-data-from-the-blockchain)
+  - [Start an interactive REPL connected to some node](#start-an-interactive-repl-connected-to-some-node)
+  - [Call methods on deployed contracts](#call-methods-on-deployed-contracts)
 - [Sibling projects](#sibling-projects)
 - [Back us](#back-us)
 - [Credits](#credits)
