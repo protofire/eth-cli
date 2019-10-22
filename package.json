@@ -49,6 +49,7 @@
     "@typescript-eslint/eslint-plugin": "^2.4.0",
     "@typescript-eslint/parser": "^2.4.0",
     "chai": "^4",
+    "doctoc": "^1.4.0",
     "eslint": "^6.5.1",
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-implicit-dependencies": "^1.0.4",
@@ -111,7 +112,8 @@
     "prettier-check": "prettier --check \"**/*.{ts,tsx,json}\" --ignore-path .gitignore",
     "test": "jest --coverage --detectOpenHandles ./test",
     "version": "oclif-dev readme && git add README.md",
-    "clearjest": "jest --clearCache"
+    "clearjest": "jest --clearCache",
+    "generate-docs": "npm run prepack && node scripts/generate-commands-list.js docs/COMMANDS.md && doctoc docs/COMMANDS.md --title 'This is the full list of commands supported by `eth-cli`.'"
   },
   "types": "lib/index.d.ts",
   "jest": {

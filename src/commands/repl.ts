@@ -1,6 +1,5 @@
 import { NetworkCommand } from '../base/network'
 import { privateKeyFlag } from '../flags'
-import { isEmptyCommand } from '../helpers/checkCommandInputs'
 
 const parseReplContracts = (args: string[]): Array<{ abiPath: string; address: string }> => {
   const result = args.map(arg => {
@@ -17,8 +16,8 @@ const parseReplContracts = (args: string[]): Array<{ abiPath: string; address: s
 export default class ReplCommand extends NetworkCommand {
   static description = `Start a REPL that connects to an RPC node ('localhost:8545' by default).
 
-The started REPL exposes a 'web3' object that you can use to interact with the
-node. There's also an 'eth' object to save you from typing 'web3.eth'.
+The started REPL exposes a \`web3\` object that you can use to interact with the
+node. There's also an \`eth\` object to save you from typing \`web3.eth\`.
 
 You can also indicate some contracts to load in the REPL; see the examples to
 learn how to do this.`
@@ -47,11 +46,6 @@ learn how to do this.`
 
   async run() {
     const { flags, argv } = this.parse(ReplCommand)
-
-    if (isEmptyCommand(flags, argv)) {
-      this._help()
-      this.exit(1)
-    }
 
     try {
       const [networkKind, networkUrl, networkName] = this.getNetworkUrlAndKind(flags)

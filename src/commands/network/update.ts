@@ -3,7 +3,7 @@ import { Command, flags } from '@oclif/command'
 import { getNetworks, updateNetworks } from '../../helpers/config'
 
 export class UpdateCommand extends Command {
-  static description = 'Update a known network'
+  static description = 'Update a known network.'
 
   static args = [
     {

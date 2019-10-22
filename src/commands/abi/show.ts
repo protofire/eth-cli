@@ -4,7 +4,7 @@ import { cli } from 'cli-ux'
 import { loadABI } from '../../helpers/utils'
 
 export default class ShowCommand extends Command {
-  static description = 'Displays a known ABI'
+  static description = 'Display a known ABI'
 
   static flags = {
     help: flags.help({ char: 'h' }),

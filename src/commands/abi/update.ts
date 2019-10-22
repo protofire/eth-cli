@@ -1,11 +1,10 @@
 import { Command } from '@oclif/command'
 
-import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 import { getAbis, updateAbis } from '../../helpers/config'
 import { loadABI } from '../../helpers/utils'
 
 export class UpdateCommand extends Command {
-  static description = 'Update a known ABI'
+  static description = 'Update a known ABI.'
 
   static args = [
     {
@@ -15,7 +14,7 @@ export class UpdateCommand extends Command {
     },
     {
       name: 'abiPath',
-      required: false,
+      required: true,
       description: 'Path to the file with the ABI',
     },
   ]
@@ -23,12 +22,7 @@ export class UpdateCommand extends Command {
   static examples = ['eth abi:update erc777 ./path/to/erc777.json']
 
   async run() {
-    const { args, flags } = this.parse(UpdateCommand)
-
-    if (isEmptyCommand(flags, args)) {
-      this._help()
-      this.exit(1)
-    }
+    const { args } = this.parse(UpdateCommand)
 
     try {
       const { name, abiPath } = args

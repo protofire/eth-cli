@@ -3,7 +3,7 @@ import { Command, flags } from '@oclif/command'
 import { getAddresses, updateAddresses } from '../../helpers/config'
 
 export class RemoveCommand extends Command {
-  static description = 'Remove a known address'
+  static description = 'Remove a known address.'
 
   static args = [
     {
@@ -21,9 +21,9 @@ export class RemoveCommand extends Command {
     }),
   }
 
-  static aliases = ['rm']
+  static aliases = ['address:rm']
 
-  static examples = ['eth address:rm ganache1']
+  static examples = ['eth address:rm ganache']
 
   async run() {
     const { args, flags } = this.parse(RemoveCommand)

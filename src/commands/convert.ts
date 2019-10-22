@@ -26,7 +26,11 @@ export class ConvertCommand extends Command {
     }),
   }
 
-  static examples = ['eth convert 1000000000000000000', 'eth convert -f eth -t wei 1']
+  static examples = [
+    'eth convert 1000000000000000000',
+    'eth convert -f eth -t wei 1',
+    'echo 1000000000000000000 | eth convert',
+  ]
 
   async run() {
     const { args, flags } = this.parse(ConvertCommand)

@@ -3,7 +3,7 @@ import { cli } from 'cli-ux'
 import { NetworkCommand } from '../../base/network'
 
 export default class GetCommand extends NetworkCommand {
-  static description = 'Get the block object for a given number'
+  static description = 'Get the block object for a given block number.'
 
   static flags = {
     ...NetworkCommand.flags,

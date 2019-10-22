@@ -5,7 +5,7 @@ import { getAddresses, updateAddresses } from '../../helpers/config'
 import { add0x, isAddress, isPrivateKey } from '../../helpers/utils'
 
 export class AddCommand extends Command {
-  static description = 'Add a known address'
+  static description = 'Add a known address.'
 
   static args = [
     {
@@ -29,7 +29,8 @@ export class AddCommand extends Command {
   }
 
   static examples = [
-    'eth address:add ganache1 0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d',
+    'eth address:add ganache 0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7d21715b23b1d',
+    'eth address:add dai 0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359 -n 1',
   ]
 
   async run() {

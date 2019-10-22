@@ -1,14 +1,12 @@
 import { Command } from '@oclif/command'
 
-import { isEmptyCommand } from '../../helpers/checkCommandInputs'
-
 export default class EventsCommand extends Command {
-  static description = `Get the hash of each event in the given ABI.`
+  static description = `Show the list of events in the given ABI.`
 
   static args = [
     {
       name: 'abi',
-      required: false,
+      required: true,
       description: 'Contract ABI.',
     },
   ]
@@ -16,12 +14,7 @@ export default class EventsCommand extends Command {
   static examples = ['eth abi:events erc20']
 
   async run() {
-    const { args, flags } = this.parse(EventsCommand)
-
-    if (isEmptyCommand(flags, args)) {
-      this._help()
-      this.exit(1)
-    }
+    const { args } = this.parse(EventsCommand)
 
     try {
       const { abi } = args

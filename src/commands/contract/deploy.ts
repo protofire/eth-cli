@@ -7,14 +7,14 @@ import { awaitTransactionMined } from '../../helpers/transactions'
 import { loadABI } from '../../helpers/utils'
 
 export class DeployCommand extends NetworkCommand {
-  static description = `Deploy contract whose bytecode is in <bin> using private key <pk>.`
+  static description = `Deploy contract with the given binary.`
 
   static flags = {
     ...NetworkCommand.flags,
     pk: privateKeyFlag,
     'confirmation-blocks': confirmationBlocksFlag,
     args: flags.string({
-      description: "Arguments for the contract's constructor",
+      description: "Arguments for the contract's constructor.",
     }),
     abi: flags.string({
       description: 'ABI of the contract. Required when using --args.',

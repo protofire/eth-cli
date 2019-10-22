@@ -4,7 +4,7 @@ import { getNetworks, updateNetworks } from '../../helpers/config'
 import { NetworkInfo } from '../../types'
 
 export class AddCommand extends Command {
-  static description = 'Add a known network'
+  static description = 'Add a known network.'
 
   static args = [
     {

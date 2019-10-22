@@ -4,7 +4,7 @@ import cli from 'cli-ux'
 import { getAddresses } from '../../helpers/config'
 
 export class ListCommand extends Command {
-  static description = 'List known addresses'
+  static description = 'Display the list of known addresses.'
 
   static examples = ['eth address:list']
 

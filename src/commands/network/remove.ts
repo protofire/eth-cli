@@ -1,10 +1,11 @@
 import { Command } from '@oclif/command'
 
-import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 import { getNetworks, updateNetworks } from '../../helpers/config'
 
 export class RemoveCommand extends Command {
-  static description = 'Remove a known network'
+  static description = 'Remove a known network.'
+
+  static aliases = ['network:rm']
 
   static args = [
     {
@@ -17,12 +18,7 @@ export class RemoveCommand extends Command {
   static examples = ['eth network:remove rsk']
 
   async run() {
-    const { args, flags } = this.parse(RemoveCommand)
-
-    if (isEmptyCommand(flags, args)) {
-      this._help()
-      this.exit(1)
-    }
+    const { args } = this.parse(RemoveCommand)
 
     const { name } = args
     const networks = getNetworks()

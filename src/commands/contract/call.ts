@@ -2,7 +2,7 @@ import { NetworkCommand } from '../../base/network'
 import { getContract } from '../../helpers/utils'
 
 export default class CallCommand extends NetworkCommand {
-  static description = `Calls method <methodCall> in the given contract`
+  static description = `Call a method in the given contract`
 
   static flags = {
     ...NetworkCommand.flags,

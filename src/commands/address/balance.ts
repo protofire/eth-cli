@@ -3,7 +3,7 @@ import { convert } from '../../helpers/convert'
 import { Unit } from '../../types'
 
 export default class BalanceCommand extends NetworkCommand {
-  static description = `Get the balance for the given address`
+  static description = `Get the balance of the given address.`
 
   static args = [
     {

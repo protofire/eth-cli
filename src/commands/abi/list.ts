@@ -3,7 +3,7 @@ import { Command, flags } from '@oclif/command'
 import { getAbiList } from '../../helpers/knownAbis'
 
 export default class ListCommand extends Command {
-  static description = 'Displays the list of known-abis'
+  static description = 'Display the list of known ABIs.'
 
   static flags = {
     help: flags.help({ char: 'h' }),

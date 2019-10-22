@@ -5,7 +5,7 @@ import { NetworkCommand } from '../../base/network'
 import { getContract } from '../../helpers/utils'
 
 export default class GetCommand extends NetworkCommand {
-  static description = `Get the events in the given block range`
+  static description = `Get the events in the given block range.`
 
   static flags = {
     ...NetworkCommand.flags,
@@ -42,7 +42,8 @@ export default class GetCommand extends NetworkCommand {
   ]
 
   static examples = [
-    'eth event:get --mainnet --from 1 erc20 Transfer 0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359',
+    'eth event:get --mainnet erc20@0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359 Transfer --from 1',
+    'eth event:get --mainnet erc20@0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359 Transfer --from 1 --json',
   ]
 
   async run() {
