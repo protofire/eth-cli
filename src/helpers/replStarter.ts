@@ -1,12 +1,20 @@
 import * as os from 'os'
 import * as path from 'path'
 import * as repl from 'repl'
+import replHistory from 'repl.history'
 import * as vm from 'vm'
 import Web3 from 'web3'
 
 import { isBN } from './utils'
 
 const historyFile = path.join(os.homedir(), '.eth_cli_history')
+
+function isRecoverableError(error: Error) {
+  if (error.name === 'SyntaxError') {
+    return /^(Unexpected end of input|Unexpected token)/.test(error.message)
+  }
+  return false
+}
 
 export function replStarter(context: { [key: string]: any }, prompt: string): repl.REPLServer {
   const r = repl.start({
@@ -48,14 +56,7 @@ export function replStarter(context: { [key: string]: any }, prompt: string): re
     r.context[expose] = context[expose]
   }
 
-  require('repl.history')(r, historyFile)
+  replHistory(r, historyFile)
 
   return r
-}
-
-function isRecoverableError(error: Error) {
-  if (error.name === 'SyntaxError') {
-    return /^(Unexpected end of input|Unexpected token)/.test(error.message)
-  }
-  return false
 }

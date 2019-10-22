@@ -1,14 +1,12 @@
 import { Command } from '@oclif/command'
 
-import { isEmptyCommand } from '../../helpers/checkCommandInputs'
-
 export default class SearchCommand extends Command {
   static description = `Search the given hashed method signature using the 4byte.directory API`
 
   static args = [
     {
       name: 'hexSignature',
-      required: false,
+      required: true,
       description: 'The hash of the function signature.',
     },
   ]
@@ -16,12 +14,7 @@ export default class SearchCommand extends Command {
   static examples = [`eth method:search a9059cbb`]
 
   async run() {
-    const { args, flags } = this.parse(SearchCommand)
-
-    if (isEmptyCommand(flags, args)) {
-      this._help()
-      this.exit(1)
-    }
+    const { args } = this.parse(SearchCommand)
 
     try {
       const { hexSignature } = args

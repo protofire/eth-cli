@@ -3,7 +3,6 @@ import { Transaction } from 'web3/eth/types'
 import { TransactionReceipt } from 'web3/types'
 
 import { NetworkCommand } from '../../base/network'
-import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 
 export default class GetCommand extends NetworkCommand {
   static description = `Print the transaction object for the given transaction hash.`
@@ -15,7 +14,7 @@ export default class GetCommand extends NetworkCommand {
   static args = [
     {
       name: 'txHash',
-      required: false,
+      required: true,
       description: 'The transaction hash.',
     },
   ]
@@ -30,11 +29,6 @@ export default class GetCommand extends NetworkCommand {
 
   async run() {
     const { args, flags } = this.parse(GetCommand)
-
-    if (isEmptyCommand(flags, args)) {
-      this._help()
-      this.exit(1)
-    }
 
     let networkUrl
 

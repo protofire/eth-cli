@@ -8,7 +8,7 @@ RUN yarn
 
 COPY src src
 COPY bin bin
-COPY README.md .prettierrc.json tsconfig.json tslint.json ./
+COPY README.md .prettierrc.json tsconfig.json .eslintrc.json ./
 
 RUN yarn prepack
 

@@ -1,3 +1,5 @@
+import stripAnsi from 'strip-ansi'
+
 import MethodEncodeCommand from '../../../src/commands/method/encode'
 
 describe('encode', () => {
@@ -7,7 +9,7 @@ describe('encode', () => {
     stdoutResult = []
     jest
       .spyOn(process.stdout, 'write')
-      .mockImplementation(val => stdoutResult.push(require('strip-ansi')(val.toString())))
+      .mockImplementation(val => stdoutResult.push(stripAnsi(val.toString())))
   })
 
   afterEach(() => jest.restoreAllMocks())
@@ -21,11 +23,7 @@ describe('encode', () => {
   })
 
   it(`Should run 'encode' and get success`, async () => {
-    await MethodEncodeCommand.run([
-      '--sokol',
-      './test/files/contracts/Proxy.abi',
-      'updateAppInstance()',
-    ])
+    await MethodEncodeCommand.run(['./test/files/contracts/Proxy.abi', 'updateAppInstance()'])
     expect(stdoutResult).toMatchSnapshot()
   })
 })

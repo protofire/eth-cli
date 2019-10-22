@@ -1,5 +1,3 @@
-import _ from 'lodash'
-import * as path from 'path'
 import Web3 from 'web3'
 
 import { getAddress, getPrivateKey } from './config'
@@ -22,16 +20,17 @@ export async function startRepl(
 
   // Connect web3
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
+  const networkId = await web3.eth.net.getId()
 
   // Default context
-  let replContext: ReplContext = {
+  const replContext: ReplContext = {
     web3,
     eth: web3.eth,
   }
 
   const accounts = await web3.eth.getAccounts()
   if (privateKeyOrKnownAddress) {
-    const privateKey = getPrivateKey(privateKeyOrKnownAddress)
+    const privateKey = getPrivateKey(privateKeyOrKnownAddress, String(networkId))
     const account = web3.eth.accounts.wallet.add(privateKey)
     if (!accounts.includes(account.address)) {
       accounts.push(account.address)
@@ -42,7 +41,7 @@ export async function startRepl(
   const loadedContracts: { [name: string]: string } = {}
 
   const addContract = (abiPath: string, address: string, replContext: any) => {
-    const abi = loadABI(abiPath)
+    const { abi, name } = loadABI(abiPath)
 
     const transactionConfirmationBlocks = 3
     const options = {
@@ -51,25 +50,23 @@ export async function startRepl(
     const Contract: any = web3.eth.Contract // ts hack: transactionConfirmationBlocks is not a valid option
 
     const contractInstance = new Contract(abi, address, options)
-    let [contractName] = path.basename(abiPath).split('.')
 
-    let contractNameCamelCased = _.camelCase(contractName)
-
-    if (replContext[contractNameCamelCased]) {
+    let contractName = name
+    if (replContext[contractName]) {
       const suffix = Object.keys(replContext).filter(function(key) {
-        return key.includes(contractNameCamelCased)
+        return key.includes(contractName)
       }).length
 
-      contractNameCamelCased = [contractNameCamelCased, '_', suffix].join('')
+      contractName = [contractName, '_', suffix].join('')
     }
 
-    replContext[contractNameCamelCased] = contractInstance
-    loadedContracts[contractNameCamelCased] = address
+    replContext[contractName] = contractInstance
+    loadedContracts[contractName] = address
   }
 
   // Add contracts into context
-  for (let contract of contracts) {
-    addContract(contract.abiPath, getAddress(contract.address), replContext)
+  for (const contract of contracts) {
+    addContract(contract.abiPath, getAddress(contract.address, String(networkId)), replContext)
   }
 
   // Start REPL

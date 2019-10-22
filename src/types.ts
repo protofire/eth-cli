@@ -11,3 +11,15 @@ export interface ABIInput {
   type: string
   components: any
 }
+
+export interface NetworkInfo {
+  url: string
+  id?: number
+  label?: string
+}
+
+export enum Unit {
+  Eth = 'eth',
+  Gwei = 'gwei',
+  Wei = 'wei',
+}

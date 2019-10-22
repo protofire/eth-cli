@@ -2,7 +2,6 @@ import { cli } from 'cli-ux'
 
 import { NetworkCommand } from '../../base/network'
 import { confirmationBlocksFlag, privateKeyFlag } from '../../flags'
-import { isEmptyCommand } from '../../helpers/checkCommandInputs'
 import { awaitTransactionMined } from '../../helpers/transactions'
 
 export default class NopCommand extends NetworkCommand {
@@ -10,7 +9,7 @@ export default class NopCommand extends NetworkCommand {
 
   static flags = {
     ...NetworkCommand.flags,
-    pk: { ...privateKeyFlag, required: false },
+    pk: { ...privateKeyFlag, required: true },
     'confirmation-blocks': confirmationBlocksFlag,
   }
 
@@ -24,19 +23,20 @@ export default class NopCommand extends NetworkCommand {
   async run() {
     const { flags } = this.parse(NopCommand)
 
-    if (isEmptyCommand(flags, {})) {
-      this._help()
-      this.exit(1)
-    }
-
     let networkUrl
 
     try {
       networkUrl = this.getNetworkUrl(flags)
 
       const { 'confirmation-blocks': confirmationBlocks, pk } = flags
+
+      if (!pk) {
+        this.error('Please specify a private key using --pk', { exit: 1 })
+        return
+      }
+
       const { generateNop } = await import('../../helpers/generateNop')
-      const tx = await generateNop(networkUrl, pk!)
+      const tx = await generateNop(networkUrl, pk)
 
       await awaitTransactionMined(networkUrl, tx, confirmationBlocks)
 
