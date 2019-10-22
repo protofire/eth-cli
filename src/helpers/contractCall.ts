@@ -3,7 +3,13 @@ import Web3 from 'web3'
 import { getAddress } from './config'
 import { evaluateMethodCallStructure, extractMethodsAndEventsFromABI } from './utils'
 
-export async function contractCall(abi: any, methodCall: string, name: string, url: string) {
+export async function contractCall(
+  abi: any,
+  methodCall: string,
+  name: string,
+  url: string,
+  privateKey?: string,
+) {
   const { methodValid, methodName } = evaluateMethodCallStructure(methodCall)
 
   if (!methodValid) {
@@ -21,13 +27,25 @@ export async function contractCall(abi: any, methodCall: string, name: string, u
   }
 
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
+  let address: string | null = null
+  if (privateKey) {
+    const account = web3.eth.accounts.wallet.add(privateKey)
+    address = account.address
+  }
   const networkId = await web3.eth.net.getId()
 
-  const address = getAddress(name, String(networkId))
+  const contractAddress = getAddress(name, String(networkId))
 
   // `contract` is being used as part of the eval call
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const contract = new web3.eth.Contract(abi, address)
+  const contract = new web3.eth.Contract(abi, contractAddress)
   // eslint-disable-next-line no-eval
-  return eval(`contract.methods.${methodCall}.call()`)
+  const methodObject = eval(`contract.methods.${methodCall}`)
+
+  if (address) {
+    const gas = await methodObject.estimateGas({ from: address })
+    return methodObject.send({ from: address, gas })
+  } else {
+    return methodObject.call()
+  }
 }

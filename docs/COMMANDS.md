@@ -33,7 +33,6 @@ This is the full list of commands supported by `eth-cli`.
   - [`method:encode`](#methodencode)
   - [`method:hash`](#methodhash)
   - [`method:search`](#methodsearch)
-  - [`method:send`](#methodsend)
 - [`network`](#network)
   - [`network:add`](#networkadd)
   - [`network:list`](#networklist)
@@ -185,7 +184,7 @@ Examples:
 
 ### `contract:call`
 
-Call a method in the given contract
+Call a method in the given contract. Specify a private key to send a transaction with the call.
 
 Examples:
 - `eth contract:call --rinkeby erc20@0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea 'totalSupply()'`
@@ -258,13 +257,6 @@ Search the given hashed method signature using the 4byte.directory API
 
 Examples:
 - `eth method:search a9059cbb`
-
-### `method:send`
-
-Executes <methodCall> for the contract in <address> given <abi> using the given private key.
-
-Examples:
-- `eth method:send erc20 'transfer("0xb2E4a264A982039f8E503ea3C83af5537f583069", "0xDa480B4852ca3aDE4acF3eeCA6901952EdbAe912")' 0x15503FBAb2fa57535092ab9c24740142Ab6cabd3 0x6db0bdfc7800dcf87b5a88b3363997360395d36ef51db10c3458d51d8aefd37e`
 
 ## `network`
 

@@ -1,11 +1,13 @@
 import { NetworkCommand } from '../../base/network'
+import { privateKeyFlag } from '../../flags'
 import { getContract } from '../../helpers/utils'
 
 export default class CallCommand extends NetworkCommand {
-  static description = `Call a method in the given contract`
+  static description = `Call a method in the given contract. Specify a private key to send a transaction with the call.`
 
   static flags = {
     ...NetworkCommand.flags,
+    pk: { ...privateKeyFlag, required: false },
   }
 
   static args = [
@@ -34,11 +36,12 @@ export default class CallCommand extends NetworkCommand {
       networkUrl = this.getNetworkUrl(flags)
 
       const { contract: abiAtAddress, methodCall } = args
+      const { pk } = flags
       const { contractCall } = await import('../../helpers/contractCall')
       const { getNetworkId } = await import('../../helpers/getNetworkId')
       const networkId = await getNetworkId(networkUrl)
       const { abi, address } = getContract(abiAtAddress, String(networkId))
-      const result = await contractCall(abi, methodCall, address, networkUrl)
+      const result = await contractCall(abi, methodCall, address, networkUrl, pk)
 
       this.log(result)
     } catch (e) {
