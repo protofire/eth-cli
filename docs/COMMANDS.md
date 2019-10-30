@@ -24,6 +24,7 @@ This is the full list of commands supported by `eth-cli`.
   - [`contract:address`](#contractaddress)
   - [`contract:call`](#contractcall)
   - [`contract:deploy`](#contractdeploy)
+  - [`contract:send`](#contractsend)
 - [`convert`](#convert)
 - [`event`](#event)
   - [`event:get`](#eventget)
@@ -42,6 +43,7 @@ This is the full list of commands supported by `eth-cli`.
 - [`transaction`](#transaction)
   - [`transaction:get`](#transactionget)
   - [`transaction:nop`](#transactionnop)
+  - [`transaction:send`](#transactionsend)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -184,7 +186,7 @@ Examples:
 
 ### `contract:call`
 
-Call a method in the given contract. Specify a private key to send a transaction with the call.
+Call a method in the given contract and print the returned value.
 
 Examples:
 - `eth contract:call --rinkeby erc20@0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea 'totalSupply()'`
@@ -196,6 +198,13 @@ Deploy contract with the given binary.
 Examples:
 - `eth contract:deploy --ropsten --pk 3daa79a26454a5528a3523f9e6345efdbd636e63f8c24a835204e6ccb5c88f9e ./contracts/proxy.bin`
 - `eth contract:deploy --pk knownPK --abi erc20 --args ["MYTKN", 18] ./contracts/erc20.bin`
+
+### `contract:send`
+
+Send a transaction calling a method in the given contract.
+
+Examples:
+- `eth contract:send --rinkeby erc20@0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea 'transfer("0x828DaF877f46fdFB5F1239cd9cB8f0D6E1adfb80", 1000000000)'`
 
 ## `convert`
 
@@ -328,4 +337,11 @@ Generates a transaction that does nothing with the given private key.
 Examples:
 - `eth transaction:nop --pk 3daa79a26454a5528a3523f9e6345efdbd636e63f8c24a835204e6ccb5c88f9e`
 - `ETH_CLI_PRIVATE_KEY=3daa79a26454a5528a3523f9e6345efdbd636e63f8c24a835204e6ccb5c88f9e eth transaction:nop`
+
+### `transaction:send`
+
+Send a raw transaction
+
+Examples:
+- `eth transaction:send --pk 3daa79a26454a5528a3523f9e6345efdbd636e63f8c24a835204e6ccb5c88f9e --to 0x828DaF877f46fdFB5F1239cd9cB8f0D6E1adfb80 --value 1000000000000000000`
 
