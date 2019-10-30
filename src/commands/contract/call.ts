@@ -1,5 +1,4 @@
 import { NetworkCommand } from '../../base/network'
-import { privateKeyFlag } from '../../flags'
 import { getContract } from '../../helpers/utils'
 
 export default class CallCommand extends NetworkCommand {

@@ -26,8 +26,9 @@ export default class SendCommand extends NetworkCommand {
       description: 'The amount of eth to send with the transaciton, in wei.',
     }),
     data: flags.string({
-      description: 'The raw data field of the transaction. Consider using contract:send instead of this.'
-    })
+      description:
+        'The raw data field of the transaction. Consider using contract:send instead of this.',
+    }),
   }
 
   static examples = [
@@ -44,7 +45,15 @@ export default class SendCommand extends NetworkCommand {
     try {
       networkUrl = this.getNetworkUrl(flags)
 
-      const { 'confirmation-blocks': confirmationBlocks, pk, to, gas, gasPrice = '1000000000', value = '0', data = '' } = flags
+      const {
+        'confirmation-blocks': confirmationBlocks,
+        pk,
+        to,
+        gas,
+        gasPrice = '1000000000',
+        value = '0',
+        data = '',
+      } = flags
 
       if (!pk) {
         throw new Error('Specify the private key using --pk')
@@ -52,7 +61,10 @@ export default class SendCommand extends NetworkCommand {
 
       const { sendRawTransaction } = await import('../../helpers/sendRawTransaction')
       const tx = await sendRawTransaction(networkUrl, pk, to, {
-        gas, gasPrice, value, data
+        gas,
+        gasPrice,
+        value,
+        data,
       })
 
       await awaitTransactionMined(networkUrl, tx, confirmationBlocks)

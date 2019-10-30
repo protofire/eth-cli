@@ -15,10 +15,12 @@ export class RandomCommand extends Command {
 
   static flags = {
     prefix: flags.string({
-      description: 'Prefix of the generated address. The more characters used, the longer it will take to generate it.'
+      description:
+        'Prefix of the generated address. The more characters used, the longer it will take to generate it.',
     }),
     password: flags.boolean({
-      description: 'Ask for a password and generate a keystore with it. Only 1 address can be generated when this flags is used.'
+      description:
+        'Ask for a password and generate a keystore with it. Only 1 address can be generated when this flags is used.',
     }),
   }
 
@@ -41,7 +43,7 @@ export class RandomCommand extends Command {
 
       if (promptForPassword) {
         const password = await cli.prompt('Password', { type: 'hide' })
-        const [{privateKey}] = randomAddress(1, prefix)
+        const [{ privateKey }] = randomAddress(1, prefix)
         const keystore = await generateKeystore(privateKey, password)
         cli.styledJSON(keystore)
       } else {
@@ -49,7 +51,6 @@ export class RandomCommand extends Command {
           cli.styledJSON({ address, privateKey }),
         )
       }
-
     } catch (e) {
       this.error(e.message, { exit: 1 })
     }

@@ -14,7 +14,7 @@ export async function sendRawTransaction(
   url: string,
   privateKeyOrKnownAddress: string,
   to: string,
-  { gas, ...extraParams }: ExtraParams
+  { gas, ...extraParams }: ExtraParams,
 ): Promise<string> {
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
   const networkId = await web3.eth.net.getId()
