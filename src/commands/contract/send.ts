@@ -1,12 +1,17 @@
-import { NetworkCommand } from '../../base/network'
-import { privateKeyFlag } from '../../flags'
-import { getContract } from '../../helpers/utils'
+import { cli } from 'cli-ux'
 
-export default class CallCommand extends NetworkCommand {
-  static description = `Call a method in the given contract and print the returned value.`
+import { NetworkCommand } from '../../base/network'
+import { confirmationBlocksFlag, privateKeyFlag } from '../../flags'
+import { getContract } from '../../helpers/utils'
+import { awaitTransactionMined } from '../../helpers/transactions'
+
+export default class SendCommand extends NetworkCommand {
+  static description = `Send a transaction calling a method in the given contract.`
 
   static flags = {
     ...NetworkCommand.flags,
+    pk: { ...privateKeyFlag, required: true },
+    'confirmation-blocks': confirmationBlocksFlag,
   }
 
   static args = [
@@ -23,11 +28,11 @@ export default class CallCommand extends NetworkCommand {
   ]
 
   static examples = [
-    `eth contract:call --rinkeby erc20@0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea 'totalSupply()'`,
+    `eth contract:send --rinkeby erc20@0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea 'transfer("0x828DaF877f46fdFB5F1239cd9cB8f0D6E1adfb80", 1000000000)'`,
   ]
 
   async run() {
-    const { args, flags } = this.parse(CallCommand)
+    const { args, flags } = this.parse(SendCommand)
 
     let networkUrl
 
@@ -35,13 +40,16 @@ export default class CallCommand extends NetworkCommand {
       networkUrl = this.getNetworkUrl(flags)
 
       const { contract: abiAtAddress, methodCall } = args
+      const { 'confirmation-blocks': confirmationBlocks, pk } = flags
       const { contractCall } = await import('../../helpers/contractCall')
       const { getNetworkId } = await import('../../helpers/getNetworkId')
       const networkId = await getNetworkId(networkUrl)
       const { abi, address } = getContract(abiAtAddress, String(networkId))
-      const result = await contractCall(abi, methodCall, address, networkUrl)
+      const tx = await contractCall(abi, methodCall, address, networkUrl, pk)
 
-      this.log(result)
+      await awaitTransactionMined(networkUrl, tx, confirmationBlocks)
+
+      cli.styledJSON(tx)
     } catch (e) {
       this.error(e.message, { exit: 1 })
     }

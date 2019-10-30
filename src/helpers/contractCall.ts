@@ -1,6 +1,6 @@
 import Web3 from 'web3'
 
-import { getAddress } from './config'
+import { getAddress, getPrivateKey } from './config'
 import { evaluateMethodCallStructure, extractMethodsAndEventsFromABI } from './utils'
 
 export async function contractCall(
@@ -8,7 +8,7 @@ export async function contractCall(
   methodCall: string,
   name: string,
   url: string,
-  privateKey?: string,
+  privateKeyOrKnownAddress?: string,
 ) {
   const { methodValid, methodName } = evaluateMethodCallStructure(methodCall)
 
@@ -28,7 +28,9 @@ export async function contractCall(
 
   const web3 = new Web3(new Web3.providers.HttpProvider(url))
   let address: string | null = null
-  if (privateKey) {
+  if (privateKeyOrKnownAddress) {
+    const networkId = await web3.eth.net.getId()
+    const privateKey = getPrivateKey(privateKeyOrKnownAddress, String(networkId))
     const account = web3.eth.accounts.wallet.add(privateKey)
     address = account.address
   }
@@ -44,7 +46,10 @@ export async function contractCall(
 
   if (address) {
     const gas = await methodObject.estimateGas({ from: address })
-    return methodObject.send({ from: address, gas })
+    return new Promise(resolve => {
+      methodObject.send({ from: address, gas })
+      .once('transactionHash', resolve)
+    })
   } else {
     return methodObject.call()
   }
