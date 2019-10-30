@@ -1,3 +1,4 @@
+import Web3 from 'web3'
 import { evaluatePrefix, generateAccount, range } from './utils'
 
 export const randomAddress = (amount: number, prefix: string) => {
@@ -16,4 +17,9 @@ export const randomAddress = (amount: number, prefix: string) => {
   return range(amount)
     .map(() => findAccount())
     .map(({ address, privateKey }) => ({ address, privateKey }))
+}
+
+export const generateKeystore = async (privateKey: string, password: string) => {
+  const web3 = new Web3()
+  return web3.eth.accounts.encrypt(privateKey, password)
 }
