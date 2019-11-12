@@ -12,7 +12,7 @@ A CLI swiss army knife for Ethereum developers
 
 ## Why use it?
 
-`eth-cli` allows you to fetch data from the blackchain, start an interactive REPL connected to some node, call methods on deployed contracts, and more, all at the comfort of your command line. Checkout the [examples](#examples) below for more information or check the [full list of commands](docs/COMMANDS.md).
+`eth-cli` allows you to fetch data from the blockchain, start an interactive REPL connected to some node, call methods on deployed contracts, and more, all at the comfort of your command line. Checkout the [examples](#examples) below for more information or check the [full list of commands](docs/COMMANDS.md).
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
