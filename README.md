@@ -1,6 +1,6 @@
 # eth-cli
 
-A CLI swiss knife for Ethereum developers
+A CLI swiss army knife for Ethereum developers
 
 [![Donate with Ethereum](https://en.cryptobadges.io/badge/micro/0xe8cdf02efd8ab0a490d7b2cb13553389c9bc932e)](https://en.cryptobadges.io/donate/0xe8cdf02efd8ab0a490d7b2cb13553389c9bc932e)
 
@@ -19,6 +19,7 @@ A CLI swiss knife for Ethereum developers
 ## Table of Contents
 
 - [Installation](#installation)
+- [Demo](#demo)
 - [Examples](#examples)
   - [Fetch data from the blockchain](#fetch-data-from-the-blockchain)
   - [Start an interactive REPL connected to some node](#start-an-interactive-repl-connected-to-some-node)
@@ -44,6 +45,10 @@ $ npx eth-cli repl --mainnet erc721@0x06012c8cf97bead5deae237070f9587f8e7a266d
 > erc721.methods.name().call()
 'CryptoKitties'
 ```
+
+## Demo
+
+Check [this screencast](https://www.youtube.com/watch?v=7tEUtg9DKTo) to see it in action.
 
 ## Examples
 
