@@ -12,9 +12,9 @@ export default class GetCommand extends NetworkCommand {
     from: flags.string({
       char: 'f',
       required: false,
-      default: 'latest',
+      default: '1',
       description:
-        'Start of the block number. Can be a positive number, a negative number, or "latest" (default). A negative number is interpreted as substracted from the current block number.',
+        'Start of the block number. Can be a positive number, a negative number, or "latest" (1 by default). A negative number is interpreted as substracted from the current block number.',
     }),
     to: flags.string({
       char: 't',
