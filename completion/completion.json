@@ -1,0 +1,572 @@
+{
+  "command": "eth",
+  "subcommands": [
+    {
+      "command": "abi:add",
+      "args": [
+        {
+          "name": "name",
+          "completion": {
+            "type": "any"
+          }
+        },
+        {
+          "name": "abi",
+          "completion": {
+            "type": "files"
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "command": "abi:events",
+      "args": [
+        {
+          "name": "name",
+          "completion": {
+            "type": "command",
+            "command": "eth abi:list"
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "command": "abi:list",
+      "flags": [],
+      "args": []
+    },
+    {
+      "command": "abi:methods",
+      "args": [
+        {
+          "name": "name",
+          "completion": {
+            "type": "command",
+            "command": "eth abi:list"
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "command": "abi:remove",
+      "args": [
+        {
+          "name": "name",
+          "completion": {
+            "type": "command",
+            "command": "eth abi:list"
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "command": "abi:show",
+      "args": [
+        {
+          "name": "name",
+          "completion": {
+            "type": "command",
+            "command": "eth abi:list"
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "command": "abi:update",
+      "args": [
+        {
+          "name": "name",
+          "completion": {
+            "type": "command",
+            "command": "eth abi:list"
+          }
+        },
+        {
+          "name": "abi",
+          "completion": {
+            "type": "files"
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "command": "address:add",
+      "flags": [],
+      "args": []
+    },
+    {
+      "command": "address:balance",
+      "args": [
+        {
+          "name": "name",
+          "completion": {
+            "type": "command",
+            "command": "eth address:list --json | jq -r 'keys[]'"
+          }
+        }
+      ],
+      "flags": [
+        {
+          "name": "mainnet",
+          "type": "boolean"
+        },
+        {
+          "name": "rinkeby",
+          "type": "boolean"
+        },
+        {
+          "name": "ropsten",
+          "type": "boolean"
+        },
+        {
+          "name": "kovan",
+          "type": "boolean"
+        },
+        {
+          "name": "network",
+          "char": "n",
+          "type": "string",
+          "completion": {
+            "type": "command",
+            "command": "eth networks --json | jq -r 'keys[]'"
+          }
+        }
+      ]
+    },
+    {
+      "command": "address:list",
+      "flags": [],
+      "args": []
+    },
+    {
+      "command": "address:random",
+      "flags": [
+        {
+          "name": "password",
+          "type": "boolean"
+        },
+        {
+          "name": "prefix",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "command": "address:remove",
+      "args": [
+        {
+          "name": "name",
+          "completion": {
+            "type": "command",
+            "command": "eth address:list --json | jq -r 'keys[]'",
+            "requiredCommands": [
+              "eth",
+              "jq"
+            ]
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "command": "address:show",
+      "flags": [],
+      "args": []
+    },
+    {
+      "command": "block:get",
+      "flags": [
+        {
+          "name": "mainnet",
+          "type": "boolean"
+        },
+        {
+          "name": "rinkeby",
+          "type": "boolean"
+        },
+        {
+          "name": "ropsten",
+          "type": "boolean"
+        },
+        {
+          "name": "kovan",
+          "type": "boolean"
+        },
+        {
+          "name": "network",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        },
+        {
+          "name": "pk",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "command": "block:number",
+      "flags": [
+        {
+          "name": "mainnet",
+          "type": "boolean"
+        },
+        {
+          "name": "rinkeby",
+          "type": "boolean"
+        },
+        {
+          "name": "ropsten",
+          "type": "boolean"
+        },
+        {
+          "name": "kovan",
+          "type": "boolean"
+        },
+        {
+          "name": "network",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        },
+        {
+          "name": "pk",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "command": "contract:address",
+      "flags": [],
+      "args": []
+    },
+    {
+      "command": "contract:call",
+      "flags": [
+        {
+          "name": "mainnet",
+          "type": "boolean"
+        },
+        {
+          "name": "rinkeby",
+          "type": "boolean"
+        },
+        {
+          "name": "ropsten",
+          "type": "boolean"
+        },
+        {
+          "name": "kovan",
+          "type": "boolean"
+        },
+        {
+          "name": "network",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        },
+        {
+          "name": "pk",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "command": "convert",
+      "flags": [
+        {
+          "name": "from",
+          "type": "string",
+          "completion": {
+            "type": "oneOf",
+            "values": [
+              "wei",
+              "gwei",
+              "eth"
+            ]
+          }
+        },
+        {
+          "name": "to",
+          "type": "string",
+          "completion": {
+            "type": "oneOf",
+            "values": [
+              "wei",
+              "gwei",
+              "eth"
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "command": "event:get",
+      "flags": [
+        {
+          "name": "mainnet",
+          "type": "boolean"
+        },
+        {
+          "name": "rinkeby",
+          "type": "boolean"
+        },
+        {
+          "name": "ropsten",
+          "type": "boolean"
+        },
+        {
+          "name": "kovan",
+          "type": "boolean"
+        },
+        {
+          "name": "network",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        },
+        {
+          "name": "pk",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        },
+        {
+          "name": "from",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        },
+        {
+          "name": "to",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        },
+        {
+          "name": "json",
+          "type": "boolean"
+        }
+      ],
+      "args": []
+    },
+    {
+      "command": "event:watch",
+      "flags": [
+        {
+          "name": "mainnet",
+          "type": "boolean"
+        },
+        {
+          "name": "rinkeby",
+          "type": "boolean"
+        },
+        {
+          "name": "ropsten",
+          "type": "boolean"
+        },
+        {
+          "name": "kovan",
+          "type": "boolean"
+        },
+        {
+          "name": "network",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        },
+        {
+          "name": "pk",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        },
+        {
+          "name": "json",
+          "type": "boolean"
+        }
+      ],
+      "args": []
+    },
+    {
+      "command": "method:decode",
+      "flags": [],
+      "args": []
+    },
+    {
+      "command": "method:encode",
+      "flags": [],
+      "args": []
+    },
+    {
+      "command": "method:hash",
+      "flags": [],
+      "args": []
+    },
+    {
+      "command": "method:search",
+      "flags": [],
+      "args": []
+    },
+    {
+      "command": "network:add",
+      "flags": [],
+      "args": []
+    },
+    {
+      "command": "network:list",
+      "flags": [],
+      "args": []
+    },
+    {
+      "command": "network:remove",
+      "flags": [],
+      "args": []
+    },
+    {
+      "command": "network:update",
+      "flags": [],
+      "args": []
+    },
+    {
+      "command": "repl",
+      "flags": [
+        {
+          "name": "mainnet",
+          "type": "boolean"
+        },
+        {
+          "name": "rinkeby",
+          "type": "boolean"
+        },
+        {
+          "name": "ropsten",
+          "type": "boolean"
+        },
+        {
+          "name": "kovan",
+          "type": "boolean"
+        },
+        {
+          "name": "network",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        },
+        {
+          "name": "pk",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "command": "transaction:get",
+      "flags": [
+        {
+          "name": "mainnet",
+          "type": "boolean"
+        },
+        {
+          "name": "rinkeby",
+          "type": "boolean"
+        },
+        {
+          "name": "ropsten",
+          "type": "boolean"
+        },
+        {
+          "name": "kovan",
+          "type": "boolean"
+        },
+        {
+          "name": "network",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        },
+        {
+          "name": "pk",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "command": "transaction:nop",
+      "flags": [
+        {
+          "name": "mainnet",
+          "type": "boolean"
+        },
+        {
+          "name": "rinkeby",
+          "type": "boolean"
+        },
+        {
+          "name": "ropsten",
+          "type": "boolean"
+        },
+        {
+          "name": "kovan",
+          "type": "boolean"
+        },
+        {
+          "name": "network",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        },
+        {
+          "name": "pk",
+          "type": "string",
+          "completion": {
+            "type": "any"
+          }
+        }
+      ],
+      "args": []
+    }
+  ]
+}

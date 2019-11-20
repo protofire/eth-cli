@@ -24,6 +24,7 @@ A CLI swiss army knife for Ethereum developers
   - [Fetch data from the blockchain](#fetch-data-from-the-blockchain)
   - [Start an interactive REPL connected to some node](#start-an-interactive-repl-connected-to-some-node)
   - [Call methods on deployed contracts](#call-methods-on-deployed-contracts)
+- [Autocomplete](#autocomplete)
 - [Sibling projects](#sibling-projects)
 - [Back us](#back-us)
 - [Credits](#credits)
@@ -71,6 +72,14 @@ Use `eth repl` to start an interactive REPL connected to an Ethereum node.
 Use `contract:call` to call methods on contracts deployed on any network.
 
 ![Call a contract method](img/contract-call.gif)
+
+## Autocomplete
+
+`eth-cli` supports some basic autocompletion, generated with [`completely`](https://github.com/fvictorio/completely).
+
+The [completion](completion) directory has a bash completion script (`eth-completion.bash`) and a zsh completion script
+(`_eth`). If you use bash, download the script and source it in your bashrc. If you use zsh, download the script and put
+it in some directory in your [`fpath`](https://unix.stackexchange.com/questions/33255/how-to-define-and-load-your-own-shell-function-in-zsh).
 
 ## Sibling projects
 

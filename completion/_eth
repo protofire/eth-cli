@@ -1,0 +1,274 @@
+#compdef eth
+
+function _eth {
+  local _line
+
+  _arguments -C \
+    "1: :(abi:add abi:events abi:list abi:methods abi:remove abi:show abi:update address:add address:balance address:list address:random address:remove address:show block:get block:number contract:address contract:call convert event:get event:watch method:decode method:encode method:hash method:search network:add network:list network:remove network:update repl transaction:get transaction:nop)" \
+  "*::arg:->args"
+
+    case $line[1] in
+      abi:add)
+        __eth_abi:add
+      ;;
+      abi:events)
+        __eth_abi:events
+      ;;
+      abi:list)
+        __eth_abi:list
+      ;;
+      abi:methods)
+        __eth_abi:methods
+      ;;
+      abi:remove)
+        __eth_abi:remove
+      ;;
+      abi:show)
+        __eth_abi:show
+      ;;
+      abi:update)
+        __eth_abi:update
+      ;;
+      address:add)
+        __eth_address:add
+      ;;
+      address:balance)
+        __eth_address:balance
+      ;;
+      address:list)
+        __eth_address:list
+      ;;
+      address:random)
+        __eth_address:random
+      ;;
+      address:remove)
+        __eth_address:remove
+      ;;
+      address:show)
+        __eth_address:show
+      ;;
+      block:get)
+        __eth_block:get
+      ;;
+      block:number)
+        __eth_block:number
+      ;;
+      contract:address)
+        __eth_contract:address
+      ;;
+      contract:call)
+        __eth_contract:call
+      ;;
+      convert)
+        __eth_convert
+      ;;
+      event:get)
+        __eth_event:get
+      ;;
+      event:watch)
+        __eth_event:watch
+      ;;
+      method:decode)
+        __eth_method:decode
+      ;;
+      method:encode)
+        __eth_method:encode
+      ;;
+      method:hash)
+        __eth_method:hash
+      ;;
+      method:search)
+        __eth_method:search
+      ;;
+      network:add)
+        __eth_network:add
+      ;;
+      network:list)
+        __eth_network:list
+      ;;
+      network:remove)
+        __eth_network:remove
+      ;;
+      network:update)
+        __eth_network:update
+      ;;
+      repl)
+        __eth_repl
+      ;;
+      transaction:get)
+        __eth_transaction:get
+      ;;
+      transaction:nop)
+        __eth_transaction:nop
+      ;;
+    esac
+}
+
+function __eth_abi:add {
+
+}
+function __eth_abi:events {
+
+}
+function __eth_abi:list {
+
+}
+function __eth_abi:methods {
+
+}
+function __eth_abi:remove {
+
+}
+function __eth_abi:show {
+
+}
+function __eth_abi:update {
+
+}
+function __eth_address:add {
+
+}
+function __eth_address:balance {
+  _arguments \
+      "--network: :_files" \
+            "--mainnet" \
+      "--rinkeby" \
+      "--ropsten" \
+      "--kovan" \
+
+}
+function __eth_address:list {
+
+}
+function __eth_address:random {
+  _arguments \
+      "--prefix: :_files" \
+            "--password" \
+
+}
+function __eth_address:remove {
+
+}
+function __eth_address:show {
+
+}
+function __eth_block:get {
+  _arguments \
+      "--network: :_files" \
+            "--pk: :_files" \
+            "--mainnet" \
+      "--rinkeby" \
+      "--ropsten" \
+      "--kovan" \
+
+}
+function __eth_block:number {
+  _arguments \
+      "--network: :_files" \
+            "--pk: :_files" \
+            "--mainnet" \
+      "--rinkeby" \
+      "--ropsten" \
+      "--kovan" \
+
+}
+function __eth_contract:address {
+
+}
+function __eth_contract:call {
+  _arguments \
+      "--network: :_files" \
+            "--pk: :_files" \
+            "--mainnet" \
+      "--rinkeby" \
+      "--ropsten" \
+      "--kovan" \
+
+}
+function __eth_convert {
+  _arguments \
+      "--from: :(wei gwei eth)" \
+      "--to: :(wei gwei eth)" \
+
+}
+function __eth_event:get {
+  _arguments \
+      "--network: :_files" \
+            "--pk: :_files" \
+            "--from: :_files" \
+            "--to: :_files" \
+            "--mainnet" \
+      "--rinkeby" \
+      "--ropsten" \
+      "--kovan" \
+      "--json" \
+
+}
+function __eth_event:watch {
+  _arguments \
+      "--network: :_files" \
+            "--pk: :_files" \
+            "--mainnet" \
+      "--rinkeby" \
+      "--ropsten" \
+      "--kovan" \
+      "--json" \
+
+}
+function __eth_method:decode {
+
+}
+function __eth_method:encode {
+
+}
+function __eth_method:hash {
+
+}
+function __eth_method:search {
+
+}
+function __eth_network:add {
+
+}
+function __eth_network:list {
+
+}
+function __eth_network:remove {
+
+}
+function __eth_network:update {
+
+}
+function __eth_repl {
+  _arguments \
+      "--network: :_files" \
+            "--pk: :_files" \
+            "--mainnet" \
+      "--rinkeby" \
+      "--ropsten" \
+      "--kovan" \
+
+}
+function __eth_transaction:get {
+  _arguments \
+      "--network: :_files" \
+            "--pk: :_files" \
+            "--mainnet" \
+      "--rinkeby" \
+      "--ropsten" \
+      "--kovan" \
+
+}
+function __eth_transaction:nop {
+  _arguments \
+      "--network: :_files" \
+            "--pk: :_files" \
+            "--mainnet" \
+      "--rinkeby" \
+      "--ropsten" \
+      "--kovan" \
+
+}
+
+_eth
+
