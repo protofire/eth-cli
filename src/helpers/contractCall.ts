@@ -52,7 +52,7 @@ export async function contractCall(
     }
     const gas = await methodObject.estimateGas(txParams)
     return new Promise(resolve => {
-      methodObject.send({ gas, ...txParams }).once('transactionHash', resolve)
+      methodObject.send({ ...txParams, gas }).once('transactionHash', resolve)
     })
   } else {
     return methodObject.call()
