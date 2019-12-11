@@ -61,17 +61,6 @@ Use commands like `block:number`, `tx:get` and `address:balance` to get informat
 
 ![Fetch data from the blockchain](img/fetching-data.gif)
 
-### Start an interactive REPL connected to some node
-
-Use `eth repl` to start an interactive REPL connected to an Ethereum node.
-
-![Start a REPL](img/repl.gif)
-
-### Call methods on deployed contracts
-
-Use `contract:call` to call methods on contracts deployed on any network.
-
-![Call a contract method](img/contract-call.gif)
 
 [more examples](/example.md)
 
