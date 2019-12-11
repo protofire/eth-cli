@@ -73,6 +73,8 @@ Use `contract:call` to call methods on contracts deployed on any network.
 
 ![Call a contract method](img/contract-call.gif)
 
+[more examples](/example.md)
+
 ## Autocomplete
 
 `eth-cli` supports some basic autocompletion, generated with [`completely`](https://github.com/fvictorio/completely).
