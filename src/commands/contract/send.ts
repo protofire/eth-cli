@@ -13,7 +13,7 @@ export default class SendCommand extends NetworkCommand {
     ...NetworkCommand.flags,
     pk: { ...privateKeyFlag, required: true },
     'confirmation-blocks': confirmationBlocksFlag,
-    'value': flags.integer({
+    value: flags.integer({
       description: 'Amount of ether (in wei) to be sent with the transaction',
       default: 0,
     }),
