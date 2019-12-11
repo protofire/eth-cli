@@ -1,7 +1,7 @@
 {
   "name": "eth-cli",
   "description": "A collection of CLI tools to help with ethereum learning and development.",
-  "version": "2.0.0-rc.2",
+  "version": "2.0.0-rc.4",
   "contributors": [
     "Fernando Greco",
     "Franco Victorio",
@@ -108,8 +108,8 @@
     "eslint:fix": "eslint --fix . --ext .ts",
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "rm -rf lib tsconfig.tsbuildinfo && tsc -b && oclif-dev manifest && oclif-dev readme",
-    "prettier": "prettier --write \"**/*.{ts,tsx,json}\" --ignore-path .gitignore",
-    "prettier-check": "prettier --check \"**/*.{ts,tsx,json}\" --ignore-path .gitignore",
+    "prettier": "prettier --write \"**/*.{ts,tsx,json}\"",
+    "prettier-check": "prettier --check \"**/*.{ts,tsx,json}\"",
     "test": "jest --coverage --detectOpenHandles ./test",
     "version": "oclif-dev readme && git add README.md",
     "clearjest": "jest --clearCache",

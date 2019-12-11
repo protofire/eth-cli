@@ -1,3 +1,4 @@
+import { flags } from '@oclif/command'
 import { cli } from 'cli-ux'
 
 import { NetworkCommand } from '../../base/network'
@@ -12,6 +13,10 @@ export default class SendCommand extends NetworkCommand {
     ...NetworkCommand.flags,
     pk: { ...privateKeyFlag, required: true },
     'confirmation-blocks': confirmationBlocksFlag,
+    value: flags.integer({
+      description: 'Amount of ether (in wei) to be sent with the transaction',
+      default: 0,
+    }),
   }
 
   static args = [
@@ -40,12 +45,12 @@ export default class SendCommand extends NetworkCommand {
       networkUrl = this.getNetworkUrl(flags)
 
       const { contract: abiAtAddress, methodCall } = args
-      const { 'confirmation-blocks': confirmationBlocks, pk } = flags
+      const { 'confirmation-blocks': confirmationBlocks, pk, value } = flags
       const { contractCall } = await import('../../helpers/contractCall')
       const { getNetworkId } = await import('../../helpers/getNetworkId')
       const networkId = await getNetworkId(networkUrl)
       const { abi, address } = getContract(abiAtAddress, String(networkId))
-      const tx = await contractCall(abi, methodCall, address, networkUrl, pk)
+      const tx = await contractCall(abi, methodCall, address, networkUrl, pk, { value })
 
       await awaitTransactionMined(networkUrl, tx, confirmationBlocks)
 
