@@ -1,7 +1,7 @@
 import * as os from 'os'
 import * as path from 'path'
 import * as repl from 'repl'
-import replHistory from 'repl.history'
+import replHistory from './replHistory'
 import * as vm from 'vm'
 import Web3 from 'web3'
 
