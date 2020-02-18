@@ -11,18 +11,23 @@ export const getPrivateKey = (privateKeyOrKnownAddress: string, networkId: strin
 
   // if it's a known address, use its private key; throw error if it doesn't have one
   // otherwise, interpret the parameter as a private key
-  let privateKey
-  if (addresses[privateKeyOrKnownAddress] && addresses[privateKeyOrKnownAddress][networkId]) {
-    if (addresses[privateKeyOrKnownAddress][networkId].privateKey) {
-      privateKey = addresses[privateKeyOrKnownAddress][networkId].privateKey
-    } else {
-      throw new Error("Selected address doesn't have a known private key")
-    }
-  } else {
-    privateKey = privateKeyOrKnownAddress
+  const knownAddress = addresses[privateKeyOrKnownAddress]
+
+  if (!knownAddress) {
+    return add0x(privateKeyOrKnownAddress)
   }
 
-  return add0x(privateKey)
+  const knownAddressForNetwork = knownAddress[networkId] || knownAddress['*']
+
+  if (!knownAddressForNetwork) {
+    throw new Error(`Selected address doesn't exist on network ${networkId}`)
+  }
+
+  if (knownAddressForNetwork.privateKey) {
+    return add0x(knownAddressForNetwork.privateKey)
+  } else {
+    throw new Error("Selected address doesn't have a known private key")
+  }
 }
 
 export const getAbis = () => {
