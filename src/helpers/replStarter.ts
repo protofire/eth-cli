@@ -16,6 +16,22 @@ function isRecoverableError(error: Error) {
   return false
 }
 
+function handleResult(result: any, callback: any) {
+  if (result && result.then) {
+    result
+      .then((x: any) => {
+        handleResult(x, callback)
+      })
+      .catch((e: Error) => callback(e, null))
+  } else if (result && isBN(result)) {
+    callback(null, result.toString())
+  } else if (result && result._method && result.call) {
+    handleResult(result.call(), callback)
+  } else {
+    callback(null, result)
+  }
+}
+
 export function replStarter(context: { [key: string]: any }, prompt: string): repl.REPLServer {
   const r = repl.start({
     prompt,
@@ -25,21 +41,7 @@ export function replStarter(context: { [key: string]: any }, prompt: string): re
           displayErrors: false,
         })
 
-        if (result && result.then) {
-          result
-            .then((x: any) => {
-              if (x && isBN(x)) {
-                callback(null, x.toString())
-                return
-              }
-              callback(null, x)
-            })
-            .catch((e: Error) => callback(e, null))
-        } else if (result && isBN(result)) {
-          callback(null, result.toString())
-        } else {
-          callback(null, result)
-        }
+        handleResult(result, callback)
       } catch (e) {
         if (isRecoverableError(e)) {
           return callback(new repl.Recoverable(e), null)
