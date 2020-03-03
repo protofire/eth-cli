@@ -27,7 +27,7 @@ export async function contractCall(
     throw new Error('[contractCall] method specified does not exist in the ABI file provided')
   }
 
-  const web3 = new Web3(new Web3.providers.HttpProvider(url))
+  const web3 = new Web3(url)
   let address: string | null = null
   if (privateKeyOrKnownAddress) {
     const networkId = await web3.eth.net.getId()

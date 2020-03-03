@@ -4,7 +4,7 @@ import { getAddress } from './config'
 
 export const getBalance = async function(addressOrName: string, url: string) {
   // Connect web3
-  const web3 = new Web3(new Web3.providers.HttpProvider(url))
+  const web3 = new Web3(url)
   const networkId = await web3.eth.net.getId()
   const address = getAddress(addressOrName, String(networkId))
 
