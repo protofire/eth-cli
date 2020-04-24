@@ -1,3 +1,6 @@
+import * as fs from 'fs'
+import * as os from 'os'
+import * as path from 'path'
 import Web3 from 'web3'
 
 import { getAddress, getPrivateKey } from './config'
@@ -71,6 +74,14 @@ export async function startRepl(
 
   // Start REPL
   const r = replStarter(replContext, prompt)
+
+  // run init file
+  const replInitFile = path.join(os.homedir(), '.eth_cli_repl_init.js')
+
+  if (fs.existsSync(replInitFile)) {
+    const replInit = (await import(replInitFile)).default
+    replInit(r.context)
+  }
 
   r.defineCommand('contracts', {
     help: 'Show loaded contracts',
