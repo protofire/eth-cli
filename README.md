@@ -25,6 +25,7 @@ A CLI swiss army knife for Ethereum developers
   - [Start an interactive REPL connected to some node](#start-an-interactive-repl-connected-to-some-node)
   - [Call methods on deployed contracts](#call-methods-on-deployed-contracts)
 - [Autocomplete](#autocomplete)
+- [Init file](#init-file)
 - [Sibling projects](#sibling-projects)
 - [Back us](#back-us)
 - [Credits](#credits)
@@ -71,6 +72,22 @@ Use commands like `block:number`, `tx:get` and `address:balance` to get informat
 The [completion](completion) directory has a bash completion script (`eth-completion.bash`) and a zsh completion script
 (`_eth`). If you use bash, download the script and source it in your bashrc. If you use zsh, download the script and put
 it in some directory in your [`fpath`](https://unix.stackexchange.com/questions/33255/how-to-define-and-load-your-own-shell-function-in-zsh).
+
+## Init file
+
+If you want to have some helper variables or functions in your REPL, you can create an init file that will be loaded
+every time you use `eth repl`. Just create a file called `.eth_cli_repl_init.js` in your home directory. For example, if
+you create it with some content like:
+
+```js
+module.exports = function(context) {
+  context.toWei = x => context.web3.utils.toWei(x.toString())
+  context.fromWei = x => context.web3.utils.fromWei(x.toString())
+}
+```
+
+you will have `toWei` and `fromWei` as global functions in the REPL.
+
 
 ## Sibling projects
 
