@@ -6,7 +6,7 @@ export const getBlockNumber = function(url: string) {
   }
 
   // Connect web3
-  const web3 = new Web3(new Web3.providers.HttpProvider(url))
+  const web3 = new Web3(url)
 
   return web3.eth.getBlockNumber()
 }

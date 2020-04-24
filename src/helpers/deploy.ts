@@ -11,7 +11,7 @@ export async function deploy(
   binPath: string,
   constructorArguments: any[],
 ): Promise<string> {
-  const web3 = new Web3(new Web3.providers.HttpProvider(url))
+  const web3 = new Web3(url)
   const networkId = await web3.eth.net.getId()
   const privateKey = getPrivateKey(privateKeyOrKnownAddress, String(networkId))
 

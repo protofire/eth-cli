@@ -15,7 +15,7 @@ export function decodeTxData(functionSignature: string, txData: string) {
     return []
   }
 
-  const web3 = new Web3(new Web3.providers.HttpProvider(''))
+  const web3 = new Web3('')
   const abi = web3.eth.abi
   const encodedFunctionSignature = abi.encodeFunctionSignature(functionSignature)
 

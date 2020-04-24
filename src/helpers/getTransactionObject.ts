@@ -10,7 +10,7 @@ export const getTransaction = function(transactionHash: string, url: string) {
   }
 
   // Connect web3
-  const web3 = new Web3(new Web3.providers.HttpProvider(url))
+  const web3 = new Web3(url)
 
   return web3.eth.getTransaction(transactionHash)
 }
@@ -24,7 +24,7 @@ export const getReceipt = function(transactionHash: string, url: string) {
     throw new Error('[getTransactionObject] URL required')
   }
   // Connect web3
-  const web3 = new Web3(new Web3.providers.HttpProvider(url))
+  const web3 = new Web3(url)
 
   return web3.eth.getTransactionReceipt(transactionHash)
 }
