@@ -1,7 +1,7 @@
 import Web3 from 'web3'
 import { Tx } from 'web3/eth/types'
 
-import { getAddress, getPrivateKey } from './config'
+import { configService } from './config-service'
 
 export async function sendTransaction(
   data: string,
@@ -12,8 +12,8 @@ export async function sendTransaction(
   const web3 = new Web3(url)
   const networkId = await web3.eth.net.getId()
 
-  const privateKey = getPrivateKey(privateKeyOrKnownAddress, String(networkId))
-  contractAddress = getAddress(contractAddress, String(networkId))
+  const privateKey = configService.getPrivateKey(privateKeyOrKnownAddress, networkId)
+  contractAddress = configService.getAddress(contractAddress, networkId)
 
   const { address } = web3.eth.accounts.wallet.add(privateKey)
 

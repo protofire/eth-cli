@@ -3,8 +3,8 @@ import { cli } from 'cli-ux'
 
 import { NetworkCommand } from '../../base/network'
 import { confirmationBlocksFlag, privateKeyFlag } from '../../flags'
-import { getContract } from '../../helpers/utils'
 import { awaitTransactionMined } from '../../helpers/transactions'
+import { configService } from '../../helpers/config-service'
 
 export default class SendCommand extends NetworkCommand {
   static description = `Send a transaction calling a method in the given contract.`
@@ -49,7 +49,7 @@ export default class SendCommand extends NetworkCommand {
       const { contractCall } = await import('../../helpers/contractCall')
       const { getNetworkId } = await import('../../helpers/getNetworkId')
       const networkId = await getNetworkId(networkUrl)
-      const { abi, address } = getContract(abiAtAddress, String(networkId))
+      const { abi, address } = configService.loadContract(abiAtAddress, networkId)
       const tx = await contractCall(abi, methodCall, address, networkUrl, pk, { value })
 
       await awaitTransactionMined(networkUrl, tx, confirmationBlocks)

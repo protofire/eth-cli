@@ -1,7 +1,7 @@
 import { Command, flags } from '@oclif/command'
 import { cli } from 'cli-ux'
 
-import { getNetworks } from '../../helpers/config'
+import { configService } from '../../helpers/config-service'
 
 export default class ListCommand extends Command {
   static description = `Show information for each known network.`
@@ -32,10 +32,12 @@ export default class ListCommand extends Command {
       const displayAsTable = (!table && !json) || table
 
       if (displayAsTable) {
-        const networkConstants = Object.entries(getNetworks()).map(([name, network]) => ({
-          name,
-          ...network,
-        }))
+        const networkConstants = Object.entries(configService.getNetworks()).map(
+          ([name, network]) => ({
+            name,
+            ...network,
+          }),
+        )
 
         const networks = networkConstants
           .sort((network1, network2) => {
@@ -75,7 +77,7 @@ export default class ListCommand extends Command {
           },
         )
       } else {
-        cli.styledJSON(getNetworks())
+        cli.styledJSON(configService.getNetworks())
       }
     } catch (e) {
       this.error(e.message, { exit: 1 })

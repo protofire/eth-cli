@@ -4,9 +4,9 @@ import cli from 'cli-ux'
 import { configService } from '../../helpers/config-service'
 
 export class ListCommand extends Command {
-  static description = 'Display the list of known addresses.'
+  static description = 'Display the list of known contracts.'
 
-  static examples = ['eth address:list']
+  static examples = ['eth contract:list']
 
   static flags = {
     json: flags.boolean({
@@ -26,34 +26,26 @@ export class ListCommand extends Command {
     const { table, json } = flags
 
     const displayAsTable = (!table && !json) || table
-    const addresses: { [name: string]: object } = configService.getAddresses()
+    const contracts: {
+      [name: string]: { abi: string; address: string }
+    } = configService.getContracts()
     if (displayAsTable) {
-      const addressesList: any[] = []
-      for (const [name, addressPerNetwork] of Object.entries(addresses)) {
-        for (const [networkId, addressObject] of Object.entries(addressPerNetwork)) {
-          addressesList.push({
-            networkId,
-            name,
-            ...addressObject,
-          })
-        }
+      const contractsList: any[] = []
+      for (const [name, contract] of Object.entries(contracts)) {
+        contractsList.push({ name, ...contract })
       }
 
       cli.table(
-        addressesList,
+        contractsList,
         {
-          networkId: {
-            header: 'Network',
-          },
           name: {
             header: 'Name',
           },
+          abi: {
+            header: 'ABI',
+          },
           address: {
             header: 'Address',
-          },
-          privateKey: {
-            header: 'Private key',
-            get: row => row.privateKey || '',
           },
         },
         {
@@ -62,7 +54,7 @@ export class ListCommand extends Command {
         },
       )
     } else {
-      cli.styledJSON(addresses)
+      cli.styledJSON(contracts)
     }
   }
 }

@@ -1,7 +1,7 @@
 import { Command, flags } from '@oclif/command'
 import cli from 'cli-ux'
 
-import { getAddresses, updateAddresses } from '../../helpers/config'
+import { configService } from '../../helpers/config-service'
 import { add0x, isAddress, isPrivateKey } from '../../helpers/utils'
 
 export class AddCommand extends Command {
@@ -40,7 +40,7 @@ export class AddCommand extends Command {
       const { name, addressOrPk } = args
       const { 'network-id': networkId } = flags
 
-      const addresses = getAddresses()
+      const addresses = configService.getAddresses()
       let addressObject = null
       if (isPrivateKey(addressOrPk)) {
         const Accounts = (await import('web3-eth-accounts')).default
@@ -59,7 +59,7 @@ export class AddCommand extends Command {
       }
       addresses[name] = addresses[name] || {}
       addresses[name][networkId] = addressObject
-      updateAddresses(addresses)
+      configService.updateAddresses(addresses)
       cli.styledJSON(addressObject)
     } catch (e) {
       this.error(e.message, { exit: 1 })

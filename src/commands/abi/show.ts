@@ -1,7 +1,7 @@
 import { Command, flags } from '@oclif/command'
 import { cli } from 'cli-ux'
 
-import { loadABI } from '../../helpers/utils'
+import { configService } from '../../helpers/config-service'
 
 export default class ShowCommand extends Command {
   static description = 'Display a known ABI'
@@ -24,7 +24,7 @@ export default class ShowCommand extends Command {
     const { args } = this.parse(ShowCommand)
 
     const { abi: abiArg } = args
-    const { abi } = loadABI(abiArg)
+    const { abi } = configService.loadABI(abiArg)
     if (abi) {
       cli.styledJSON(abi)
     } else {

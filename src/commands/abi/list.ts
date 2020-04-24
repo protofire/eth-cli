@@ -1,6 +1,6 @@
 import { Command, flags } from '@oclif/command'
 
-import { getAbiList } from '../../helpers/knownAbis'
+import { configService } from '../../helpers/config-service'
 
 export default class ListCommand extends Command {
   static description = 'Display the list of known ABIs.'
@@ -12,7 +12,7 @@ export default class ListCommand extends Command {
   static examples = ['eth abi:list']
 
   async run() {
-    const abiList = getAbiList()
+    const abiList = configService.getAbiList()
     const listFormated = abiList.join('\n')
     this.log(listFormated)
   }

@@ -1,17 +1,6 @@
 import { NetworkCommand } from '../base/network'
 import { privateKeyFlag } from '../flags'
-
-const parseReplContracts = (args: string[]): Array<{ abiPath: string; address: string }> => {
-  const result = args.map(arg => {
-    const [abiPath, address] = arg.split('@')
-    if (!abiPath || !address) {
-      throw new Error(`Invalid argument '${arg}', expected <abi>@<contractAddress>`)
-    }
-    return { abiPath, address }
-  })
-
-  return result
-}
+import { configService } from '../helpers/config-service'
 
 export default class ReplCommand extends NetworkCommand {
   static description = `Start a REPL that connects to an RPC node ('localhost:8545' by default).
@@ -49,6 +38,8 @@ learn how to do this.`
 
     try {
       const [networkKind, networkUrl, networkName] = this.getNetworkUrlAndKind(flags)
+      const { getNetworkId } = await import('../helpers/getNetworkId')
+      const networkId = await getNetworkId(networkUrl)
       const prompt =
         networkKind === 'url'
           ? networkUrl === NetworkCommand.defaultUrl
@@ -56,7 +47,7 @@ learn how to do this.`
             : `${networkUrl}> `
           : `${networkName || flags.network}> `
 
-      const contracts = parseReplContracts(argv)
+      const contracts = argv.map(contract => configService.loadContract(contract, networkId))
       const privateKey = flags.pk
 
       const { startRepl } = await import('../helpers/startRepl')

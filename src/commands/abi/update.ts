@@ -1,7 +1,6 @@
 import { Command } from '@oclif/command'
 
-import { getAbis, updateAbis } from '../../helpers/config'
-import { loadABI } from '../../helpers/utils'
+import { configService } from '../../helpers/config-service'
 
 export class UpdateCommand extends Command {
   static description = 'Update a known ABI.'
@@ -27,11 +26,11 @@ export class UpdateCommand extends Command {
     try {
       const { name, abiPath } = args
 
-      const abis = getAbis()
-      const { abi } = loadABI(abiPath)
+      const abis = configService.getAbis()
+      const { abi } = configService.loadABI(abiPath)
       if (abis[name]) {
         abis[name] = abi
-        updateAbis(abis)
+        configService.updateAbis(abis)
       } else {
         this.warn(`No ABI found for '${name}'`)
       }

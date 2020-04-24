@@ -1,8 +1,7 @@
 import Web3 from 'web3'
 import { EventLog } from 'web3/types'
 
-import { getAddress } from './config'
-import { extractMethodsAndEventsFromABI } from './utils'
+import { ConfigService, configService } from './config-service'
 
 export async function getEvents(
   abi: any,
@@ -11,7 +10,9 @@ export async function getEvents(
   url: string,
   { from, to }: any,
 ) {
-  const matchingEvents = extractMethodsAndEventsFromABI(abi).filter(x => x.name === eventName)
+  const matchingEvents = ConfigService.extractMethodsAndEventsFromABI(abi).filter(
+    x => x.name === eventName,
+  )
 
   if (!matchingEvents.length) {
     throw new Error('[getEvents] event specified does not exist in the ABI provided')
@@ -22,7 +23,7 @@ export async function getEvents(
   const web3 = new Web3(url)
   const networkId = await web3.eth.net.getId()
 
-  const address = getAddress(name, String(networkId))
+  const address = configService.getAddress(name, networkId)
 
   const contract = new web3.eth.Contract(abi, address)
   const events = await contract.getPastEvents(eventName, { fromBlock: from, toBlock: to })

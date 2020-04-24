@@ -2,7 +2,7 @@ import { flags } from '@oclif/command'
 import cli from 'cli-ux'
 
 import { NetworkCommand } from '../../base/network'
-import { getContract } from '../../helpers/utils'
+import { configService } from '../../helpers/config-service'
 
 export default class GetCommand extends NetworkCommand {
   static description = `Emit new events from the given type in the given contract.`
@@ -48,7 +48,7 @@ export default class GetCommand extends NetworkCommand {
 
       const { getNetworkId } = await import('../../helpers/getNetworkId')
       const networkId = await getNetworkId(networkUrl)
-      const { abi, address } = getContract(abiAtAddress, String(networkId))
+      const { abi, address } = configService.loadContract(abiAtAddress, networkId)
 
       while (true) {
         const toBlock = await getBlockNumber(networkUrl)

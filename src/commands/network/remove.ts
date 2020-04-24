@@ -1,6 +1,6 @@
 import { Command } from '@oclif/command'
 
-import { getNetworks, updateNetworks } from '../../helpers/config'
+import { configService } from '../../helpers/config-service'
 
 export class RemoveCommand extends Command {
   static description = 'Remove a known network.'
@@ -21,10 +21,10 @@ export class RemoveCommand extends Command {
     const { args } = this.parse(RemoveCommand)
 
     const { name } = args
-    const networks = getNetworks()
+    const networks = configService.getNetworks()
     if (networks[name]) {
       delete networks[name]
-      updateNetworks(networks)
+      configService.updateNetworks(networks)
     } else {
       this.warn(`No network found for '${name}'`)
     }

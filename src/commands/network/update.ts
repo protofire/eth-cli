@@ -1,6 +1,6 @@
 import { Command, flags } from '@oclif/command'
 
-import { getNetworks, updateNetworks } from '../../helpers/config'
+import { configService } from '../../helpers/config-service'
 
 export class UpdateCommand extends Command {
   static description = 'Update a known network.'
@@ -34,7 +34,7 @@ export class UpdateCommand extends Command {
       const { name } = args
       const { id, label, url } = flags
 
-      const networks = getNetworks()
+      const networks = configService.getNetworks()
       if (networks[name]) {
         const network = networks[name]
         if (url) {
@@ -47,7 +47,7 @@ export class UpdateCommand extends Command {
           network.label = label
         }
         networks[name] = network
-        updateNetworks(networks)
+        configService.updateNetworks(networks)
       } else {
         this.warn(`No network found for '${name}'`)
       }

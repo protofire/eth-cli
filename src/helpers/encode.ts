@@ -1,6 +1,7 @@
 import Web3 from 'web3'
 
-import { evaluateMethodCallStructure, extractMethodsAndEventsFromABI, loadABI } from './utils'
+import { evaluateMethodCallStructure } from './utils'
+import { ConfigService, configService } from './config-service'
 
 export function encode(abiPath: string, methodCall: string, url: string) {
   if (!methodCall) {
@@ -13,8 +14,10 @@ export function encode(abiPath: string, methodCall: string, url: string) {
     throw new Error('[encode] methodCall invalid structure')
   }
 
-  const { abi } = loadABI(abiPath)
-  const matchingMethods = extractMethodsAndEventsFromABI(abi).filter(x => x.name === methodName)
+  const { abi } = configService.loadABI(abiPath)
+  const matchingMethods = ConfigService.extractMethodsAndEventsFromABI(abi).filter(
+    (x: any) => x.name === methodName,
+  )
 
   if (matchingMethods.length > 1) {
     throw new Error('[encode] function overloading is not supported in the current version')

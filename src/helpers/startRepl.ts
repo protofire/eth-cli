@@ -3,9 +3,9 @@ import * as os from 'os'
 import * as path from 'path'
 import Web3 from 'web3'
 
-import { getAddress, getPrivateKey } from './config'
+import { configService } from './config-service'
 import { replStarter } from './replStarter'
-import { loadABI } from './utils'
+import { Contract } from '../types'
 
 interface ReplContext {
   [key: string]: any
@@ -14,7 +14,7 @@ interface ReplContext {
 export async function startRepl(
   url: string,
   prompt: string,
-  contracts: Array<{ abiPath: string; address: string }>,
+  contracts: Array<Contract>,
   privateKeyOrKnownAddress: string | undefined,
 ) {
   if (!url) {
@@ -33,7 +33,7 @@ export async function startRepl(
 
   const accounts = await web3.eth.getAccounts()
   if (privateKeyOrKnownAddress) {
-    const privateKey = getPrivateKey(privateKeyOrKnownAddress, String(networkId))
+    const privateKey = configService.getPrivateKey(privateKeyOrKnownAddress, networkId)
     const account = web3.eth.accounts.wallet.add(privateKey)
     if (!accounts.includes(account.address)) {
       accounts.push(account.address)
@@ -43,18 +43,16 @@ export async function startRepl(
 
   const loadedContracts: { [name: string]: string } = {}
 
-  const addContract = (abiPath: string, address: string, replContext: any) => {
-    const { abi, name } = loadABI(abiPath)
-
+  const addContract = (contract: Contract, replContext: any) => {
     const transactionConfirmationBlocks = 3
     const options = {
       transactionConfirmationBlocks,
     }
     const Contract: any = web3.eth.Contract // ts hack: transactionConfirmationBlocks is not a valid option
 
-    const contractInstance = new Contract(abi, address, options)
+    const contractInstance = new Contract(contract.abi, contract.address, options)
 
-    let contractName = name
+    let contractName = contract.name
     if (replContext[contractName]) {
       const suffix = Object.keys(replContext).filter(function(key) {
         return key.includes(contractName)
@@ -64,12 +62,12 @@ export async function startRepl(
     }
 
     replContext[contractName] = contractInstance
-    loadedContracts[contractName] = address
+    loadedContracts[contractName] = contract.address
   }
 
   // Add contracts into context
   for (const contract of contracts) {
-    addContract(contract.abiPath, getAddress(contract.address, String(networkId)), replContext)
+    addContract(contract, replContext)
   }
 
   // Start REPL
@@ -98,8 +96,8 @@ export async function startRepl(
     help: 'Load a contract using the specified ABI and address',
     action(abiAndAddress: string) {
       this.clearBufferedCommand()
-      const [abiPath, address] = abiAndAddress.split('@')
-      addContract(abiPath, address, r.context)
+      const contract = configService.loadContract(abiAndAddress, networkId)
+      addContract(contract, r.context)
       this.displayPrompt()
     },
   })

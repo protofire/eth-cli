@@ -4,7 +4,7 @@ import { cli } from 'cli-ux'
 import { NetworkCommand } from '../../base/network'
 import { confirmationBlocksFlag, privateKeyFlag } from '../../flags'
 import { awaitTransactionMined } from '../../helpers/transactions'
-import { loadABI } from '../../helpers/utils'
+import { configService } from '../../helpers/config-service'
 
 export class DeployCommand extends NetworkCommand {
   static description = `Deploy contract with the given binary.`
@@ -76,7 +76,7 @@ export class DeployCommand extends NetworkCommand {
 
       let abi = []
       if (abiPath) {
-        const { abi: loadedAbi } = loadABI(abiPath)
+        const { abi: loadedAbi } = configService.loadABI(abiPath)
         abi = loadedAbi
       }
 

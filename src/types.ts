@@ -12,6 +12,12 @@ export interface ABIInput {
   components: any
 }
 
+export type Contract = {
+  abi: any
+  address: string
+  name: string
+}
+
 export interface NetworkInfo {
   url: string
   id?: number

@@ -1,5 +1,5 @@
 import { NetworkCommand } from '../../base/network'
-import { getContract } from '../../helpers/utils'
+import { configService } from '../../helpers/config-service'
 
 export default class CallCommand extends NetworkCommand {
   static description = `Call a method in the given contract and print the returned value.`
@@ -33,11 +33,11 @@ export default class CallCommand extends NetworkCommand {
     try {
       networkUrl = this.getNetworkUrl(flags)
 
-      const { contract: abiAtAddress, methodCall } = args
+      const { contract, methodCall } = args
       const { contractCall } = await import('../../helpers/contractCall')
       const { getNetworkId } = await import('../../helpers/getNetworkId')
       const networkId = await getNetworkId(networkUrl)
-      const { abi, address } = getContract(abiAtAddress, String(networkId))
+      const { abi, address } = configService.loadContract(contract, networkId)
       const result = await contractCall(abi, methodCall, address, networkUrl)
 
       this.log(result)

@@ -1,6 +1,6 @@
 import { Command } from '@oclif/command'
 
-import { getAbis, updateAbis } from '../../helpers/config'
+import { configService } from '../../helpers/config-service'
 
 export class RemoveCommand extends Command {
   static description = 'Remove a known ABI.'
@@ -22,10 +22,10 @@ export class RemoveCommand extends Command {
 
     const { name } = args
 
-    const abis = getAbis()
+    const abis = configService.getAbis()
     if (abis[name]) {
       delete abis[name]
-      updateAbis(abis)
+      configService.updateAbis(abis)
     } else {
       this.warn(`No ABI found for '${name}'`)
     }

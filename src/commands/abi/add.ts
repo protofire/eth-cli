@@ -1,7 +1,6 @@
 import { Command } from '@oclif/command'
 
-import { getAbis, updateAbis } from '../../helpers/config'
-import { loadABI } from '../../helpers/utils'
+import { configService } from '../../helpers/config-service'
 
 export class AddCommand extends Command {
   static description = 'Add a known ABI.'
@@ -27,13 +26,13 @@ export class AddCommand extends Command {
     try {
       const { name, abiPath } = args
 
-      const abis = getAbis()
-      const { abi } = loadABI(abiPath)
+      const abis = configService.getAbis()
+      const { abi } = configService.loadABI(abiPath)
       if (abis[name]) {
         this.warn(`ABI '${name}' already exists. Use abi:update if you want to modify it.`)
       } else {
         abis[name] = abi
-        updateAbis(abis)
+        configService.updateAbis(abis)
       }
     } catch (e) {
       this.error(e.message, { exit: 1 })

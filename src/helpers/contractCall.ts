@@ -1,7 +1,7 @@
 import Web3 from 'web3'
 
-import { getAddress, getPrivateKey } from './config'
-import { evaluateMethodCallStructure, extractMethodsAndEventsFromABI } from './utils'
+import { ConfigService, configService } from './config-service'
+import { evaluateMethodCallStructure } from './utils'
 
 export async function contractCall(
   abi: any,
@@ -17,7 +17,9 @@ export async function contractCall(
     throw new Error('[contractCall] methodCall invalid structure')
   }
 
-  const matchingMethods = extractMethodsAndEventsFromABI(abi).filter(x => x.name === methodName)
+  const matchingMethods = ConfigService.extractMethodsAndEventsFromABI(abi).filter(
+    x => x.name === methodName,
+  )
 
   if (matchingMethods.length > 1) {
     throw new Error('[contractCall] function overloading is not supported in the current version')
@@ -31,13 +33,13 @@ export async function contractCall(
   let address: string | null = null
   if (privateKeyOrKnownAddress) {
     const networkId = await web3.eth.net.getId()
-    const privateKey = getPrivateKey(privateKeyOrKnownAddress, String(networkId))
+    const privateKey = configService.getPrivateKey(privateKeyOrKnownAddress, networkId)
     const account = web3.eth.accounts.wallet.add(privateKey)
     address = account.address
   }
   const networkId = await web3.eth.net.getId()
 
-  const contractAddress = getAddress(name, String(networkId))
+  const contractAddress = configService.getAddress(name, networkId)
 
   // `contract` is being used as part of the eval call
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

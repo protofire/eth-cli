@@ -1,5 +1,7 @@
 import { Command } from '@oclif/command'
 
+import { configService } from '../../helpers/config-service'
+
 export default class EventsCommand extends Command {
   static description = `Show the list of events in the given ABI.`
 
@@ -19,8 +21,7 @@ export default class EventsCommand extends Command {
     try {
       const { abi } = args
 
-      const { getEvents } = await import('../../helpers/abi')
-      const events = getEvents(abi)
+      const events = configService.getEvents(abi)
 
       events.forEach(({ signature, signatureHash }) => {
         this.log(`${signatureHash}\t${signature}`)

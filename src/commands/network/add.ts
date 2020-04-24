@@ -1,6 +1,6 @@
 import { Command, flags } from '@oclif/command'
 
-import { getNetworks, updateNetworks } from '../../helpers/config'
+import { configService } from '../../helpers/config-service'
 import { NetworkInfo } from '../../types'
 
 export class AddCommand extends Command {
@@ -43,12 +43,12 @@ export class AddCommand extends Command {
         newNetwork.label = label
       }
 
-      const networks = getNetworks()
+      const networks = configService.getNetworks()
       if (networks[name]) {
         this.warn(`Network '${name}' already exists. Use network:update if you want to modify it.`)
       } else {
         networks[name] = newNetwork
-        updateNetworks(networks)
+        configService.updateNetworks(networks)
       }
     } catch (e) {
       this.error(e.message, { exit: 1 })

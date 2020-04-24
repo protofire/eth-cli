@@ -1,6 +1,6 @@
 import { Command, flags } from '@oclif/command'
 
-import { getNetworks } from '../helpers/config'
+import { configService } from '../helpers/config-service'
 
 /**
  * Base command that handles the flags used for specifying the desired network.
@@ -29,7 +29,7 @@ export abstract class NetworkCommand extends Command {
   getNetworkUrlAndKind(
     flags: { [key in keyof typeof NetworkCommand.flags]: any },
   ): ['name' | 'url', string, string?] {
-    const networks = getNetworks()
+    const networks = configService.getNetworks()
     const name = flags.mainnet
       ? 'mainnet'
       : flags.ropsten

@@ -1,6 +1,6 @@
 import { Command, flags } from '@oclif/command'
 
-import { getAddresses, updateAddresses } from '../../helpers/config'
+import { configService } from '../../helpers/config-service'
 
 export class RemoveCommand extends Command {
   static description = 'Remove a known address.'
@@ -30,10 +30,10 @@ export class RemoveCommand extends Command {
 
     const { name } = args
     const { 'network-id': networkId } = flags
-    const addresses = getAddresses()
+    const addresses = configService.getAddresses()
     if (addresses[name] && addresses[name][networkId]) {
       delete addresses[name][networkId]
-      updateAddresses(addresses)
+      configService.updateAddresses(addresses)
     } else {
       this.warn(`No address found for '${name}'`)
     }

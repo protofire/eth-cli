@@ -1,5 +1,7 @@
 import { Command } from '@oclif/command'
 
+import { configService } from '../../helpers/config-service'
+
 export default class MethodsCommand extends Command {
   static description = `Show the list of methods in the given ABI.`
 
@@ -19,8 +21,7 @@ export default class MethodsCommand extends Command {
     try {
       const { abi } = args
 
-      const { getMethods } = await import('../../helpers/abi')
-      const methods = getMethods(abi)
+      const methods = configService.getMethods(abi)
 
       methods.forEach(({ signature, signatureHash }) => {
         this.log(`${signatureHash}\t${signature}`)

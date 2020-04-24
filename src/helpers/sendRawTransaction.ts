@@ -1,7 +1,7 @@
 import Web3 from 'web3'
 import { Tx } from 'web3/eth/types'
 
-import { getAddress, getPrivateKey } from './config'
+import { configService } from './config-service'
 
 interface ExtraParams {
   gas?: string
@@ -19,11 +19,11 @@ export async function sendRawTransaction(
   const web3 = new Web3(url)
   const networkId = await web3.eth.net.getId()
 
-  const privateKey = getPrivateKey(privateKeyOrKnownAddress, String(networkId))
+  const privateKey = configService.getPrivateKey(privateKeyOrKnownAddress, networkId)
 
   const { address } = web3.eth.accounts.wallet.add(privateKey)
 
-  const recipient = getAddress(to, String(networkId))
+  const recipient = configService.getAddress(to, networkId)
   const tx: Tx = { from: address, to: recipient, ...extraParams }
 
   if (gas) {
