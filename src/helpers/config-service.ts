@@ -145,10 +145,12 @@ export class ConfigService {
   loadContract = (contract: string, networkId: number): Contract => {
     let abiArg: string
     let addressArg: string
+    let name: Maybe<string> = null
     if (contract.indexOf('@') !== -1) {
       ;[abiArg, addressArg] = ConfigService.parseAbiAtAddress(contract)
     } else {
       const knownContract = this.getContract(contract)
+      name = _.camelCase(contract)
       if (!knownContract) {
         throw new Error(
           `Unknown contract ${contract}, add one with contract:add or use abi@address syntax`,
@@ -159,13 +161,13 @@ export class ConfigService {
       addressArg = knownContract.address
     }
 
-    const { abi, name } = this.loadABI(abiArg)
+    const { abi, name: defaultName } = this.loadABI(abiArg)
     const address = this.getAddress(addressArg, networkId)
 
     return {
       abi,
       address,
-      name,
+      name: name || defaultName,
     }
   }
 
