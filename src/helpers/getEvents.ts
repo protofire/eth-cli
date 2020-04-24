@@ -40,6 +40,7 @@ export const parseEvent = (event: EventLog, eventAbi: any) => {
 export const processEvent = (event: EventLog, eventAbi: any) => {
   const eventJson = {
     blockNumber: event.blockNumber,
+    transactionHash: event.transactionHash,
     name: eventAbi.name,
     arguments: {} as any,
   }
