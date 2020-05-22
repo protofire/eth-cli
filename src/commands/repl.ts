@@ -1,3 +1,5 @@
+import inquirer from 'inquirer'
+import { flags } from '@oclif/command'
 import { NetworkCommand } from '../base/network'
 import { privateKeyFlag } from '../flags'
 import { configService } from '../helpers/config-service'
@@ -16,6 +18,11 @@ learn how to do this.`
   static flags = {
     ...NetworkCommand.flags,
     pk: privateKeyFlag,
+    interactive: flags.boolean({
+      char: 'i',
+      required: false,
+      default: false,
+    }),
   }
 
   static args = [
@@ -37,15 +44,43 @@ learn how to do this.`
     const { flags, argv } = this.parse(ReplCommand)
 
     try {
-      const [networkKind, networkUrl, networkName] = this.getNetworkUrlAndKind(flags)
-      const { getNetworkId } = await import('../helpers/getNetworkId')
-      const networkId = await getNetworkId(networkUrl)
+
+      let network: Maybe<string> = null
+      if (flags.interactive) {
+        const interactiveSetup = await inquirer
+          .prompt([
+            {
+              type: 'list',
+              name: 'network',
+              message: 'Which network do you want to use?',
+              choices: ['Mainnet', 'Rinkeby']
+            }
+          ])
+
+        network = interactiveSetup.network
+      }
+
+      let networkId: number
+      let networkUrl: string
+      let networkKind: string
+      let networkName: string | undefined
+      if (network) {
+        networkId = network === 'Mainnet' ? 1 : 4
+        networkUrl = network === 'Mainnet' ? 'https://mainnet.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad' : 'https://rinkeby.infura.io/v3/76fb6c10f1584483a45a0a28e91b07ad'
+        networkKind = 'name'
+        networkName = network === 'Mainnet' ? 'mainnet' : 'rinkeby'
+      } else {
+        const { getNetworkId } = await import('../helpers/getNetworkId')
+        ;[networkKind, networkUrl, networkName] = this.getNetworkUrlAndKind(flags)
+        networkId = await getNetworkId(networkUrl)
+      }
+
       const prompt =
         networkKind === 'url'
-          ? networkUrl === NetworkCommand.defaultUrl
-            ? '> '
-            : `${networkUrl}> `
-          : `${networkName || flags.network}> `
+        ? networkUrl === NetworkCommand.defaultUrl
+        ? '> '
+        : `${networkUrl}> `
+        : `${networkName || flags.network}> `
 
       const contracts = argv.map(contract => configService.loadContract(contract, networkId))
       const privateKey = flags.pk
