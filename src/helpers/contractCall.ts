@@ -9,7 +9,11 @@ export async function contractCall(
   name: string,
   url: string,
   privateKeyOrKnownAddress?: string,
-  extraParams?: { value: number },
+  extraParams?: {
+    gas: string | undefined
+    gasPrice: string
+    value: number
+  },
 ) {
   const { methodValid, methodName } = evaluateMethodCallStructure(methodCall)
 
@@ -48,13 +52,21 @@ export async function contractCall(
   const methodObject = eval(`contract.methods.${methodCall}`)
 
   if (address) {
-    let txParams: object = { from: address }
-    if (extraParams) {
-      txParams = { ...txParams, ...extraParams }
+    const gasPrice = extraParams ? extraParams.gasPrice : '1000000000'
+    const txParams: any = { from: address, gasPrice }
+
+    if (extraParams && extraParams.gas) {
+      txParams.gas = extraParams.gas
+    } else {
+      const gas = await methodObject.estimateGas(txParams)
+      txParams.gas = gas
     }
-    const gas = await methodObject.estimateGas(txParams)
+    if (extraParams && extraParams.value) {
+      txParams.value = extraParams.value
+    }
+
     return new Promise(resolve => {
-      methodObject.send({ ...txParams, gas }).once('transactionHash', resolve)
+      methodObject.send(txParams).once('transactionHash', resolve)
     })
   } else {
     return methodObject.call()

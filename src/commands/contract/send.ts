@@ -13,6 +13,13 @@ export default class SendCommand extends NetworkCommand {
     ...NetworkCommand.flags,
     pk: { ...privateKeyFlag, required: true },
     'confirmation-blocks': confirmationBlocksFlag,
+    gas: flags.string({
+      description: 'The gas limit of the transaction. Will be estimated if not specified.',
+    }),
+    gasPrice: flags.string({
+      description: 'The gas price of the transaction, in wei. Defaults to 1 gwei.',
+      default: '1000000000',
+    }),
     value: flags.integer({
       description: 'Amount of ether (in wei) to be sent with the transaction',
       default: 0,
@@ -45,12 +52,16 @@ export default class SendCommand extends NetworkCommand {
       networkUrl = this.getNetworkUrl(flags)
 
       const { contract: abiAtAddress, methodCall } = args
-      const { 'confirmation-blocks': confirmationBlocks, pk, value } = flags
+      const { 'confirmation-blocks': confirmationBlocks, pk, value, gas, gasPrice } = flags
       const { contractCall } = await import('../../helpers/contractCall')
       const { getNetworkId } = await import('../../helpers/getNetworkId')
       const networkId = await getNetworkId(networkUrl)
       const { abi, address } = configService.loadContract(abiAtAddress, networkId)
-      const tx = await contractCall(abi, methodCall, address, networkUrl, pk, { value })
+      const tx = await contractCall(abi, methodCall, address, networkUrl, pk, {
+        gas,
+        gasPrice,
+        value,
+      })
 
       await awaitTransactionMined(networkUrl, tx, confirmationBlocks)
 
