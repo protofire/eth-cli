@@ -92,6 +92,7 @@ you will have `toWei` and `fromWei` as global functions in the REPL.
 ## Sibling projects
 
 - [Solhint](https://github.com/protofire/solhint): A linter for the Solidity language.
+- [ERCRef](https://github.com/ercref/ercref-contracts): a repository for ERC referecen implementations. See [this issue](https://github.com/ercref/ercref-contracts/pull/43) for usage.
 
 ## Back us
 
